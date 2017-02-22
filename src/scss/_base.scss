@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+#app {
+  font-family: $sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $gray-d;
+  font-size: 16px;
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
