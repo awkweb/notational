@@ -11,13 +11,16 @@
                 <label>Password</label>
                 <input v-model="password" type="password" placeholder="Super, secret">
             </div>
-            <button v-on:click.prevent="logIn">Log In</button>
+            <button v-on:click.prevent="onLogIn" v-on:keyup.enter="onLogIn">Log In</button>
         </form>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+
+import router from '../router'
+import store from '../store'
 
 export default {
   name: 'login',
@@ -36,13 +39,15 @@ export default {
   },
 
   methods: {
-  	logIn () {
+  	onLogIn () {
       const data = {
         email: this.email,
         password: this.password,
       }
-      this.$store.dispatch('FETCH_USER', data)
-  	}
+      store.dispatch('LOG_IN_USER', data).then(() => {
+        router.push({ name: 'main'})
+      })
+  	},
   },
 
 }

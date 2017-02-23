@@ -8,6 +8,9 @@ var config = {
 firebase.initializeApp(config)
 
 export function logIn (email, password) {
-	console.log(email, password)
     return firebase.auth().signInWithEmailAndPassword(email, password)
+}
+
+export function logOut (email, password) {
+    return firebase.auth().signOut()
 }

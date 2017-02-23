@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <header>Hello, World!</header>
+    <navbar></navbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue'
+
 export default {
   name: 'app',
 
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  
+  components: {
+    navbar: Navbar
   }
 }
 </script>
