@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <p>Main view</p>
+    <input v-model="query" v-on:keyup.enter="onSearch" placeholder="Search or create" autofocus>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
 
   data () {
   	return {
+      query: null,
   	}
   },
 
@@ -29,7 +30,8 @@ export default {
   },
 
   methods: {
-  	logOut () {
+  	onSearch () {
+      console.log("Searched")
   	}
   }
 

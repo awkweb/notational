@@ -14,3 +14,7 @@ export function logIn (email, password) {
 export function logOut (email, password) {
     return firebase.auth().signOut()
 }
+
+export function getNotesForUserId (userId) {
+	return firebase.database().ref(`users/${userId}/notes`)
+}

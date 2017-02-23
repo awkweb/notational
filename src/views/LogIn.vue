@@ -1,7 +1,6 @@
 <template>
   <div id="login">
         <h1>Welcome back!</h1>
-        <div v-if="user != null">{{ user }}</div>
         <form>
             <div>
                 <label>Email address</label>
@@ -40,12 +39,15 @@ export default {
 
   methods: {
   	onLogIn () {
+      const vm = this;
       const data = {
         email: this.email,
         password: this.password,
       }
       store.dispatch('LOG_IN_USER', data).then(() => {
-        router.push({ name: 'main'})
+        store.dispatch('FETCH_NOTES', vm.user.uid).then(() => {
+          router.push({ name: 'main'})
+        })
       })
   	},
   },

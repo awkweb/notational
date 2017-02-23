@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { logIn, logOut } from './firebase'
+import { logIn, logOut, getNotesForUserId } from './firebase'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
       user: null,
+      notes: []
   },
   
   actions: {
@@ -17,17 +18,30 @@ const store = new Vuex.Store({
       LOG_OUT_USER: ({ commit }) => {
         return logOut().then(user => commit('SET_USER', null))
       },
+
+      FETCH_NOTES: ({ commit }, userId) => {
+        alert(userId)
+        return getNotesForUserId(userId).then(notes => commit('SET_NOTES', notes))
+      },
   },
 
   mutations: {
       SET_USER: (state, user) => {
         state.user = user
       },
+
+      SET_NOTES: (state, notes) => {
+        state.notes = notes
+      },
   },
 
   getters: {
       user: state => {
         return state.user
+      },
+
+      notes: state => {
+        return state.notes
       },
   }
 })
