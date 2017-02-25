@@ -1,14 +1,22 @@
 // Colors
-$red: #9A0B2C;
+$red: #FF5722;
+$red-d: #FF4F18;
+
+$blue: #0087F8;
+
 $white: #FFFFFF;
 $white-d: #FDFDFD;
+
 $gray-l: #EAEAEA;
 $gray: #888888;
 $gray-d: #555555;
+
 $black: #333333;
 
 // Type
-$sans-serif: 'Lato', sans-serif;
+$sans-serif: 'Avenir', 'Lato', sans-serif;
 
 // Misc
 $border-radius: 3px;
+$box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+$transition: all .25s ease-in-out;

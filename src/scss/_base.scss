@@ -8,14 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $gray-d;
   font-size: 16px;
-  max-width: 65rem;
+  max-width: 35rem;
   margin: 0 auto;
   padding: 1rem;
 }
 
-.spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20vh;
+.text-center {
+  text-align: center;
 }

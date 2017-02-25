@@ -20,8 +20,7 @@ const store = new Vuex.Store({
       },
 
       FETCH_NOTES: ({ commit }, userId) => {
-        alert(userId)
-        return getNotesForUserId(userId).then(notes => commit('SET_NOTES', notes))
+        return getNotesForUserId(userId).then(notes => commit('SET_NOTES', notes.val()))
       },
   },
 

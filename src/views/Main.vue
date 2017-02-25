@@ -1,6 +1,23 @@
 <template>
   <div id="main">
-    <input v-model="query" v-on:keyup.enter="onSearch" placeholder="Search or create" autofocus>
+    <input class="search"
+           v-model="query"
+           v-on:keyup.enter="onSearch"
+           placeholder="Search or create"
+           autofocus>
+    <ul class="results">
+      <li v-for="note in notes"><span>{{ note.title }}<span class="description"> — {{ note.body.substring(0,40) }}...</span></span><span>{{ note.date_modified }}</span></li>
+    </ul>
+
+    <textarea
+      class="body"
+      v-model="body"
+      rows="12"></textarea>
+    
+    <div class="info">
+      <span>{{ body.length }} words</span>
+      <span>Last saved 5 minutes ago</span>
+    </div>
   </div>
 </template>
 
@@ -15,17 +32,21 @@ export default {
   data () {
   	return {
       query: null,
+      body: null
   	}
   },
 
   created () {
     if (this.user == null)
       router.push({ name: 'login'})
+    else
+      this.body = this.notes[1].body
   },
 
   computed: {
     ...mapGetters([
         'user',
+        'notes',
     ])
   },
 

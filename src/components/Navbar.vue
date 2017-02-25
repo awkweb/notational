@@ -1,23 +1,16 @@
 <template>
-  <nav id="navbar">
-    <button v-on:click="onLogOut" v-if="user != null">Log Out</button>
+  <nav id="navbar" class="navbar">
+    <router-link class="navbar__logo" :to="{ name: 'main' }">NV</router-link>
+    <button class="navbar__button" v-on:click="onLogOut">Log Out</button>
   </nav>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import router from '../router'
 import store from '../store'
 
 export default {
   name: 'navbar',
-
-  computed: {
-    ...mapGetters([
-        'user',
-    ])
-  },
 
   methods: {
     onLogOut () {

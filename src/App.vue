@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <navbar v-if="user != null"></navbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Navbar from './components/Navbar.vue'
 
 export default {
@@ -13,6 +15,12 @@ export default {
 
   components: {
     navbar: Navbar
-  }
+  },
+
+  computed: {
+  	...mapGetters([
+        'user',
+    ])
+  },
 }
 </script>

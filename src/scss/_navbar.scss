@@ -1,0 +1,43 @@
+.navbar {
+	display: flex;
+	justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid $gray-l;
+
+  &__logo {
+    color: $gray-l;
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: -2.35px;
+    text-decoration: none;
+
+    &:hover {
+      color: $red; 
+      transition: $transition;
+    }
+  }
+
+  &__button {
+    font-family: $sans-serif;
+    color: $gray-l;
+    background-color: $white;
+    padding: 3px 6px;
+    border: 1px solid $white-d;
+    border-radius: $border-radius;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:hover {
+      color: $red;
+      border-color: $red;
+      transition: $transition;
+    }
+  }
+}

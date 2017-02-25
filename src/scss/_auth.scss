@@ -1,0 +1,64 @@
+.auth {
+	margin: 2rem auto 0;
+	width: 22rem;
+
+	&__title {
+		color: $gray-d;
+		font-size: 1.9rem;
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+
+		&__group {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: .9rem;
+
+			label {
+				margin-bottom: 3px;
+				font-size: .95rem;
+				font-weight: 500;
+			}
+
+			input {
+			    color: $black;
+			    border: 1px solid $gray-l;
+			    border-radius: $border-radius;
+			    padding: 9px 10px;
+			    font-size: 1rem;
+			    outline: 0;
+			    box-shadow: $box-shadow;
+
+			    &:focus {
+			      border-color: $red;
+		      	  transition: $transition;
+			    }
+	    	}
+		}
+
+		&__button {
+			margin-top: .5rem;
+			width: 8rem;
+			font-family: $sans-serif;
+		    color: #fff;
+		    background-color: $red;
+		    padding: 7px 10px;
+		    border: 3px solid $red;
+		    border-radius: $border-radius;
+		    font-size: 1rem;
+		    font-weight: 700;
+		    cursor: pointer;
+
+		    &:focus {
+		      outline: 0;
+		    }
+
+		    &:hover {
+		      background-color: $red-d;
+		      transition: $transition;
+		    }
+		}
+	}
+}

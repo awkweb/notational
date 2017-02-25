@@ -1,16 +1,16 @@
 <template>
-  <div id="login">
-        <h1>Welcome back!</h1>
-        <form>
-            <div>
-                <label>Email address</label>
-                <input v-model="email" type="text" placeholder="you@domain.com" spellcheck="false" autofocus>
+  <div id="login" class="auth">
+        <h1 class="auth__title text-center">Welcome back!</h1>
+        <form class="auth__form">
+            <div class="auth__form__group">
+                <label>Email</label>
+                <input v-model="email" type="text" placeholder="tom@wpi.edu" spellcheck="false" autofocus>
             </div>
-            <div>
+            <div class="auth__form__group">
                 <label>Password</label>
                 <input v-model="password" type="password" placeholder="Super, secret">
             </div>
-            <button v-on:click.prevent="onLogIn" v-on:keyup.enter="onLogIn">Log In</button>
+            <button class="auth__form__button" v-on:click.prevent="onLogIn" v-on:keyup.enter="onLogIn">Log In</button>
         </form>
   </div>
 </template>
@@ -39,16 +39,18 @@ export default {
 
   methods: {
   	onLogIn () {
-      const vm = this;
-      const data = {
-        email: this.email,
-        password: this.password,
-      }
-      store.dispatch('LOG_IN_USER', data).then(() => {
-        store.dispatch('FETCH_NOTES', vm.user.uid).then(() => {
-          router.push({ name: 'main'})
+      if (this.email != null && this.password != null) {
+        const vm = this;
+        const data = {
+          email: this.email,
+          password: this.password,
+        }
+        store.dispatch('LOG_IN_USER', data).then(() => {
+          store.dispatch('FETCH_NOTES', vm.user.uid).then(() => {
+            router.push({ name: 'main'})
+          })
         })
-      })
+      } 
   	},
   },
 
