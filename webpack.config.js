@@ -28,11 +28,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+        loader: process.env.NODE_ENV !== 'production' ? 'style-loader!css-loader!sass-loader' : ExtractTextPlugin.extract('css-loader!sass-loader')
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader"
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -49,7 +49,7 @@ module.exports = {
     }
   },
   plugins: [
-    new ExtractTextPlugin('styles.css')
+    new ExtractTextPlugin({filename: 'styles.css', disable: process.env.NODE_ENV !== 'production'})
   ],
   devServer: {
     historyApiFallback: true,

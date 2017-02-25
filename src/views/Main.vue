@@ -15,8 +15,8 @@
       rows="12"></textarea>
     
     <div class="info">
-      <span>{{ body.length }} words</span>
-      <span>Last saved 5 minutes ago</span>
+      <span>300 words</span>
+      <button class="info__button" v-on:click="onLogOut">Log Out</button>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@
 import { mapGetters } from 'vuex'
 
 import router from '../router'
+import store from '../store'
 
 export default {
   name: 'main',
@@ -53,7 +54,13 @@ export default {
   methods: {
   	onSearch () {
       console.log("Searched")
-  	}
+  	},
+
+    onLogOut () {
+      store.dispatch('LOG_OUT_USER').then(() => {
+        router.push({ name: 'login'})
+      })
+    },
   }
 
 }

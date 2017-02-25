@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <navbar v-if="user != null"></navbar>
     <router-view></router-view>
   </div>
 </template>

@@ -62,7 +62,30 @@
 .info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: $gray;
-  font-size: .9rem;
+  font-size: .85rem;
+}
+
+.info__button {
+  font-family: $sans-serif;
+  color: $gray;
+  background-color: $white;
+  padding: 3px 6px;
+  border: 1px solid $gray-l;
+  border-radius: $border-radius;
+  font-size: .85rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    color: $red;
+    border-color: $red;
+    transition: $transition;
+  }
 }
 
