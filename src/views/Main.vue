@@ -1,10 +1,12 @@
 <template>
   <div id="main" class="main">
     <search v-bind:activeNote="activeNote"
-            v-bind:notes="notes">
+            v-bind:notes="notes"
+            v-on:onSearch="onEditorFocus">
     </search>
 
-    <editor v-bind:activeNote="activeNote">
+    <editor v-bind:activeNote="activeNote"
+            v-on:onEscape="onEditorEscape">
     </editor>
 
     <foot v-bind:activeNote="activeNote">
@@ -39,6 +41,19 @@ export default {
       'notes',
       'user'
     ])
+  },
+
+  methods: {
+    onEditorFocus () {
+      const id = '#editor-textarea'
+      document.querySelector(id).focus()
+    },
+
+    onEditorEscape () {
+      console.log('onEditorEscape')
+      const id = '#search-input'
+      document.querySelector(id).focus()
+    }
   }
 
 }

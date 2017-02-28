@@ -1,17 +1,35 @@
-.body {
+.editor {
+  display: flex;
   margin-bottom: .75rem;
-  padding: 1rem 0;
-  border-top: 1px solid $gray-l;
-  border-bottom: 1px solid $gray-l;
-  border-right: 0;
-  border-left: 0;
-  outline: 0;
-  font-size: .95rem;
-  font-family: $sans-serif;
-  resize: none;
 
-  &:focus {
-    border-color: $red;
-    transition: $transition;
+  &__textarea, &__placeholder {
+    flex: 1;
+    height: 15.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid $gray-l;
+    border-bottom: 1px solid $gray-l;
+    border-right: 0;
+    border-left: 0;
+    font-size: .95rem;
+    font-family: $sans-serif;
+  }
+
+  &__textarea {
+    outline: 0;
+    font-size: .95rem;
+    font-family: $sans-serif;
+    resize: none;
+
+    &:focus {
+      border-color: $red;
+      transition: $transition;
+    }
+  }
+
+  &__placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $gray;
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <div id="search" class="search">
-    <input class="search__input"
+    <input id="search-input"
+           class="search__input"
+           type="text"
            v-model="query"
            v-on:keyup.enter="onSearch"
            v-on:keyup.esc="onEscape"
@@ -12,7 +14,8 @@
     <ul class="search__results">
       <result v-for="note in notes"
               v-bind:note="note"
-              v-bind:activeNote="activeNote">
+              v-bind:activeNote="activeNote"
+              v-on:onResultSelect="onSelect">
       </result>
     </ul>
   </div>
@@ -41,7 +44,9 @@ export default {
 
   methods: {
     onSearch () {
-      console.log("Searched")
+      if (this.activeNote) {
+        this.$emit('onSearch')
+      }
     },
 
     onEscape () {
@@ -63,6 +68,11 @@ export default {
         const note = this.notes[this.currentResultIndex]
         this.setActiveNote(note)
       }
+    },
+
+    onSelect (note) {
+      this.currentResultIndex = this.notes.indexOf(note)
+      this.setActiveNote(note)
     },
 
     setActiveNote (note) {

@@ -1,9 +1,15 @@
 <template>
-  <textarea
-    class="body"
-    v-model="body"
-    rows="12">
-  </textarea>
+  <div class="editor">
+    <textarea id="editor-textarea"
+              class="editor__textarea" 
+              v-if="activeNote"
+              v-model="body"
+              v-on:keyup.esc="onEscape"
+              rows="12">
+    </textarea>
+    <div class="editor__placeholder"
+         v-else>No Note Selected</div>
+  </div>
 </template>
 
 <script>
@@ -18,6 +24,12 @@ export default {
     body: function () {
       return this.activeNote && this.activeNote.body ? this.activeNote.body : null
     }
+  },
+
+  methods: {
+    onEscape () {
+      this.$emit('onEscape')
+    },
   }
 
 }

@@ -1,6 +1,7 @@
 <template>
   <li class="search__result"
-      v-bind:class="{ active: isActive }">
+      v-bind:class="{ active: isActive }"
+      v-on:click="onResultSelect">
       <span class="search__result__title">{{ note.title }}<span class="search__result__description"> – {{ note.body }}</span></span>
       <span class="search__result__time">{{ note.date_modified | prettyDate }}</span>
   </li>
@@ -17,6 +18,12 @@ export default {
   computed: {
     isActive: function () {
       return this.activeNote && this.note.id == this.activeNote.id
+    }
+  },
+
+  methods: {
+    onResultSelect () {
+      this.$emit('onResultSelect', this.note)
     }
   }
 
