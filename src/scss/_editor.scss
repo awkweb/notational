@@ -1,0 +1,17 @@
+.body {
+  margin-bottom: .75rem;
+  padding: 1rem 0;
+  border-top: 1px solid $gray-l;
+  border-bottom: 1px solid $gray-l;
+  border-right: 0;
+  border-left: 0;
+  outline: 0;
+  font-size: .95rem;
+  font-family: $sans-serif;
+  resize: none;
+
+  &:focus {
+    border-color: $red;
+    transition: $transition;
+  }
+}

@@ -7,7 +7,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
       user: null,
-      notes: []
+      notes: [],
+      activeNote: null
   },
   
   actions: {
@@ -32,6 +33,10 @@ const store = new Vuex.Store({
       SET_NOTES: (state, notes) => {
         state.notes = notes
       },
+
+      SET_ACTIVE_NOTE: (state, note) => {
+        state.activeNote = note
+      },
   },
 
   getters: {
@@ -41,6 +46,10 @@ const store = new Vuex.Store({
 
       notes: state => {
         return state.notes
+      },
+
+      activeNote: state => {
+        return state.activeNote
       },
   }
 })

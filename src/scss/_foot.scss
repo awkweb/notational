@@ -1,0 +1,36 @@
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $gray;
+  font-size: .85rem;
+  font-weight: 500;
+
+  &__button {
+    font: {
+      size: .85rem;
+      family: $sans-serif;
+      weight: 500;
+    }
+    color: $gray;
+    background-color: $white;
+    padding: 3px 6px;
+    border: {
+      width: 1px;
+      style: solid;
+      color: $gray-l;
+      radius: $border-radius;
+    }
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:hover {
+      color: $red;
+      border-color: $red;
+      transition: $transition;
+    }
+  }
+}

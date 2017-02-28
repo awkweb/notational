@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="auth">
-        <h1 class="auth__title text-center">Welcome back!</h1>
+        <h1 class="auth__title text-center">Notational Velocity</h1>
         <form class="auth__form">
             <div class="auth__form__group">
                 <label>Email</label>

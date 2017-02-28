@@ -1,66 +1,44 @@
 <template>
-  <div id="main">
-    <input class="search"
-           v-model="query"
-           v-on:keyup.enter="onSearch"
-           placeholder="Search or create"
-           autofocus>
-    <ul class="results">
-      <li v-for="note in notes"><span>{{ note.title }}<span class="description"> — {{ note.body.substring(0,40) }}...</span></span><span>{{ note.date_modified }}</span></li>
-    </ul>
+  <div id="main" class="main">
+    <search v-bind:activeNote="activeNote"
+            v-bind:notes="notes">
+    </search>
 
-    <textarea
-      class="body"
-      v-model="body"
-      rows="12"></textarea>
-    
-    <div class="info">
-      <span>300 words</span>
-      <button class="info__button" v-on:click="onLogOut">Log Out</button>
-    </div>
+    <editor v-bind:activeNote="activeNote">
+    </editor>
+
+    <foot v-bind:activeNote="activeNote">
+    </foot>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
-import router from '../router'
-import store from '../store'
+import Search from '../components/Search/Index.vue'
+import Editor from '../components/Editor.vue'
+import Foot from '../components/Foot.vue'
 
 export default {
   name: 'main',
 
-  data () {
-  	return {
-      query: null,
-      body: null
-  	}
-  },
-
   created () {
     if (this.user == null)
-      router.push({ name: 'login'})
-    else
-      this.body = this.notes[1].body
+      this.$router.push({ name: 'login'})
+  },
+
+  components: {
+    Search,
+    Editor,
+    Foot
   },
 
   computed: {
     ...mapGetters([
-        'user',
-        'notes',
+      'activeNote',
+      'notes',
+      'user'
     ])
-  },
-
-  methods: {
-  	onSearch () {
-      console.log("Searched")
-  	},
-
-    onLogOut () {
-      store.dispatch('LOG_OUT_USER').then(() => {
-        router.push({ name: 'login'})
-      })
-    },
   }
 
 }
