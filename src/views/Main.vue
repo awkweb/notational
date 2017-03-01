@@ -46,12 +46,15 @@ export default {
   methods: {
     onEditorFocus () {
       const id = '#editor-textarea'
-      document.querySelector(id).focus()
+      this.focus(id)
     },
 
     onEditorEscape () {
-      console.log('onEditorEscape')
       const id = '#search-input'
+      this.focus(id)
+    },
+
+    focus (id) {
       document.querySelector(id).focus()
     }
   }

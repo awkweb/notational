@@ -12,6 +12,7 @@
       font-size: 1rem;
       outline: 0;
       box-shadow: $box-shadow;
+      font-family: $sans-serif;
 
       &:focus {
         border-color: $red;
@@ -60,6 +61,17 @@
 
       &__time {
         padding-left: .5rem;
+      }
+
+      &__editor {
+        flex: 1;
+        border: 0;
+        font-size: .95rem;
+        color: $gray-d;
+        font-family: $sans-serif;
+        background-color: $gray-l;
+        padding: 0;
+        outline: 0;
       }
     }
 }

@@ -19,46 +19,48 @@
 			label {
 				margin-bottom: 3px;
 				font-size: .95rem;
+		        font-family: $sans-serif;
 				font-weight: 500;
 			}
 
 			input {
-			    color: $black;
-			    border: 1px solid $gray-l;
-			    border-radius: $border-radius;
-			    padding: 9px 10px;
-			    font-size: 1rem;
-			    outline: 0;
-			    box-shadow: $box-shadow;
+				color: $black;
+				border: 1px solid $gray-l;
+				border-radius: $border-radius;
+				padding: 9px 10px;
+				font-size: 1rem;
+				outline: 0;
+				box-shadow: $box-shadow;
+				font-family: $sans-serif;
 
-			    &:focus {
-			      border-color: $red;
-		      	  transition: $transition;
-			    }
-	    	}
+				&:focus {
+					border-color: $red;
+					transition: $transition;
+				}
+			}
 		}
 
 		&__button {
 			margin-top: .5rem;
 			width: 8rem;
 			font-family: $sans-serif;
-		    color: #fff;
-		    background-color: $red;
-		    padding: 7px 10px;
-		    border: 3px solid $red;
-		    border-radius: $border-radius;
-		    font-size: 1rem;
-		    font-weight: 700;
-		    cursor: pointer;
+			color: #fff;
+			background-color: $red;
+			padding: 7px 10px;
+			border: 3px solid $red;
+			border-radius: $border-radius;
+			font-size: 1rem;
+			font-weight: 700;
+			cursor: pointer;
 
-		    &:focus {
-		      outline: 0;
-		    }
+			&:focus {
+				outline: 0;
+			}
 
-		    &:hover {
-		      background-color: $red-d;
-		      transition: $transition;
-		    }
+			&:hover {
+				background-color: $red-d;
+				transition: $transition;
+			}
 		}
 	}
 }

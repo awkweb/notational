@@ -1,9 +1,9 @@
 <template>
-  <div class="editor">
-    <textarea id="editor-textarea"
+  <div class="editor">             
+    <textarea v-if="activeNote"
+              id="editor-textarea"
               class="editor__textarea" 
-              v-if="activeNote"
-              v-model="body"
+              v-model="activeNote.body"
               v-on:keyup.esc="onEscape"
               rows="12">
     </textarea>
@@ -19,12 +19,6 @@ export default {
   name: 'editor',
 
   props: ['activeNote'],
-
-  computed: {
-    body: function () {
-      return this.activeNote && this.activeNote.body ? this.activeNote.body : null
-    }
-  },
 
   methods: {
     onEscape () {
