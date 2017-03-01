@@ -1,16 +1,20 @@
 <template>
-  <div id="main" class="main">
+  <div id="main"
+       class="main">
+
     <search v-bind:activeNote="activeNote"
             v-bind:notes="notes"
-            v-on:onSearch="onEditorFocus">
+            v-on:onSearch="onEditorFocus"
+            v-on:onRenameBlur="onSearchFocus">
     </search>
 
     <editor v-bind:activeNote="activeNote"
-            v-on:onEscape="onEditorEscape">
+            v-on:onEscape="onSearchFocus">
     </editor>
 
     <foot v-bind:activeNote="activeNote">
     </foot>
+
   </div>
 </template>
 
@@ -44,18 +48,22 @@ export default {
   },
 
   methods: {
+    onRenameNote () {
+      alert('onRenameNote')
+    },
+
     onEditorFocus () {
-      const id = '#editor-textarea'
+      const id = 'editor-textarea'
       this.focus(id)
     },
 
-    onEditorEscape () {
-      const id = '#search-input'
+    onSearchFocus () {
+      const id = 'search-input'
       this.focus(id)
     },
 
     focus (id) {
-      document.querySelector(id).focus()
+      document.querySelector(`#${id}`).focus()
     }
   }
 

@@ -6,16 +6,21 @@
            v-model="query"
            v-on:keyup.enter="onSearch"
            v-on:keyup.esc="onEscape"
-           v-on:keyup.up="onKeyUp"
-           v-on:keyup.down="onKeyDown"
+           v-on:keyup.up="onUp"
+           v-on:keyup.down="onDown"
+           v-on:keyup.ctrl.shift.82="onRename"
            placeholder="Search or create"
+           v-focus
            autofocus>
     
     <ul class="search__results">
       <result v-for="note in notes"
               v-bind:note="note"
               v-bind:activeNote="activeNote"
-              v-on:onResultSelect="onSelect">
+              v-bind:currentEditingId="currentEditingId"
+              v-on:dblclick="onDoubleClick"
+              v-on:onResultSelect="onSelect"
+              v-on:onRenameBlur="onRenameBlur">
       </result>
     </ul>
   </div>
@@ -34,7 +39,8 @@ export default {
   data () {
   	return {
       query: null,
-      currentResultIndex: -1
+      currentResultIndex: -1,
+      currentEditingId: null
   	}
   },
 
@@ -54,7 +60,7 @@ export default {
       this.setActiveNote(null)
     },
 
-    onKeyUp () {
+    onUp () {
       if (this.currentResultIndex > 0) {
         this.currentResultIndex -= 1
         const note = this.notes[this.currentResultIndex]
@@ -62,7 +68,7 @@ export default {
       }
     },
 
-    onKeyDown () {
+    onDown () {
       if (this.currentResultIndex != this.notes.length - 1) {
         this.currentResultIndex += 1
         const note = this.notes[this.currentResultIndex]
@@ -79,6 +85,22 @@ export default {
       const activeNote = note ? note : null;
       this.$store.commit('SET_ACTIVE_NOTE', activeNote)
       this.query = activeNote ? activeNote.title : null
+    },
+
+    onDoubleClick () {
+      alert('onDoubleClick')
+    },
+
+    onRename () {
+      if (this.activeNote) {
+        this.currentEditingId = this.activeNote.id
+      }
+    },
+
+    onRenameBlur () {
+      this.query = this.activeNote.title
+      this.currentEditingId = null
+      this.$emit('onRenameBlur')
     }
   }
 }

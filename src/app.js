@@ -11,6 +11,12 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+})
+
 const app = new Vue({
   el: '#app',
   template: '<App/>',
