@@ -1,5 +1,6 @@
 <template>
   <li class="search__result"
+      v-bind:id="`result_${note.id}`"
       v-bind:class="{ active: isActive }"
       v-on:click="onResultSelect">
 

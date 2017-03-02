@@ -19,7 +19,6 @@
               v-bind:note="note"
               v-bind:activeNote="activeNote"
               v-bind:currentEditingId="currentEditingId"
-              v-on:dblclick="onDoubleClick"
               v-on:onResultSelect="onSelect"
               v-on:onRenameBlur="onRenameBlur">
       </result>
@@ -52,6 +51,8 @@ export default {
 
   methods: {
     onSearch () {
+      //https://github.com/joshaven/string_score
+
       if (this.activeNote) {
         this.$emit('onSearch')
       } else if (this.query) {
@@ -84,6 +85,10 @@ export default {
         this.currentResultIndex -= 1
         const note = this.notes[this.currentResultIndex]
         this.setActiveNote(note)
+
+        const elementId = `#result_${note.id}`
+        const element = document.querySelector(elementId)
+        element.scrollIntoView()
       }
     },
 
@@ -92,6 +97,12 @@ export default {
         this.currentResultIndex += 1
         const note = this.notes[this.currentResultIndex]
         this.setActiveNote(note)
+
+        if (this.currentResultIndex > 3) {
+          const elementId = `#result_${note.id}`
+          const element = document.querySelector(elementId)
+          element.scrollIntoView()
+        }
       }
     },
 
@@ -104,10 +115,6 @@ export default {
       const activeNote = note ? note : null;
       this.$store.commit('SET_ACTIVE_NOTE', activeNote)
       this.query = activeNote ? activeNote.title : null
-    },
-
-    onDoubleClick () {
-      alert('onDoubleClick')
     },
 
     onRename () {

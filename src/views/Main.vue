@@ -60,7 +60,6 @@ export default {
 
     focus (id) {
       const element = document.querySelector(`#${id}`)
-      console.log(element)
       element.focus()
     }
   }
