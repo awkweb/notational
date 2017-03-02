@@ -9,6 +9,7 @@
            v-on:keyup.up="onUp"
            v-on:keyup.down="onDown"
            v-on:keyup.ctrl.shift.82="onRename"
+           v-on:keyup.ctrl.shift.68="onDelete"
            placeholder="Search or create"
            v-focus
            autofocus>
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapGetters } from 'vuex'
 
 import Result from './Result.vue'
@@ -52,6 +54,23 @@ export default {
     onSearch () {
       if (this.activeNote) {
         this.$emit('onSearch')
+      } else if (this.query) {
+        const ids = this.notes.map(note => note.id)
+        const id = Math.max(...ids) + 1
+        const dateModified = moment().format('YYYY-M-D HH:mm')
+        
+        const note = {
+          'id': id,
+          'title': this.query,
+          'body': '',
+          'date_modified': dateModified
+        }
+        this.setActiveNote(note)
+
+        const vm = this;
+        this.$store.dispatch('CREATE_NOTE', note).then(() => {
+          vm.$emit('onSearch')
+        })
       }
     },
 
@@ -95,6 +114,13 @@ export default {
       if (this.activeNote) {
         this.currentEditingId = this.activeNote.id
       }
+    },
+
+    onDelete () {
+      const vm = this;
+      this.$store.dispatch('DELETE_NOTE', this.activeNote.id).then(() => {
+        vm.onEscape()
+      })
     },
 
     onRenameBlur () {

@@ -1,7 +1,7 @@
 <template>
   <footer class="foot">
-    <span v-if="activeNote"> {{ activeNote.body | wordCount }} words • {{ activeNote.body | characterCount }} characters</span>
-    <span v-else>{{ messages[randomIntFromInterval(0, messages.length - 1)] }}</span>
+    <span v-if="activeNote"> {{ activeNote.body | wordCount }} words</span>
+    <span v-else>{{ randomMessage() }}</span>
 
     <button class="foot__button" v-on:click="onLogOut">Log Out</button>
   </footer>
@@ -10,7 +10,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { wordCount, characterCount } from '../filters'
+import { wordCount } from '../filters'
 
 export default {
   name: 'foot',
@@ -22,10 +22,9 @@ export default {
       messages: [
         'Nice to see you again :)',
         'This is your moment of glory.',
-        'Hey-oh!',
-        'Thanks for stopping by.',
         'Stay classy <3',
         'Beep, boop, bop',
+        'Totally on fleek',
         'No time like the present!',
         'Courage is resistance to fear, mastery of fear, not absence of fear.'
       ]
@@ -40,8 +39,11 @@ export default {
       })
     },
 
-    randomIntFromInterval (from, to) {
-      return Math.floor(Math.random() * (to - from + 1) + from);
+    randomMessage () {
+      const to = 0
+      const from = this.messages.length - 1
+      const index = Math.floor(Math.random() * (to - from + 1) + from)
+      return this.messages[index]
     }
   }
 

@@ -48,10 +48,6 @@ export default {
   },
 
   methods: {
-    onRenameNote () {
-      alert('onRenameNote')
-    },
-
     onEditorFocus () {
       const id = 'editor-textarea'
       this.focus(id)
@@ -63,7 +59,9 @@ export default {
     },
 
     focus (id) {
-      document.querySelector(`#${id}`).focus()
+      const element = document.querySelector(`#${id}`)
+      console.log(element)
+      element.focus()
     }
   }
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import { logIn, logOut, getNotesForUserId } from './firebase'
 
 Vue.use(Vuex)
@@ -23,6 +24,14 @@ const store = new Vuex.Store({
       FETCH_NOTES: ({ commit }, userId) => {
         return getNotesForUserId(userId).then(notes => commit('SET_NOTES', notes.val()))
       },
+
+      CREATE_NOTE: ({ commit }, data) => {
+        return commit('CREATE_NOTE', data)
+      },
+
+      DELETE_NOTE: ({ commit }, noteId) => {
+        return commit('DELETE_NOTE', noteId)
+      },
   },
 
   mutations: {
@@ -36,6 +45,14 @@ const store = new Vuex.Store({
 
       SET_ACTIVE_NOTE: (state, note) => {
         state.activeNote = note
+      },
+
+      CREATE_NOTE: (state, note) => {
+        state.notes.splice(0, 0, note)
+      },
+
+      DELETE_NOTE: (state, noteId) => {
+        state.notes = state.notes.filter(note => note.id != noteId)
       },
   },
 

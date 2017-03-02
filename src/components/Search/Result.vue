@@ -11,16 +11,19 @@
            v-focus
            type="text">
 
-    <span v-if="!(note.id == currentEditingId)"
-          class="search__result__title">
-          {{ note.title }}
-          <span class="search__result__description"> – {{ note.body }}</span>
-    </span>
-    
-    <span v-if="!(note.id == currentEditingId)"
-          class="search__result__time">
-          {{ note.date_modified | prettyDate }}
-    </span>
+    <template v-if="!(note.id == currentEditingId)">
+      <span class="search__result__title">
+            {{ note.title }}
+            <span v-show="note.body.length > 0"
+                  class="search__result__description"> 
+                  – {{ note.body }}
+            </span>
+      </span>
+      
+      <span class="search__result__time">
+            {{ note.date_modified | prettyDate }}
+      </span>
+    </template>
   </li>
 </template>
 

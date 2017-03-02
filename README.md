@@ -1,6 +1,6 @@
 # nv
 
-> Notational velocity for the web.
+> Notational Velocity for the web.
 
 ## Build Setup
 

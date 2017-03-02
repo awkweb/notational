@@ -1,5 +1,6 @@
 <template>
-  <div class="editor">             
+  <div class="editor">
+               
     <textarea v-if="activeNote"
               id="editor-textarea"
               class="editor__textarea" 
@@ -7,8 +8,12 @@
               v-on:keyup.esc="onEscape"
               rows="12">
     </textarea>
+    
     <div class="editor__placeholder"
-         v-else>No Note Selected</div>
+         v-else>
+         No Note Selected
+    </div>
+
   </div>
 </template>
 

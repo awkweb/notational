@@ -28,8 +28,10 @@
     &__results {
       margin: {
         top: 0;
-        bottom: 1rem;
+        bottom: .5rem;
       }
+      height: 8rem;
+      overflow-y: scroll;
       padding-left: 0rem;
       list-style-type: none;
     }
