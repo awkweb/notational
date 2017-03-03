@@ -2,17 +2,17 @@
   <div id="main"
        class="main">
 
-    <search v-bind:activeNote="activeNote"
-            v-bind:notes="notes"
-            v-on:onSearch="onEditorFocus"
-            v-on:onRenameBlur="onSearchFocus">
+    <search :activeNote="activeNote"
+            :notes="notes"
+            @onSearch="onEditorFocus"
+            @onRenameBlur="onSearchFocus">
     </search>
 
-    <editor v-bind:activeNote="activeNote"
-            v-on:onEscape="onSearchFocus">
+    <editor :activeNote="activeNote"
+            @onEscape="onSearchFocus">
     </editor>
 
-    <foot v-bind:activeNote="activeNote">
+    <foot :activeNote="activeNote">
     </foot>
 
   </div>

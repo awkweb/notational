@@ -35,12 +35,10 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'login',
 
-  data () {
-  	return {
-  		email: null,
-  		password: null,
-  	}
-  },
+  data: () => ({
+  	email: null,
+  	password: null,
+  }),
 
   computed: {
     ...mapGetters([

@@ -3,30 +3,33 @@
     <input id="search-input"
            class="search__input"
            type="text"
-           v-model="query"
-           v-on:keyup.enter="onSearch"
-           v-on:keyup.esc="onEscape"
-           v-on:keyup.up="onUp"
-           v-on:keyup.down="onDown"
-           v-on:keyup.ctrl.shift.82="onRename"
-           v-on:keyup.ctrl.shift.68="onDelete"
+           v-model.trim="query"
+           @keyup.enter="onSearch"
+           @keyup.esc="onEscape"
+           @keyup.up="onUp"
+           @keyup.down="onDown"
+           @keyup.ctrl.shift.82="onRename"
+           @keyup.ctrl.shift.68="onDelete"
            placeholder="Search or create"
            v-focus
            autofocus>
     
     <ul class="search__results">
-      <result v-for="note in notes"
-              v-bind:note="note"
-              v-bind:activeNote="activeNote"
-              v-bind:currentEditingId="currentEditingId"
-              v-on:onResultSelect="onSelect"
-              v-on:onRenameBlur="onRenameBlur">
+      <result v-for="note in filteredNotes"
+              class="list-complete-item"
+              :key="note.id"
+              :note="note"
+              :activeNote="activeNote"
+              :currentEditingId="currentEditingId"
+              @onResultSelect="onSelect"
+              @onRenameBlur="onRenameBlur">
       </result>
     </ul>
   </div>
 </template>
 
 <script>
+import 'string_score'
 import moment from 'moment'
 import { mapGetters } from 'vuex'
 
@@ -37,25 +40,33 @@ export default {
 
   props: ['activeNote', 'notes'],
 
-  data () {
-  	return {
-      query: null,
-      currentResultIndex: -1,
-      currentEditingId: null
-  	}
-  },
+  data: () => ({
+    query: '',
+    currentResultIndex: -1,
+    currentEditingId: null,
+    typing: false
+  }),
 
   components: {
     Result
   },
 
+  computed: {
+    filteredNotes () {
+      if (this.query.length == 0) {
+        return this.notes
+      }
+
+      const query = this.query
+      return this.notes.filter(note => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
+    }
+  },
+
   methods: {
     onSearch () {
-      //https://github.com/joshaven/string_score
-
       if (this.activeNote) {
         this.$emit('onSearch')
-      } else if (this.query) {
+      } else if (this.query.length > 0) {
         const ids = this.notes.map(note => note.id)
         const id = Math.max(...ids) + 1
         const dateModified = moment().format('YYYY-M-D HH:mm')
@@ -83,7 +94,7 @@ export default {
     onUp () {
       if (this.currentResultIndex > 0) {
         this.currentResultIndex -= 1
-        const note = this.notes[this.currentResultIndex]
+        const note = this.filteredNotes[this.currentResultIndex]
         this.setActiveNote(note)
 
         const elementId = `#result_${note.id}`
@@ -93,9 +104,9 @@ export default {
     },
 
     onDown () {
-      if (this.currentResultIndex != this.notes.length - 1) {
+      if (this.currentResultIndex != this.filteredNotes.length - 1) {
         this.currentResultIndex += 1
-        const note = this.notes[this.currentResultIndex]
+        const note = this.filteredNotes[this.currentResultIndex]
         this.setActiveNote(note)
 
         if (this.currentResultIndex > 3) {
@@ -107,14 +118,14 @@ export default {
     },
 
     onSelect (note) {
-      this.currentResultIndex = this.notes.indexOf(note)
+      this.currentResultIndex = this.filteredNotes.indexOf(note)
       this.setActiveNote(note)
     },
 
     setActiveNote (note) {
       const activeNote = note ? note : null;
       this.$store.commit('SET_ACTIVE_NOTE', activeNote)
-      this.query = activeNote ? activeNote.title : null
+      this.query = activeNote ? activeNote.title : ''
     },
 
     onRename () {

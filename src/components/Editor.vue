@@ -1,13 +1,18 @@
 <template>
   <div class="editor">
-               
-    <textarea v-if="activeNote"
-              id="editor-textarea"
-              class="editor__textarea" 
-              v-model="activeNote.body"
-              v-on:keyup.esc="onEscape"
-              rows="12">
-    </textarea>
+    
+    <template v-if="activeNote">
+      <textarea id="editor-textarea"
+                class="editor__textarea" 
+                v-model="activeNote.body"
+                @keyup.esc="onEscape"
+                rows="12">
+      </textarea>
+
+      <div class="editor__ghost">
+        {{ activeNote.body }}
+      </div>
+    </template>    
     
     <div class="editor__placeholder"
          v-else>

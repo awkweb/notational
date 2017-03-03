@@ -1,14 +1,14 @@
 <template>
   <li class="search__result"
-      v-bind:id="`result_${note.id}`"
-      v-bind:class="{ active: isActive }"
-      v-on:click="onResultSelect">
+      :id="`result_${note.id}`"
+      :class="{ active: isActive }"
+      @click="onResultSelect">
 
     <input v-if="note.id == currentEditingId"
            class="search__result__editor"
            v-model="note.title"
-           v-on:blur="onRenameBlur"
-           v-on:keyup.enter="onRenameBlur"
+           @blur="onRenameBlur"
+           @keyup.enter="onRenameBlur"
            v-focus
            type="text">
 
@@ -37,7 +37,7 @@ export default {
   props: ['note', 'activeNote', 'currentEditingId'],
 
   computed: {
-    isActive: function () {
+    isActive () {
       return this.activeNote && this.note.id == this.activeNote.id
     }
   },

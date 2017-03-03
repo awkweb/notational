@@ -2,28 +2,42 @@
   display: flex;
   margin-bottom: .75rem;
 
-  &__textarea, &__placeholder {
+  &__textarea, &__ghost,  &__placeholder {
     flex: 1;
     height: 15.5rem;
     padding: 1rem 0;
-    border-top: 1px solid $gray-l;
-    border-bottom: 1px solid $gray-l;
-    border-right: 0;
-    border-left: 0;
-    font-size: .95rem;
-    font-family: $sans-serif;
+    border: {
+      top: 1px solid;
+      bottom: 1px solid;
+      right: 0;
+      left: 0;
+    }
+    font: {
+      size: .95rem;
+      family: $sans-serif;
+    }
+  }
+
+  &__textarea,  &__placeholder {
+    border-color: $gray-l;
   }
 
   &__textarea {
     outline: 0;
-    font-size: .95rem;
-    font-family: $sans-serif;
     resize: none;
 
     &:focus {
       border-color: $red;
       transition: $transition;
     }
+  }
+
+  &__ghost {
+    width: 560px;
+    z-index: -1;
+    position: absolute;
+    border-color: transparent;
+    color: transparent;
   }
 
   &__placeholder {

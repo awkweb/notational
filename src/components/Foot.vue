@@ -1,9 +1,19 @@
 <template>
   <footer class="foot">
-    <span v-if="activeNote"> {{ activeNote.body | wordCount }} words</span>
-    <span v-else>{{ randomMessage() }}</span>
+    
+    <span v-if="activeNote">
+      {{ activeNote.body | wordCount }} words
+    </span>
+    
+    <span v-else>
+      {{ randomMessage() }}
+    </span>
 
-    <button class="foot__button" v-on:click="onLogOut">Log Out</button>
+    <button class="foot__button"
+            v-on:click="onLogOut">
+            Log Out
+    </button>
+
   </footer>
 </template>
 
@@ -17,19 +27,17 @@ export default {
 
   props: ['activeNote'],
 
-  data () {
-    return {
-      messages: [
-        'Nice to see you again :)',
-        'This is your moment of glory.',
-        'Stay classy <3',
-        'Beep, boop, bop',
-        'Totally on fleek',
-        'No time like the present!',
-        'Courage is resistance to fear, mastery of fear, not absence of fear.'
-      ]
-    }
-  },
+  data: () => ({
+    messages: [
+      'Nice to see you again :)',
+      'This is your moment of glory.',
+      'Stay classy <3',
+      'Beep, boop, bop',
+      'Totally on fleek',
+      'No time like the present!',
+      'Courage is resistance to fear, mastery of fear, not absence of fear.'
+    ]
+  }),
 
   methods: {
     onLogOut () {
