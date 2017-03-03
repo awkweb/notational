@@ -4,6 +4,7 @@
            class="search__input"
            type="text"
            v-model.trim="query"
+           @input="updateSearchQuery"
            @keyup.enter="onSearch"
            @keyup.esc="onEscape"
            @keyup.up="onUp"
@@ -43,8 +44,7 @@ export default {
   data: () => ({
     query: '',
     currentResultIndex: -1,
-    currentEditingId: null,
-    typing: false
+    currentEditingId: null
   }),
 
   components: {
@@ -53,12 +53,16 @@ export default {
 
   computed: {
     filteredNotes () {
-      if (this.query.length == 0) {
+      const query = this.query
+      if (query.length == 0) {
         return this.notes
       }
 
-      const query = this.query
-      return this.notes.filter(note => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
+      const notes = this.notes.filter(note => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
+      this.currentResultIndex = -1
+      notes.length > 0 ? this.setActiveNote(notes[0]) : this.setActiveNote(null)
+
+      return notes
     }
   },
 
@@ -87,6 +91,7 @@ export default {
     },
 
     onEscape () {
+      this.query = ''
       this.currentResultIndex = -1
       this.setActiveNote(null)
     },
@@ -123,9 +128,7 @@ export default {
     },
 
     setActiveNote (note) {
-      const activeNote = note ? note : null;
-      this.$store.commit('SET_ACTIVE_NOTE', activeNote)
-      this.query = activeNote ? activeNote.title : ''
+      this.$store.commit('SET_ACTIVE_NOTE', note)
     },
 
     onRename () {
@@ -142,9 +145,12 @@ export default {
     },
 
     onRenameBlur () {
-      this.query = this.activeNote.title
       this.currentEditingId = null
       this.$emit('onRenameBlur')
+    },
+
+    updateSearchQuery () {
+      this.$emit('updateSearchQuery', this.query)
     }
   }
 }

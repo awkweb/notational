@@ -4,11 +4,13 @@
 
     <search :activeNote="activeNote"
             :notes="notes"
+            @updateSearchQuery="updateSearchQuery"
             @onSearch="onEditorFocus"
             @onRenameBlur="onSearchFocus">
     </search>
 
     <editor :activeNote="activeNote"
+            :searchQuery="searchQuery"
             @onEscape="onSearchFocus">
     </editor>
 
@@ -27,6 +29,10 @@ import Foot from '../components/Foot.vue'
 
 export default {
   name: 'main',
+
+  data: () => ({
+    searchQuery: ''
+  }),
 
   created () {
     if (this.user == null)
@@ -48,6 +54,10 @@ export default {
   },
 
   methods: {
+    updateSearchQuery (query) {
+      this.searchQuery = query
+    },
+
     onEditorFocus () {
       const id = 'editor-textarea'
       this.focus(id)

@@ -23,17 +23,36 @@
 </template>
 
 <script>
+import 'mark.js'
+
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'editor',
 
-  props: ['activeNote'],
+  props: ['activeNote', 'searchQuery'],
 
   methods: {
     onEscape () {
       this.$emit('onEscape')
-    },
+    }
+  },
+
+  watch: {
+    searchQuery () {
+      console.log('updateSearchQuery', searchQuery)
+      const options = {
+          "element": "mark",
+          "className": "",
+          "separateWordSearch": true,
+          "accuracy": "partially",
+          "diacritics": true,
+      };
+
+      const element = document.querySelector(".editor__ghost")
+      let instance = new Mark(element)
+      instance.mark(this.searchQuery, options)
+    }
   }
 
 }

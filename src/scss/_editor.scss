@@ -2,6 +2,12 @@
   display: flex;
   margin-bottom: .75rem;
 
+  mark {
+    color: transparent;
+    background-color: $red;
+    opacity: .25;
+  }
+
   &__textarea, &__ghost,  &__placeholder {
     flex: 1;
     height: 15.5rem;
@@ -23,6 +29,7 @@
   }
 
   &__textarea {
+    background-color: transparent;
     outline: 0;
     resize: none;
 
