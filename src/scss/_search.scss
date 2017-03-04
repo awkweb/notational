@@ -3,46 +3,70 @@
     flex-direction: column;
 
     &__input {
-      margin: 1rem 0; 
-      flex: 1;
       color: $black;
-      border: 1px solid $gray-l;
-      border-radius: $border-radius;
-      padding: 9px 30px 9px 10px;
-      font-size: 1rem;
-      outline: 0;
+      background: {
+        image: url("../assets/search.svg");
+        size: 25px;
+        position: 99%;
+        repeat: no-repeat;
+      }
+      border: {
+        color: $gray-l;
+        radius: $border-radius;
+        style: solid;
+        width: 1px;
+      }
       box-shadow: $box-shadow;
-      font-family: $sans-serif;
+      flex: 1;
+      font: {
+        family: $sans-serif;
+        size: 1rem;
+      }
+      margin: {
+        bottom: 1rem;
+        left: 0;
+        right: 0;
+        top: 1rem;
+      }
+      outline: 0;
+      padding: {
+        bottom: 9px;
+        right: 30px;
+        left: 10px;
+        top: 9px;
+      }
 
       &:focus {
         border-color: $red;
         transition: $transition;
       }
-
-      background-image: url("../assets/search.svg");
-      background-size: 25px;
-      background-position: 99%;
-      background-repeat: no-repeat;
     }
 
     &__results {
-      margin: {
-        top: 0;
-        bottom: .5rem;
-      }
       height: 8rem;
+      list-style-type: none;
+      margin: {
+        bottom: .5rem;
+        top: 0;
+      }
       overflow-y: scroll;
       padding-left: 0rem;
-      list-style-type: none;
     }
 
     &__result {
-      display: flex;
-      justify-content: space-between;
-      padding: .3rem .4rem;
-      font-size: .95rem;
-      font-family: $sans-serif;
       cursor: pointer;
+      display: flex;
+      font: {
+        family: $sans-serif;
+        size: .95rem;
+      }
+      justify-content: space-between;
+      padding: {
+        bottom: .3rem;
+        right: .4rem;
+        left: .4rem;
+        top: .3rem;
+      }
 
       span {
         white-space: nowrap;
@@ -66,12 +90,14 @@
       }
 
       &__editor {
-        flex: 1;
-        border: 0;
-        font-size: .95rem;
-        color: $gray-d;
-        font-family: $sans-serif;
         background-color: $gray-l;
+        border: 0;
+        color: $gray-d;
+        flex: 1;
+        font: {
+          family: $sans-serif;
+          size: .95rem;
+        }
         padding: 0;
         outline: 0;
       }

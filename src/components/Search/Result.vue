@@ -34,13 +34,7 @@ import { prettyDate } from '../../filters'
 export default {
   name: 'result',
 
-  props: ['note', 'activeNote', 'currentEditingId'],
-
-  computed: {
-    isActive () {
-      return this.activeNote && this.note.id == this.activeNote.id
-    }
-  },
+  props: ['note', 'isActive', 'currentEditingId'],
 
   methods: {
     onResultSelect () {

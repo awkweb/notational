@@ -4,7 +4,6 @@
 
     <search :activeNote="activeNote"
             :notes="notes"
-            @updateQuery="updateQuery"
             @onSearch="onEditorFocus"
             @onRenameBlur="onSearchFocus">
     </search>
@@ -30,10 +29,6 @@ import Foot from '../components/Foot.vue'
 export default {
   name: 'main',
 
-  data: () => ({
-    query: ''
-  }),
-
   created () {
     if (this.user == null)
       this.$router.push({ name: 'login'})
@@ -49,15 +44,12 @@ export default {
     ...mapGetters([
       'activeNote',
       'notes',
-      'user'
+      'user',
+      'query'
     ])
   },
 
   methods: {
-    updateQuery (query) {
-      this.query = query
-    },
-
     onEditorFocus () {
       const id = 'editor-textarea'
       this.focus(id)

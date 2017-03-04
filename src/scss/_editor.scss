@@ -9,18 +9,23 @@
   }
 
   &__textarea, &__ghost,  &__placeholder {
-    flex: 1;
-    height: 15.5rem;
-    padding: 1rem 0;
     border: {
       top: 1px solid;
       bottom: 1px solid;
       right: 0;
       left: 0;
     }
+    flex: 1;
     font: {
       size: .95rem;
       family: $sans-serif;
+    }
+    height: 15.5rem;
+    padding: {
+      bottom: 1rem;
+      left: 0;
+      right: 0;
+      top: 1rem;
     }
   }
 
@@ -30,10 +35,10 @@
 
   &__textarea {
     background-color: transparent;
+    border-radius: 0;
+    margin: 0;
     outline: 0;
     resize: none;
-    margin: 0;
-    border-radius: 0;
 
     &:focus {
       border-color: $red;
@@ -42,12 +47,12 @@
   }
 
   &__ghost {
-    z-index: -1;
-    color: transparent;
     background-color: transparent;
     border-color: transparent;
-    width: 560px;
+    color: transparent;
     position: absolute;
+    width: 560px;
+    z-index: -1;
 
     .highlights {
       height: 100%;
@@ -58,9 +63,9 @@
   }
 
   &__placeholder {
-    display: flex;
-    justify-content: center;
     align-items: center;
     color: $gray;
+    display: flex;
+    justify-content: center;
   }
 }

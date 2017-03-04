@@ -9,7 +9,8 @@ const store = new Vuex.Store({
   state: {
       user: null,
       notes: [],
-      activeNote: null
+      activeNote: null,
+      query: ''
   },
   
   actions: {
@@ -47,6 +48,10 @@ const store = new Vuex.Store({
         state.activeNote = note
       },
 
+      SET_QUERY: (state, query) => {
+        state.query = query
+      },
+
       CREATE_NOTE: (state, note) => {
         state.notes.splice(0, 0, note)
       },
@@ -67,6 +72,10 @@ const store = new Vuex.Store({
 
       activeNote: state => {
         return state.activeNote
+      },
+
+      query: state => {
+        return state.query
       },
   }
 })

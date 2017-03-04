@@ -5,5 +5,5 @@ export function prettyDate (dateString) {
 }
 
 export function wordCount (string) {
-	return string.split(' ').length
+	return string ? (string.replace(/['";:,.?¿\-!¡]+/g, '').match(/\S+/g) || []).length : 0
 }

@@ -20,7 +20,7 @@
               class="list-complete-item"
               :key="note.id"
               :note="note"
-              :activeNote="activeNote"
+              :isActive="activeNote && note.id == activeNote.id"
               :currentEditingId="currentEditingId"
               @onResultSelect="onSelect"
               @onRenameBlur="onRenameBlur">
@@ -68,7 +68,7 @@ export default {
 
   methods: {
     onSearch () {
-      if (this.activeNote) {
+      if (this.activeNote && this.currentResultIndex != -1) {
         this.$emit('onSearch')
       } else if (this.query.length > 0) {
         const ids = this.notes.map(note => note.id)
@@ -150,7 +150,7 @@ export default {
     },
 
     updateQuery () {
-      this.$emit('updateQuery', this.query)
+      this.$store.commit('SET_QUERY', this.query)
     }
   }
 }

@@ -1,35 +1,42 @@
 .foot {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
   color: $gray;
-  font-size: .85rem;
-  font-weight: 500;
+  font: {
+    size: .85rem;
+    weight: 500;
+  }
+  justify-content: space-between;
 
   &__button {
-    font: {
-      size: .85rem;
-      family: $sans-serif;
-      weight: 500;
-    }
-    color: $gray;
     background-color: $white;
-    padding: 3px 6px;
     border: {
-      width: 1px;
-      style: solid;
       color: $gray-l;
       radius: $border-radius;
+      style: solid;
+      width: 1px;
     }
+    color: $gray;
     cursor: pointer;
+    font: {
+      family: $sans-serif;
+      size: .85rem;
+      weight: 500;
+    }
+    padding: {
+      bottom: 3px;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+    }
 
     &:focus {
       outline: 0;
     }
 
     &:hover {
-      color: $red;
       border-color: $red;
+      color: $red;
       transition: $transition;
     }
   }

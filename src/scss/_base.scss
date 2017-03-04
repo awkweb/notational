@@ -1,15 +1,23 @@
 body {
+  background-color: $white;
   margin: 0;
 }
 
 #app {
-  font-family: $sans-serif;
+  color: $gray-d;
+  font: {
+    family: $sans-serif;
+    size: 16px;
+  }
+  margin: {
+    bottom: 0;
+    left: auto;
+    right: auto;
+    top: 0;
+  }
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $gray-d;
-  font-size: 16px;
   max-width: 35rem;
-  margin: 0 auto;
   padding: 1rem;
 }
 
