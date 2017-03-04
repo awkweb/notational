@@ -4,7 +4,7 @@
            class="search__input"
            type="text"
            v-model.trim="query"
-           @input="updateSearchQuery"
+           @input="updateQuery"
            @keyup.enter="onSearch"
            @keyup.esc="onEscape"
            @keyup.up="onUp"
@@ -149,8 +149,8 @@ export default {
       this.$emit('onRenameBlur')
     },
 
-    updateSearchQuery () {
-      this.$emit('updateSearchQuery', this.query)
+    updateQuery () {
+      this.$emit('updateQuery', this.query)
     }
   }
 }

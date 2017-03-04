@@ -32,6 +32,8 @@
     background-color: transparent;
     outline: 0;
     resize: none;
+    margin: 0;
+    border-radius: 0;
 
     &:focus {
       border-color: $red;
@@ -40,11 +42,19 @@
   }
 
   &__ghost {
-    width: 560px;
     z-index: -1;
-    position: absolute;
-    border-color: transparent;
     color: transparent;
+    background-color: transparent;
+    border-color: transparent;
+    width: 560px;
+    position: absolute;
+
+    .highlights {
+      height: 100%;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
   }
 
   &__placeholder {

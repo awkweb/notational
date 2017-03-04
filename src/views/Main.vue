@@ -4,13 +4,13 @@
 
     <search :activeNote="activeNote"
             :notes="notes"
-            @updateSearchQuery="updateSearchQuery"
+            @updateQuery="updateQuery"
             @onSearch="onEditorFocus"
             @onRenameBlur="onSearchFocus">
     </search>
 
     <editor :activeNote="activeNote"
-            :searchQuery="searchQuery"
+            :query="query"
             @onEscape="onSearchFocus">
     </editor>
 
@@ -31,7 +31,7 @@ export default {
   name: 'main',
 
   data: () => ({
-    searchQuery: ''
+    query: ''
   }),
 
   created () {
@@ -54,8 +54,8 @@ export default {
   },
 
   methods: {
-    updateSearchQuery (query) {
-      this.searchQuery = query
+    updateQuery (query) {
+      this.query = query
     },
 
     onEditorFocus () {
