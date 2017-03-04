@@ -30,16 +30,18 @@
 </template>
 
 <script>
-import 'string_score'
-import moment from 'moment'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+import { noteMixin } from '../../mixins/note-mixin'
+import { utilsMixin } from '../../mixins/utils-mixin'
 import Result from './Result.vue'
 
 export default {
   name: 'search',
 
-  props: ['activeNote', 'notes'],
+  mixins: [noteMixin, utilsMixin],
+
+  props: ['activeNote', 'notes', 'utilsMixin'],
 
   data: () => ({
     query: '',
@@ -53,12 +55,11 @@ export default {
 
   computed: {
     filteredNotes () {
-      const query = this.query
-      if (query.length == 0) {
+      if (this.query.length == 0) {
         return this.notes
       }
 
-      const notes = this.notes.filter(note => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
+      const notes = this.filterNotesForQuery(this.query, this.notes)
       this.currentResultIndex = -1
       notes.length > 0 ? this.setActiveNote(notes[0]) : this.setActiveNote(null)
 
@@ -67,25 +68,21 @@ export default {
   },
 
   methods: {
+    ...mapActions(['CREATE_NOTE', 'DELETE_NOTE']),
+    ...mapMutations(['SET_ACTIVE_NOTE', 'SET_QUERY']),
+    
     onSearch () {
       if (this.activeNote && this.currentResultIndex != -1) {
         this.$emit('onSearch')
       } else if (this.query.length > 0) {
         const ids = this.notes.map(note => note.id)
-        const id = Math.max(...ids) + 1
-        const dateModified = moment().format('YYYY-M-D HH:mm')
-        
-        const note = {
-          'id': id,
-          'title': this.query,
-          'body': '',
-          'date_modified': dateModified
-        }
+        const id = this.notes.length > 0 ? Math.max(...ids) + 1 : 1
+
+        const note = this.createNote(id, this.query)
         this.setActiveNote(note)
 
-        const vm = this;
-        this.$store.dispatch('CREATE_NOTE', note).then(() => {
-          vm.$emit('onSearch')
+        this.CREATE_NOTE(note).then(() => {
+          this.$emit('onSearch')
         })
       }
     },
@@ -102,8 +99,7 @@ export default {
         const note = this.filteredNotes[this.currentResultIndex]
         this.setActiveNote(note)
 
-        const elementId = `#result_${note.id}`
-        const element = document.querySelector(elementId)
+        const element = this.selectElement(`#result_${note.id}`)
         element.scrollIntoView()
       }
     },
@@ -115,8 +111,7 @@ export default {
         this.setActiveNote(note)
 
         if (this.currentResultIndex > 3) {
-          const elementId = `#result_${note.id}`
-          const element = document.querySelector(elementId)
+          const element = this.selectElement(`#result_${note.id}`)
           element.scrollIntoView()
         }
       }
@@ -128,7 +123,7 @@ export default {
     },
 
     setActiveNote (note) {
-      this.$store.commit('SET_ACTIVE_NOTE', note)
+      this.SET_ACTIVE_NOTE(note)
     },
 
     onRename () {
@@ -138,9 +133,8 @@ export default {
     },
 
     onDelete () {
-      const vm = this;
-      this.$store.dispatch('DELETE_NOTE', this.activeNote.id).then(() => {
-        vm.onEscape()
+      this.DELETE_NOTE(this.activeNote.id).then(() => {
+        this.onEscape()
       })
     },
 
@@ -150,7 +144,7 @@ export default {
     },
 
     updateQuery () {
-      this.$store.commit('SET_QUERY', this.query)
+      this.SET_QUERY(this.query)
     }
   }
 }

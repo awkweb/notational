@@ -16,6 +16,10 @@ export function logOut () {
     return app.auth().signOut()
 }
 
+export function signUp (email, password) {
+    return app.auth().createUserWithEmailAndPassword(email, password)
+}
+
 export function getNotesForUserId (userId) {
 	return database.ref(`${userId}/notes`).once('value')
 }

@@ -1,6 +1,6 @@
 <template>
-  <div id="login" class="auth">
-    <h1 class="auth__title text-center">Log In</h1>
+  <div id="signup" class="auth">
+    <h1 class="auth__title text-center">Sign Up</h1>
     
     <form class="auth__form">
       <div class="auth__form__group">
@@ -21,17 +21,23 @@
                type="password"
                placeholder="Super, secret">
       </div>
+
+      <div class="auth__form__group">
+        <label class="auth__form__group__label">Confirm Password</label>
+        <input class="auth__form__group__input password" 
+               v-model="confirm"
+               type="password"
+               placeholder="You know the drill">
+      </div>
       
       <button class="auth__form__button"
-              v-on:click.prevent="onLogIn"
-              v-on:keyup.enter="onLogIn">
-              Log In
+              v-on:click.prevent="onSignUp"
+              v-on:keyup.enter="onSignUp">
+              Sign Up
       </button>
     </form>
 
-    <router-link :to="{ name: 'signup', query: { email: email }}">
-      New here? Sign up
-    </router-link>
+    <router-link :to="{ name: 'login', query: { email: email }}">Have an account? Log in</router-link>
 
   </div>
 </template>
@@ -42,13 +48,14 @@ import { mapActions, mapGetters } from 'vuex'
 import { localStorageMixin } from '../mixins/local-storage-mixin'
 
 export default {
-  name: 'login',
+  name: 'signup',
 
   mixins: [localStorageMixin],
 
   data: () => ({
     email: null,
     password: null,
+    confirm: null
   }),
 
   created () {
@@ -56,31 +63,32 @@ export default {
       this.email = this.$route.query.email
     }
   },
-  
+
   computed: {
-    ...mapGetters(['user', 'notes'])
+    ...mapGetters(['user'])
   },
 
   methods: {
-    ...mapActions(['LOG_IN_USER', 'FETCH_NOTES']),
+    ...mapActions(['SIGN_UP_USER', 'FETCH_NOTES']),
 
-    onLogIn () {
-      if (this.email != null && this.password != null) {
+    onSignUp () {
+      if ((this.email != null && this.password != null) && (this.password === this.confirm)) {
         const data = {
           email: this.email,
           password: this.password
         }
-        this.LOG_IN_USER(data).then(() => {
+        this.SIGN_UP_USER(data).then(() => {
           this.ls_pushUser(this.user)
-
+        
           this.FETCH_NOTES(this.user.uid).then(() => {
-            this.ls_pushNotes(this.notes)
+            this.ls_pushNotes([])
             this.$router.push({ name: 'main'})
           })
         })
       } 
     },
-  }
+  },
 
 }
 </script>
+

@@ -18,12 +18,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
+import { localStorageMixin } from '../mixins/local-storage-mixin'
 import { wordCount } from '../filters'
 
 export default {
   name: 'foot',
+
+  mixins: [localStorageMixin],
 
   props: ['activeNote'],
 
@@ -40,10 +43,12 @@ export default {
   }),
 
   methods: {
+    ...mapActions(['LOG_OUT_USER']),
+    
     onLogOut () {
-      const vm = this
-      vm.$store.dispatch('LOG_OUT_USER').then(() => {
-        vm.$router.push({ name: 'login'})
+      this.LOG_OUT_USER().then(() => {
+        this.ls_logOut()
+        this.$router.push({ name: 'login'})
       })
     },
 

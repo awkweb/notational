@@ -20,8 +20,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
+import { utilsMixin } from '../mixins/utils-mixin'
+import { localStorageMixin } from '../mixins/local-storage-mixin'
 import Search from '../components/Search/Index.vue'
 import Editor from '../components/Editor.vue'
 import Foot from '../components/Foot.vue'
@@ -29,7 +31,17 @@ import Foot from '../components/Foot.vue'
 export default {
   name: 'main',
 
+  mixins: [utilsMixin, localStorageMixin],
+
   created () {
+    const user = this.ls_pullUser()
+    if (user)
+      this.SET_USER(user)
+
+    const notes = this.ls_pullNotes()
+    if (notes)
+      this.SET_NOTES(notes)
+
     if (this.user == null)
       this.$router.push({ name: 'login'})
   },
@@ -41,15 +53,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'activeNote',
-      'notes',
-      'user',
-      'query'
-    ])
+    ...mapGetters(['activeNote', 'notes', 'user', 'query'])
   },
 
   methods: {
+    ...mapMutations(['SET_USER', 'SET_NOTES']),
+
     onEditorFocus () {
       const id = 'editor-textarea'
       this.focus(id)
@@ -61,7 +70,7 @@ export default {
     },
 
     focus (id) {
-      const element = document.querySelector(`#${id}`)
+      const element = this.selectElement(`#${id}`)
       element.focus()
     }
   }

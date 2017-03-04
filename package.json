@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "local-storage": "^1.4.2",
     "mark.js": "github:julmot/mark.js",
     "moment": "^2.17.1",
     "string_score": "^0.1.22",

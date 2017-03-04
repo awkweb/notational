@@ -1,4 +1,6 @@
 .auth {
+	display: flex;
+	flex-direction: column;
 	margin: {
 		bottom: 0;
 		left: auto;
@@ -15,16 +17,17 @@
 	&__form {
 		display: flex;
 		flex-direction: column;
+		margin-bottom: 3rem;
 
 		&__group {
 			display: flex;
 			flex-direction: column;
-			margin-bottom: .9rem;
+			margin-bottom: 1.2rem;
 
 			&__label {
 				font: {
 			        family: $sans-serif;
-					size: .95rem;
+					size: .9rem;
 					weight: 500;
 				}
 				margin-bottom: 3px;
@@ -46,7 +49,7 @@
 				outline: 0;
 				padding: {
 					bottom: 9px;
-					right: 10px;
+					right: 30px;
 					left: 10px;
 					top: 9px;
 				}
@@ -70,7 +73,7 @@
 
 				&.password {
 					background-image: url("../assets/password.svg");
-					background-size: 26px;
+					background-size: 27px;
 				}
 			}
 		}
@@ -108,5 +111,16 @@
 				transition: $transition;
 			}
 		}
+	}
+
+	a {
+		align-self: center;
+		border-bottom: 1px solid $gray-l;
+		font: {
+			family: $sans-serif;
+			size: .95rem;
+		}
+		color: $gray;
+		text-decoration: none;
 	}
 }

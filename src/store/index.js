@@ -1,82 +1,33 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { logIn, logOut, getNotesForUserId } from './firebase'
+import auth from './modules/auth'
+import notes from './modules/notes'
+import { getNotesForUserId } from './firebase'
+import { SET_QUERY } from './constants'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-      user: null,
-      notes: [],
-      activeNote: null,
-      query: ''
+    query: ''
   },
-  
-  actions: {
-      LOG_IN_USER: ({ commit }, data) => {
-        return logIn(data.email, data.password).then(user => commit('SET_USER', user))
-      },
 
-      LOG_OUT_USER: ({ commit }) => {
-        return logOut().then(user => commit('SET_USER', null))
-      },
-
-      FETCH_NOTES: ({ commit }, userId) => {
-        return getNotesForUserId(userId).then(notes => commit('SET_NOTES', notes.val()))
-      },
-
-      CREATE_NOTE: ({ commit }, data) => {
-        return commit('CREATE_NOTE', data)
-      },
-
-      DELETE_NOTE: ({ commit }, noteId) => {
-        return commit('DELETE_NOTE', noteId)
-      },
+  modules: {
+    auth,
+    notes
   },
 
   mutations: {
-      SET_USER: (state, user) => {
-        state.user = user
-      },
-
-      SET_NOTES: (state, notes) => {
-        state.notes = notes
-      },
-
-      SET_ACTIVE_NOTE: (state, note) => {
-        state.activeNote = note
-      },
-
-      SET_QUERY: (state, query) => {
-        state.query = query
-      },
-
-      CREATE_NOTE: (state, note) => {
-        state.notes.splice(0, 0, note)
-      },
-
-      DELETE_NOTE: (state, noteId) => {
-        state.notes = state.notes.filter(note => note.id != noteId)
-      },
+    [SET_QUERY] (state, query) {
+      state.query = query
+    }
   },
 
   getters: {
-      user: state => {
-        return state.user
-      },
-
-      notes: state => {
-        return state.notes
-      },
-
-      activeNote: state => {
-        return state.activeNote
-      },
-
-      query: state => {
-        return state.query
-      },
+    query: state => {
+      return state.query
+    }
   }
 })
 
