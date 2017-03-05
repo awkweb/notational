@@ -1,5 +1,8 @@
+import _ from 'lodash'
+import moment from 'moment'
+
 import { getNotesForUserId } from '../firebase'
-import { SET_NOTES, SET_ACTIVE_NOTE, CREATE_NOTE, DELETE_NOTE } from '../constants'
+import { SET_NOTES, SET_ACTIVE_NOTE, UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE } from '../constants'
 
 const state = {
     notes: [],
@@ -13,6 +16,10 @@ const actions = {
 
     CREATE_NOTE: ({ commit }, data) => {
       return commit(CREATE_NOTE, data)
+    },
+
+    UPDATE_NOTE: ({ commit }, data) => {
+      return commit(UPDATE_NOTE, data)
     },
 
     DELETE_NOTE: ({ commit }, noteId) => {
@@ -31,6 +38,13 @@ const mutations = {
 
     [CREATE_NOTE] (state, note) {
       state.notes.splice(0, 0, note)
+    },
+
+    [UPDATE_NOTE] (state, updatedNode) {
+      let note = _.find(state.notes, { 'id': updatedNode.id })
+      note.title = updatedNode.title
+      note.body = updatedNode.body
+      note.date_modified = moment()
     },
 
     [DELETE_NOTE] (state, noteId) {

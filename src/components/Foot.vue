@@ -2,7 +2,8 @@
   <footer class="foot">
     
     <span v-if="activeNote">
-      {{ activeNote.body | wordCount }} words
+      {{ activeNote.body | wordCount }} words,
+      {{ activeNote.body | charCount }} characters
     </span>
     
     <span v-else>
@@ -20,7 +21,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { localStorageMixin } from '../mixins/local-storage-mixin'
+import { localStorageMixin } from '../mixins'
 import { wordCount } from '../filters'
 
 export default {
@@ -32,13 +33,11 @@ export default {
 
   data: () => ({
     messages: [
-      'Nice to see you again :)',
-      'This is your moment of glory.',
-      'Stay classy <3',
-      'Beep, boop, bop',
-      'Totally on fleek',
-      'No time like the present!',
-      'Courage is resistance to fear, mastery of fear, not absence of fear.'
+      'I don\'t paint things, I paint the difference between things.',
+      'Good artists borrow, great artists steal.',
+      'Have no fear of perfection – you\'ll never reach it.',
+      'Simplicity is the ultimate sophistication.',
+      'This is your moment of glory.'
     ]
   }),
 

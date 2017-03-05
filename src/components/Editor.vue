@@ -9,6 +9,7 @@
       <textarea id="editor-textarea"
                 class="editor__textarea" 
                 v-model="activeNote.body"
+                @input="onInput"
                 @keyup.esc="onEscape"
                 rows="12">
       </textarea>
@@ -23,10 +24,15 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
+
+import { localStorageMixin } from '../mixins'
 import Highlight from '../components/Highlight.vue'
 
 export default {
   name: 'editor',
+
+  mixins: [localStorageMixin],
 
   props: ['activeNote', 'query'],
 
@@ -35,6 +41,15 @@ export default {
   },
 
   methods: {
+    ...mapActions(['UPDATE_NOTE']),
+    ...mapMutations(['SET_RESULT_INDEX']),
+    
+    onInput () {
+      this.ls_updateNote(this.activeNote)
+      this.UPDATE_NOTE(this.activeNote)
+      this.SET_RESULT_INDEX(0)
+    },
+
     onEscape () {
       this.$emit('onEscape')
     }

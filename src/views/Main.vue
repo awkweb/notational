@@ -4,6 +4,7 @@
 
     <search :activeNote="activeNote"
             :notes="notes"
+            :resultIndex="resultIndex"
             @onSearch="onEditorFocus"
             @onRenameBlur="onSearchFocus">
     </search>
@@ -21,9 +22,9 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import hotkeys from 'hotkeys-js'
 
-import { utilsMixin } from '../mixins/utils-mixin'
-import { localStorageMixin } from '../mixins/local-storage-mixin'
+import { localStorageMixin, utilsMixin } from '../mixins'
 import Search from '../components/Search/Index.vue'
 import Editor from '../components/Editor.vue'
 import Foot from '../components/Foot.vue'
@@ -37,6 +38,7 @@ export default {
     const user = this.ls_pullUser()
     if (user)
       this.SET_USER(user)
+      this.setUpHotKeys()
 
     const notes = this.ls_pullNotes()
     if (notes)
@@ -46,6 +48,10 @@ export default {
       this.$router.push({ name: 'login'})
   },
 
+  beforeDestroy () {
+    hotkeys.unbind()
+  },
+
   components: {
     Search,
     Editor,
@@ -53,25 +59,31 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['activeNote', 'notes', 'user', 'query'])
+    ...mapGetters(['activeNote', 'notes', 'user', 'query', 'resultIndex'])
   },
 
   methods: {
     ...mapMutations(['SET_USER', 'SET_NOTES']),
 
+    setUpHotKeys () {
+      hotkeys('ctrl+/', () => this.onSearchFocus())
+      hotkeys('ctrl+.', () => {if (this.activeNote) this.onEditorFocus()})
+    },
+
     onEditorFocus () {
-      const id = 'editor-textarea'
-      this.focus(id)
+      const id = '#editor-textarea'
+      this.focusElement(id)
     },
 
     onSearchFocus () {
-      const id = 'search-input'
-      this.focus(id)
-    },
+      const id = '#search-input'
+      this.focusElement(id)
+    }
+  },
 
-    focus (id) {
-      const element = this.selectElement(`#${id}`)
-      element.focus()
+  head: {
+    title: {
+      inner: 'Home'
     }
   }
 

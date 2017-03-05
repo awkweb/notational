@@ -1,6 +1,11 @@
 <template>
   <div id="login" class="auth">
     <h1 class="auth__title text-center">Log In</h1>
+
+    <message v-if="error"
+             :text="error"
+             @closeMessage="closeMessage">
+    </message>
     
     <form class="auth__form">
       <div class="auth__form__group">
@@ -39,16 +44,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { localStorageMixin } from '../mixins/local-storage-mixin'
+import { localStorageMixin } from '../mixins'
+import Message from '../components/Message.vue'
 
 export default {
   name: 'login',
 
   mixins: [localStorageMixin],
 
+  components: { Message },
+
   data: () => ({
     email: null,
     password: null,
+    error: null
   }),
 
   created () {
@@ -70,16 +79,31 @@ export default {
           email: this.email,
           password: this.password
         }
-        this.LOG_IN_USER(data).then(() => {
-          this.ls_pushUser(this.user)
+        this.LOG_IN_USER(data)
+          .then(() => {
+            this.ls_pushUser(this.user)
 
-          this.FETCH_NOTES(this.user.uid).then(() => {
-            this.ls_pushNotes(this.notes)
-            this.$router.push({ name: 'main'})
+            this.FETCH_NOTES(this.user.uid)
+              .then(() => {
+                this.ls_pushNotes(this.notes)
+                this.$router.push({ name: 'main'})
+              })
           })
-        })
-      } 
+          .catch((error) => {
+            this.error = error.message
+          })
+      }
     },
+
+    closeMessage () {
+      this.error = null
+    }
+  },
+
+  head: {
+    title: {
+      inner: 'Log In'
+    }
   }
 
 }

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { utilsMixin } from '../mixins/utils-mixin'
+import { utilsMixin } from '../mixins'
 
 export default {
   name: 'highlight',

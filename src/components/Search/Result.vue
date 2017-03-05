@@ -8,7 +8,8 @@
            class="search__result__editor"
            v-model="note.title"
            @blur="onRenameBlur"
-           @keyup.enter="onRenameBlur"
+           @keyup.esc="onRenameBlur"
+           @keyup.enter="onRenameEnter"
            v-focus
            type="text">
 
@@ -29,16 +30,31 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
+
+import { localStorageMixin } from '../../mixins'
 import { prettyDate } from '../../filters'
 
 export default {
   name: 'result',
 
+  mixins: [localStorageMixin],
+
   props: ['note', 'isActive', 'currentEditingId'],
 
   methods: {
+    ...mapActions(['UPDATE_NOTE']),
+    ...mapMutations(['SET_RESULT_INDEX']),
+
     onResultSelect () {
       this.$emit('onResultSelect', this.note)
+    },
+
+    onRenameEnter () {
+      this.ls_updateNote(this.note)
+      this.UPDATE_NOTE(this.note)
+      this.SET_RESULT_INDEX(0)
+      this.$emit('onRenameBlur')
     },
 
     onRenameBlur () {

@@ -1,6 +1,11 @@
 <template>
   <div id="signup" class="auth">
     <h1 class="auth__title text-center">Sign Up</h1>
+
+    <message v-if="error"
+             :text="error"
+             @closeMessage="closeMessage">
+    </message>
     
     <form class="auth__form">
       <div class="auth__form__group">
@@ -45,17 +50,21 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { localStorageMixin } from '../mixins/local-storage-mixin'
+import { localStorageMixin } from '../mixins'
+import Message from '../components/Message.vue'
 
 export default {
   name: 'signup',
 
   mixins: [localStorageMixin],
 
+  components: { Message },
+
   data: () => ({
     email: null,
     password: null,
-    confirm: null
+    confirm: null,
+    error: null
   }),
 
   created () {
@@ -72,22 +81,43 @@ export default {
     ...mapActions(['SIGN_UP_USER', 'FETCH_NOTES']),
 
     onSignUp () {
-      if ((this.email != null && this.password != null) && (this.password === this.confirm)) {
+      if (this.password != this.confirm) {
+        this.error = 'The passwords did not match.'
+        return
+      }
+
+
+      if (this.email != null && this.password != null) {
         const data = {
           email: this.email,
           password: this.password
         }
-        this.SIGN_UP_USER(data).then(() => {
-          this.ls_pushUser(this.user)
-        
-          this.FETCH_NOTES(this.user.uid).then(() => {
-            this.ls_pushNotes([])
-            this.$router.push({ name: 'main'})
+        this.SIGN_UP_USER(data)
+          .then(() => {
+            this.ls_pushUser(this.user)
+          
+            this.FETCH_NOTES(this.user.uid)
+              .then(() => {
+                this.ls_pushNotes([])
+                this.$router.push({ name: 'main'})
+              })
           })
-        })
+          .catch((error) => {
+            this.error = error.message
+          })
       } 
     },
+
+    closeMessage () {
+      this.error = null
+    }
   },
+
+  head: {
+    title: {
+      inner: 'Sign Up'
+    }
+  }
 
 }
 </script>

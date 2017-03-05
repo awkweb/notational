@@ -6,6 +6,7 @@
            v-model.trim="query"
            @input="updateQuery"
            @keyup.enter="onSearch"
+           @keyup.ctrl.enter="onCreate"
            @keyup.esc="onEscape"
            @keyup.up="onUp"
            @keyup.down="onDown"
@@ -32,20 +33,18 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import { noteMixin } from '../../mixins/note-mixin'
-import { utilsMixin } from '../../mixins/utils-mixin'
+import { localStorageMixin, noteMixin, utilsMixin } from '../../mixins'
 import Result from './Result.vue'
 
 export default {
   name: 'search',
 
-  mixins: [noteMixin, utilsMixin],
+  mixins: [noteMixin, utilsMixin, localStorageMixin],
 
-  props: ['activeNote', 'notes', 'utilsMixin'],
+  props: ['activeNote', 'notes', 'resultIndex'],
 
   data: () => ({
     query: '',
-    currentResultIndex: -1,
     currentEditingId: null
   }),
 
@@ -55,13 +54,14 @@ export default {
 
   computed: {
     filteredNotes () {
+      let notes;
       if (this.query.length == 0) {
-        return this.notes
+        notes = this.notes
+      } else {
+        notes = this.filterNotesForQuery(this.query, this.notes)
       }
 
-      const notes = this.filterNotesForQuery(this.query, this.notes)
-      this.currentResultIndex = -1
-      notes.length > 0 ? this.setActiveNote(notes[0]) : this.setActiveNote(null)
+      notes = this.sortNotes(notes)
 
       return notes
     }
@@ -69,35 +69,40 @@ export default {
 
   methods: {
     ...mapActions(['CREATE_NOTE', 'DELETE_NOTE']),
-    ...mapMutations(['SET_ACTIVE_NOTE', 'SET_QUERY']),
+    ...mapMutations(['SET_ACTIVE_NOTE', 'SET_QUERY', 'SET_RESULT_INDEX']),
     
     onSearch () {
-      if (this.activeNote && this.currentResultIndex != -1) {
+      if (this.activeNote) {
         this.$emit('onSearch')
-      } else if (this.query.length > 0) {
-        const ids = this.notes.map(note => note.id)
-        const id = this.notes.length > 0 ? Math.max(...ids) + 1 : 1
-
-        const note = this.createNote(id, this.query)
-        this.setActiveNote(note)
-
-        this.CREATE_NOTE(note).then(() => {
-          this.$emit('onSearch')
-        })
       }
+    },
+
+    onCreate () {
+      const ids = this.notes.map(note => note.id)
+      const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
+
+      const note = this.createNote(id, this.query)
+      this.SET_ACTIVE_NOTE(note)
+
+      this.CREATE_NOTE(note).then(() => {
+        this.ls_pushNote(note)
+        this.$emit('onSearch')
+      })
     },
 
     onEscape () {
       this.query = ''
-      this.currentResultIndex = -1
-      this.setActiveNote(null)
+      this.SET_RESULT_INDEX(-1)
+      this.SET_ACTIVE_NOTE(null)
     },
 
     onUp () {
-      if (this.currentResultIndex > 0) {
-        this.currentResultIndex -= 1
-        const note = this.filteredNotes[this.currentResultIndex]
-        this.setActiveNote(note)
+      if (this.resultIndex > 0) {
+        const index = this.resultIndex - 1
+        this.SET_RESULT_INDEX(index)
+
+        const note = this.filteredNotes[index]
+        this.SET_ACTIVE_NOTE(note)
 
         const element = this.selectElement(`#result_${note.id}`)
         element.scrollIntoView()
@@ -105,12 +110,14 @@ export default {
     },
 
     onDown () {
-      if (this.currentResultIndex != this.filteredNotes.length - 1) {
-        this.currentResultIndex += 1
-        const note = this.filteredNotes[this.currentResultIndex]
-        this.setActiveNote(note)
-
-        if (this.currentResultIndex > 3) {
+      if (this.resultIndex != this.filteredNotes.length - 1) {
+        const index = this.resultIndex + 1
+        this.SET_RESULT_INDEX(index)
+        
+        const note = this.filteredNotes[index]
+        this.SET_ACTIVE_NOTE(note)
+        
+        if (index > 3) {
           const element = this.selectElement(`#result_${note.id}`)
           element.scrollIntoView()
         }
@@ -118,11 +125,8 @@ export default {
     },
 
     onSelect (note) {
-      this.currentResultIndex = this.filteredNotes.indexOf(note)
-      this.setActiveNote(note)
-    },
-
-    setActiveNote (note) {
+      const index = this.filteredNotes.indexOf(note)
+      this.SET_RESULT_INDEX(index)
       this.SET_ACTIVE_NOTE(note)
     },
 
@@ -133,7 +137,9 @@ export default {
     },
 
     onDelete () {
-      this.DELETE_NOTE(this.activeNote.id).then(() => {
+      const noteId = this.activeNote.id
+      this.DELETE_NOTE(noteId).then(() => {
+        this.ls_removeNote(noteId)
         this.onEscape()
       })
     },
@@ -144,6 +150,10 @@ export default {
     },
 
     updateQuery () {
+      const note = this.filteredNotes.length > 0 ? this.filteredNotes[0] : null
+
+      this.SET_ACTIVE_NOTE(note)
+      this.SET_RESULT_INDEX(0)
       this.SET_QUERY(this.query)
     }
   }

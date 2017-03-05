@@ -67,13 +67,17 @@
 				}
 
 				&.email {
-					background-image: url("../assets/email.svg");
-					background-size: 25px;
+					background: {
+						image: url("../assets/email.svg");
+						size: 25px;
+					}
 				}
 
 				&.password {
-					background-image: url("../assets/password.svg");
-					background-size: 27px;
+					background: {
+						image: url("../assets/password.svg");
+						size: 27px;
+					}
 				}
 			}
 		}
@@ -88,6 +92,7 @@
 				style: solid;
 				width: 3px;
 			}
+  			box-shadow: $box-shadow;
 			padding: {
 				bottom: 7px;
 				right: 10px;
