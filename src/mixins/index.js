@@ -5,7 +5,6 @@ import 'string_score'
 
 export const localStorageMixin = {
   methods: {
-    // USER
     ls_pushUser (user) {
       ls.set('user', user)
     },

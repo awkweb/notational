@@ -39,8 +39,6 @@ export default {
     const user = this.ls_pullUser()
     if (user)
       this.SET_USER(user)
-    else
-      this.$router.push({ name: 'login'})
 
     this.FETCH_NOTES()
     this.setUpHotKeys()
