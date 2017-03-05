@@ -41,7 +41,7 @@ export default {
 
   mixins: [noteMixin, utilsMixin, localStorageMixin],
 
-  props: ['activeNote', 'notes', 'resultIndex'],
+  props: ['activeNote', 'notes', 'user', 'resultIndex'],
 
   data: () => ({
     query: '',
@@ -69,7 +69,7 @@ export default {
 
   methods: {
     ...mapActions(['CREATE_NOTE', 'DELETE_NOTE']),
-    ...mapMutations(['SET_ACTIVE_NOTE', 'SET_QUERY', 'SET_RESULT_INDEX']),
+    ...mapMutations(['SET_ACTIVE_NOTE', 'SET_ACTIVE_KEY', 'SET_QUERY', 'SET_RESULT_INDEX']),
     
     onSearch () {
       if (this.activeNote) {
@@ -78,14 +78,14 @@ export default {
     },
 
     onCreate () {
-      const ids = this.notes.map(note => note.id)
-      const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
-
+      const id = this.nextIdForNotes(this.notes)
       const note = this.createNote(id, this.query)
       this.SET_ACTIVE_NOTE(note)
 
+      const key = this.findKeyForNoteId(id, this.notes)
+      this.SET_ACTIVE_KEY(key)
+
       this.CREATE_NOTE(note).then(() => {
-        this.ls_pushNote(note)
         this.$emit('onSearch')
       })
     },
@@ -94,6 +94,7 @@ export default {
       this.query = ''
       this.SET_RESULT_INDEX(-1)
       this.SET_ACTIVE_NOTE(null)
+      this.SET_ACTIVE_KEY(null)
     },
 
     onUp () {
@@ -103,6 +104,9 @@ export default {
 
         const note = this.filteredNotes[index]
         this.SET_ACTIVE_NOTE(note)
+
+        const key = this.findKeyForNoteId(note.id, this.notes)
+        this.SET_ACTIVE_KEY(key)
 
         const element = this.selectElement(`#result_${note.id}`)
         element.scrollIntoView()
@@ -116,6 +120,9 @@ export default {
         
         const note = this.filteredNotes[index]
         this.SET_ACTIVE_NOTE(note)
+
+        const key = this.findKeyForNoteId(note.id, this.notes)
+        this.SET_ACTIVE_KEY(key)
         
         if (index > 3) {
           const element = this.selectElement(`#result_${note.id}`)
@@ -128,6 +135,9 @@ export default {
       const index = this.filteredNotes.indexOf(note)
       this.SET_RESULT_INDEX(index)
       this.SET_ACTIVE_NOTE(note)
+
+      const key = this.findKeyForNoteId(note.id, this.notes)
+      this.SET_ACTIVE_KEY(key)
     },
 
     onRename () {
@@ -139,7 +149,6 @@ export default {
     onDelete () {
       const noteId = this.activeNote.id
       this.DELETE_NOTE(noteId).then(() => {
-        this.ls_removeNote(noteId)
         this.onEscape()
       })
     },
@@ -151,8 +160,11 @@ export default {
 
     updateQuery () {
       const note = this.filteredNotes.length > 0 ? this.filteredNotes[0] : null
+      const key = this.filteredNotes.length > 0 ? this.findKeyForNoteId(note.id, this.notes) : null;
 
       this.SET_ACTIVE_NOTE(note)
+      this.SET_ACTIVE_KEY(key)
+      
       this.SET_RESULT_INDEX(0)
       this.SET_QUERY(this.query)
     }

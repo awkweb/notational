@@ -67,11 +67,11 @@ export default {
   },
   
   computed: {
-    ...mapGetters(['user', 'notes'])
+    ...mapGetters(['user'])
   },
 
   methods: {
-    ...mapActions(['LOG_IN_USER', 'FETCH_NOTES']),
+    ...mapActions(['LOG_IN_USER']),
 
     onLogIn () {
       if (this.email != null && this.password != null) {
@@ -82,12 +82,7 @@ export default {
         this.LOG_IN_USER(data)
           .then(() => {
             this.ls_pushUser(this.user)
-
-            this.FETCH_NOTES(this.user.uid)
-              .then(() => {
-                this.ls_pushNotes(this.notes)
-                this.$router.push({ name: 'main'})
-              })
+            this.$router.push({ name: 'main'})
           })
           .catch((error) => {
             this.error = error.message

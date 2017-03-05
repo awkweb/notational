@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import auth from './modules/auth'
 import notes from './modules/notes'
-import { getNotesForUserId } from './firebase'
+import { getNotesForUserId } from './api'
 import { SET_QUERY, SET_RESULT_INDEX } from './constants'
 
 Vue.use(Vuex)

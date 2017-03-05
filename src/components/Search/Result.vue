@@ -32,13 +32,10 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
 
-import { localStorageMixin } from '../../mixins'
 import { prettyDate } from '../../filters'
 
 export default {
   name: 'result',
-
-  mixins: [localStorageMixin],
 
   props: ['note', 'isActive', 'currentEditingId'],
 
@@ -51,8 +48,7 @@ export default {
     },
 
     onRenameEnter () {
-      this.ls_updateNote(this.note)
-      this.UPDATE_NOTE(this.note)
+      this.UPDATE_NOTE()
       this.SET_RESULT_INDEX(0)
       this.$emit('onRenameBlur')
     },

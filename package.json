@@ -9,11 +9,10 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "axios": "^0.15.3",
+    "firebase": "^3.7.0",
     "hotkeys-js": "^2.0.1",
     "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
-    "mark.js": "github:julmot/mark.js",
     "moment": "^2.17.1",
     "string_score": "^0.1.22",
     "vue": "^2.1.0",

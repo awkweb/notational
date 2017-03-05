@@ -1,4 +1,4 @@
-import { logIn, logOut, signUp } from '../firebase'
+import api from '../api'
 import { SET_USER } from '../constants'
 
 const state = {
@@ -7,15 +7,15 @@ const state = {
 
 const actions = {
   LOG_IN_USER: ({ commit }, data) => {
-    return logIn(data.email, data.password).then(user => commit(SET_USER, user))
+    return api.logIn(data.email, data.password).then(user => commit(SET_USER, user))
   },
 
   LOG_OUT_USER: ({ commit }) => {
-    return logOut().then(user => commit(SET_USER, null))
+    return api.logOut().then(user => commit(SET_USER, null))
   },
 
   SIGN_UP_USER: ({ commit }, data) => {
-    return signUp(data.email, data.password).then(user => commit(SET_USER, user))
+    return api.signUp(data.email, data.password).then(user => commit(SET_USER, user))
   }
 }
 

@@ -78,7 +78,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['SIGN_UP_USER', 'FETCH_NOTES']),
+    ...mapActions(['SIGN_UP_USER']),
 
     onSignUp () {
       if (this.password != this.confirm) {
@@ -95,12 +95,7 @@ export default {
         this.SIGN_UP_USER(data)
           .then(() => {
             this.ls_pushUser(this.user)
-          
-            this.FETCH_NOTES(this.user.uid)
-              .then(() => {
-                this.ls_pushNotes([])
-                this.$router.push({ name: 'main'})
-              })
+            this.$router.push({ name: 'main'})
           })
           .catch((error) => {
             this.error = error.message

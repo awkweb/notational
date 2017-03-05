@@ -26,13 +26,10 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
 
-import { localStorageMixin } from '../mixins'
 import Highlight from '../components/Highlight.vue'
 
 export default {
   name: 'editor',
-
-  mixins: [localStorageMixin],
 
   props: ['activeNote', 'query'],
 
@@ -45,7 +42,6 @@ export default {
     ...mapMutations(['SET_RESULT_INDEX']),
     
     onInput () {
-      this.ls_updateNote(this.activeNote)
       this.UPDATE_NOTE(this.activeNote)
       this.SET_RESULT_INDEX(0)
     },

@@ -1,25 +1,28 @@
 import _ from 'lodash'
-import moment from 'moment'
 
-import { getNotesForUserId } from '../firebase'
-import { SET_NOTES, SET_ACTIVE_NOTE, UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE } from '../constants'
+import api from '../api'
+import { SET_NOTES, SET_ACTIVE_NOTE, SET_ACTIVE_KEY, UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE } from '../constants'
 
 const state = {
     notes: [],
-    activeNote: null
+    activeNote: null,
+    activeKey: null
 }
 
 const actions = {
-    FETCH_NOTES: ({ commit }, userId) => {
-      return getNotesForUserId(userId).then(notes => commit(SET_NOTES, notes.val()))
+    FETCH_NOTES: ({ state, commit, rootState }) => {
+      return api.getNotesForUserId(rootState.auth.user.uid)
+                .then(notes => commit(SET_NOTES, notes))
     },
 
-    CREATE_NOTE: ({ commit }, data) => {
-      return commit(CREATE_NOTE, data)
+    CREATE_NOTE: ({ state, commit, rootState }, note) => {
+      return api.createNote(rootState.auth.user.uid, note)
+                .then(key => commit(CREATE_NOTE, { key: key, note: note }))
     },
 
-    UPDATE_NOTE: ({ commit }, data) => {
-      return commit(UPDATE_NOTE, data)
+    UPDATE_NOTE: ({ state, commit, rootState }) => {
+      return api.updateNote(rootState.auth.user.uid, state.activeKey, state.activeNote)
+                .then(res => commit(UPDATE_NOTE, { key: res.key, date_modified: res.date_modified }))
     },
 
     DELETE_NOTE: ({ commit }, noteId) => {
@@ -36,15 +39,17 @@ const mutations = {
       state.activeNote = note
     },
 
-    [CREATE_NOTE] (state, note) {
-      state.notes.splice(0, 0, note)
+    [SET_ACTIVE_KEY] (state, key) {
+      state.activeKey = key
     },
 
-    [UPDATE_NOTE] (state, updatedNode) {
-      let note = _.find(state.notes, { 'id': updatedNode.id })
-      note.title = updatedNode.title
-      note.body = updatedNode.body
-      note.date_modified = moment()
+    [CREATE_NOTE] (state, data) {
+      state.notes[`${data.key}`] = data.note
+    },
+
+    [UPDATE_NOTE] (state, data) {
+      let note = state.notes[`${data.key}`]
+      note.date_modified = data.date_modified
     },
 
     [DELETE_NOTE] (state, noteId) {

@@ -4,6 +4,7 @@
 
     <search :activeNote="activeNote"
             :notes="notes"
+            :user="user"
             :resultIndex="resultIndex"
             @onSearch="onEditorFocus"
             @onRenameBlur="onSearchFocus">
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import hotkeys from 'hotkeys-js'
 
 import { localStorageMixin, utilsMixin } from '../mixins'
@@ -38,18 +39,15 @@ export default {
     const user = this.ls_pullUser()
     if (user)
       this.SET_USER(user)
-      this.setUpHotKeys()
-
-    const notes = this.ls_pullNotes()
-    if (notes)
-      this.SET_NOTES(notes)
-
-    if (this.user == null)
+    else
       this.$router.push({ name: 'login'})
+
+    this.FETCH_NOTES()
+    this.setUpHotKeys()
   },
 
   beforeDestroy () {
-    hotkeys.unbind()
+    // hotkeys.unbind()
   },
 
   components: {
@@ -63,6 +61,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['FETCH_NOTES']),
     ...mapMutations(['SET_USER', 'SET_NOTES']),
 
     setUpHotKeys () {

@@ -14,38 +14,8 @@ export const localStorageMixin = {
       return ls.get('user')
     },
 
-    ls_attachListener (callback) {
-      ls.on('user', callback)
-    },
-
     ls_logOut () {
       return ls.clear()
-    },
-
-    // NOTES
-    ls_pushNotes (notes) {
-      ls.set('notes', notes)
-    },
-
-    ls_pullNotes () {
-      return ls.get('notes')
-    },
-
-    ls_updateNote (note) {
-      this.ls_removeNote(note.id)
-      this.ls_pushNote(note)
-    },
-
-    ls_pushNote (note) {
-      let notes = this.ls_pullNotes()
-      notes.push(note)
-      this.ls_pushNotes(notes)
-    },
-
-    ls_removeNote (noteId) {
-      let notes = this.ls_pullNotes()
-      notes = notes.filter(note => note.id != noteId)
-      this.ls_pushNotes(notes)
     }
   }
 }
@@ -58,18 +28,27 @@ export const noteMixin = {
         id: id,
         title: title,
         body: body,
-        date_modified: dateModified,
-        date_created: moment()
+        date_modified: dateModified.toString(),
+        date_created: moment().toString()
       }
     },
 
+    findKeyForNoteId (noteId, notes) {
+      return _.findKey(notes, { 'id': noteId })
+    },
+
+    nextIdForNotes (notes) {
+      const ids = _.map(notes, (note) => { return note.id });
+      return ids.length > 0 ? Math.max(...ids) + 1 : 1
+    },
+
     filterNotesForQuery (query, notes) {
-      return notes.filter(note => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
+      return _.filter(notes, (note) => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
     },
 
     sortNotes (notes) {
       let now = moment()
-      return _.sortBy(notes, [function (note) {
+      return _.sortBy(notes, [(note) => {
         const date = moment(note.date_modified)
         return now.diff(date, 'seconds')
       }])
