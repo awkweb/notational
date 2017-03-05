@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import _ from 'lodash'
 import moment from 'moment'
 
 import '../../settings'
@@ -19,6 +20,30 @@ export default {
 	signUp (email, password) {
 		return auth.createUserWithEmailAndPassword(email, password)
 	},
+
+  initNotesForUserId (userId) {
+    const vm = this
+    return new Promise((resolve, reject) => {
+      return this.getDefaultNotes()
+                .then(notes => {
+                  const dateModified = moment().toString()
+                  _.forEach(notes, function(note, key) {
+                    note.date_modified = dateModified
+                    note.date_created = dateModified
+                    vm.createNote(userId, note)
+                  })
+                  resolve(true)
+                })
+    })
+  },
+
+  getDefaultNotes () {
+    return new Promise((resolve, reject) => {
+      let notesRef = database.ref('default_notes/notes')
+      return notesRef.once('value')
+                     .then(res => resolve(res.val()))
+    })
+  },
 
 	getNotesForUserId (userId) {
     return new Promise((resolve, reject) => {

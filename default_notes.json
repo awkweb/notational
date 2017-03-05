@@ -1,0 +1,27 @@
+{
+  "default_notes" : {
+    "notes" : {
+      "0" : {
+        "body" : "Hey-oh!\n\nWelcome to Notational Velocity – the fastest note-taking app on the web.\n\nNV makes it easy to keep your hands on the keyboard so you can do things like... type notes really quickly! (See *Useful Shortcuts* above.)\n\nAlso, no need to save your work as everything you type (in this box) is ~automagically~ saved.\n\n—Tom\n\n",
+        "date_created" : "Sun Mar 05 2017 18:15:27 GMT-0500",
+        "date_modified" : "Sun Mar 05 2017 18:25:02 GMT-0500",
+        "id" : 1,
+        "title" : "Welcome (Click Me)"
+      },
+      "1" : {
+        "body" : "In the order of most to least useful:\n\nEnter             Start editing selected note\n⌘ Enter        Create new note (from search term)\n⌘ /                Focus on search\n⌘ .                Focus on editor (if note is selected)\nAlt Ctrl R       Rename selected note\nAlt Ctrl D       Delete select note\nEscape          Clear current search (or jump to search from note body)\n\nYou can click around too, but we think it's less fun.\n\n",
+        "date_created" : "Sun Mar 05 2017 18:14:30 GMT-0500",
+        "date_modified" : "Sun Mar 05 2017 18:26:19 GMT-0500",
+        "id" : 2,
+        "title" : "Useful Shortcuts"
+      },
+      "2" : {
+        "body" : "Tom Meagher\n\nweb         meagher.co\ntwitter     @tomfme\nemail       tom@meagher.co ",
+        "date_created" : "Sun Mar 05 2017 18:26:48 GMT-0500",
+        "date_modified" : "Sun Mar 05 2017 18:28:31 GMT-0500",
+        "id" : 3,
+        "title" : "Contact Info"
+      }
+    }
+  }
+}

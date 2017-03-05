@@ -11,6 +11,10 @@ const state = {
 }
 
 const actions = {
+    INIT_NOTES: ({ state, commit, rootState }) => {
+      return api.initNotesForUserId(rootState.auth.user.uid)
+    },
+
     FETCH_NOTES: ({ state, commit, rootState }) => {
       return api.getNotesForUserId(rootState.auth.user.uid)
                 .then(notes => commit(SET_NOTES, notes))

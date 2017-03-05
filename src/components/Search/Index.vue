@@ -6,12 +6,9 @@
            v-model.trim="query"
            @input="updateQuery"
            @keyup.enter="onSearch"
-           @keyup.ctrl.enter="onCreate"
            @keyup.esc="onEscape"
            @keyup.up="onUp"
            @keyup.down="onDown"
-           @keyup.ctrl.shift.82="onRename"
-           @keyup.ctrl.shift.68="onDelete"
            placeholder="Search or create"
            v-focus
            autofocus>
@@ -22,7 +19,7 @@
               :key="note.id"
               :note="note"
               :isActive="activeNote && note.id == activeNote.id"
-              :currentEditingId="currentEditingId"
+              :editingId="editingId"
               @onResultSelect="onSelect"
               @onRenameBlur="onRenameBlur">
       </result>
@@ -31,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 import { localStorageMixin, noteMixin, utilsMixin } from '../../mixins'
 import Result from './Result.vue'
@@ -39,13 +36,12 @@ import Result from './Result.vue'
 export default {
   name: 'search',
 
-  mixins: [noteMixin, utilsMixin, localStorageMixin],
+  mixins: [localStorageMixin, noteMixin, utilsMixin],
 
-  props: ['activeNote', 'notes', 'user', 'resultIndex'],
+  props: ['activeNote', 'notes', 'user', 'resultIndex', 'editingId'],
 
   data: () => ({
-    query: '',
-    currentEditingId: null
+    query: ''
   }),
 
   components: {
@@ -57,18 +53,17 @@ export default {
       let notes;
       if (this.query.length == 0) {
         notes = this.notes
-      } else {
-        notes = this.filterNotesForQuery(this.query, this.notes)
+        return this.sortNotes(notes)
       }
 
-      notes = this.sortNotes(notes)
+      notes = this.filterNotesForQuery(this.query, this.notes)
+      notes = this.sortNotes(notes, true)
 
       return notes
     }
   },
 
   methods: {
-    ...mapActions(['CREATE_NOTE', 'DELETE_NOTE']),
     ...mapMutations(['SET_ACTIVE_NOTE', 'SET_ACTIVE_KEY', 'SET_QUERY', 'SET_RESULT_INDEX']),
     
     onSearch () {
@@ -77,21 +72,9 @@ export default {
       }
     },
 
-    onCreate () {
-      const id = this.nextIdForNotes(this.notes)
-      const note = this.createNote(id, this.query)
-      this.SET_ACTIVE_NOTE(note)
-
-      this.CREATE_NOTE(note).then(() => {
-        this.$emit('onSearch')
-      })
-    },
-
     onEscape () {
       this.query = ''
-      this.SET_RESULT_INDEX(-1)
-      this.SET_ACTIVE_NOTE(null)
-      this.SET_ACTIVE_KEY(null)
+      this.$emit('onEscape')
     },
 
     onUp () {
@@ -137,20 +120,7 @@ export default {
       this.SET_ACTIVE_KEY(key)
     },
 
-    onRename () {
-      if (this.activeNote) {
-        this.currentEditingId = this.activeNote.id
-      }
-    },
-
-    onDelete () {
-      this.DELETE_NOTE().then(() => {
-        this.onEscape()
-      })
-    },
-
     onRenameBlur () {
-      this.currentEditingId = null
       this.$emit('onRenameBlur')
     },
 

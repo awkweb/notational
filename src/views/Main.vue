@@ -2,69 +2,94 @@
   <div id="main"
        class="main">
 
-    <search :activeNote="activeNote"
-            :notes="notes"
-            :user="user"
-            :resultIndex="resultIndex"
-            @onSearch="onEditorFocus"
-            @onRenameBlur="onSearchFocus">
-    </search>
+    <spinner v-if="loading">
+    </spinner>
 
-    <editor :activeNote="activeNote"
-            :query="query"
-            @onEscape="onSearchFocus">
-    </editor>
+    <template v-else>
+      <search :activeNote="activeNote"
+              :notes="notes"
+              :user="user"
+              :resultIndex="resultIndex"
+              :editingId="editingId"
+              @onSearch="onEditorFocus"
+              @onEscape="onEscape"
+              @onRenameBlur="onSearchFocus">
+      </search>
 
-    <foot :activeNote="activeNote">
-    </foot>
+      <editor :activeNote="activeNote"
+              :query="query"
+              @onEscape="onSearchFocus">
+      </editor>
+
+      <foot :activeNote="activeNote">
+      </foot>
+    </template>
 
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import hotkeys from 'hotkeys-js'
+import keyboard from 'keyboardjs'
 
-import { localStorageMixin, utilsMixin } from '../mixins'
-import Search from '../components/Search/Index.vue'
+import { localStorageMixin, noteMixin, utilsMixin } from '../mixins'
 import Editor from '../components/Editor.vue'
 import Foot from '../components/Foot.vue'
+import Search from '../components/Search/Index.vue'
+import Spinner from '../components/Spinner.vue'
+
 
 export default {
   name: 'main',
 
-  mixins: [utilsMixin, localStorageMixin],
+  mixins: [localStorageMixin, noteMixin, utilsMixin],
+
+  data: () => ({
+    loading: true
+  }),
 
   created () {
     const user = this.ls_pullUser()
-    if (user)
-      this.SET_USER(user)
+    this.SET_USER(user)
 
-    this.FETCH_NOTES()
     this.setUpHotKeys()
+    this.FETCH_NOTES()
+      .then(() => {
+        this.loading = false
+      })
   },
 
   beforeDestroy () {
-    // hotkeys.unbind()
+    keyboard.reset()
   },
 
   components: {
-    Search,
     Editor,
-    Foot
+    Foot,
+    Search,
+    Spinner
   },
 
   computed: {
-    ...mapGetters(['activeNote', 'notes', 'user', 'query', 'resultIndex'])
+    ...mapGetters(['activeNote', 'notes', 'user', 'query', 'resultIndex', 'editingId'])
   },
 
   methods: {
-    ...mapActions(['FETCH_NOTES']),
-    ...mapMutations(['SET_USER', 'SET_NOTES']),
+    ...mapActions(['FETCH_NOTES', 'CREATE_NOTE', 'DELETE_NOTE']),
+    ...mapMutations(['SET_USER',
+                     'SET_NOTES',
+                     'SET_EDITING_ID',
+                     'SET_RESULT_INDEX',
+                     'SET_ACTIVE_NOTE',
+                     'SET_ACTIVE_KEY'
+    ]),
 
     setUpHotKeys () {
-      hotkeys('ctrl+/', () => this.onSearchFocus())
-      hotkeys('ctrl+.', () => {if (this.activeNote) this.onEditorFocus()})
+      keyboard.bind('command + /', () => this.onSearchFocus())
+      keyboard.bind('command + enter', () => { if (this.query.length > 0) this.onCreate() })
+      keyboard.bind('command + .', () => { if (this.activeNote) this.onEditorFocus() })
+      keyboard.bind('alt + ctrl + r', () => { if (this.activeNote) this.onRenameFocus() })
+      keyboard.bind('alt + ctrl + d', () => { if (this.activeNote) this.onDelete() })
     },
 
     onEditorFocus () {
@@ -75,7 +100,36 @@ export default {
     onSearchFocus () {
       const id = '#search-input'
       this.focusElement(id)
-    }
+    },
+
+    onRenameFocus () {
+      this.SET_EDITING_ID(this.activeNote.id)
+      this.$nextTick(() => {
+        const id = `#search-result-editor-${this.activeNote.id}`
+        this.focusElement(id)
+      })
+    },
+
+    onEscape () {
+      this.SET_RESULT_INDEX(-1)
+      this.SET_ACTIVE_NOTE(null)
+      this.SET_ACTIVE_KEY(null)
+    },
+
+    onCreate () {
+      const id = this.nextIdForNotes(this.notes)
+      const note = this.createNote(id, this.query)
+      this.SET_ACTIVE_NOTE(note)
+
+      this.CREATE_NOTE(note).then(() => { this.onEditorFocus() })
+    },
+
+    onDelete () {
+      this.DELETE_NOTE().then(() => {
+        this.onEscape()
+        this.onSearchFocus()
+      })
+    },
   },
 
   head: {

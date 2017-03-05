@@ -42,15 +42,25 @@ export const noteMixin = {
     },
 
     filterNotesForQuery (query, notes) {
-      return _.filter(notes, (note) => { return note.title.score(query) > 0 || note.body.score(query) > 0 })
+      return _.filter(notes, (note) => {
+        const titleScore = note.title.score(query)
+        const bodyScore = note.body.score(query)
+        note.score = 1 - titleScore + bodyScore
+        return titleScore > 0 || bodyScore > 0
+      })
     },
 
-    sortNotes (notes) {
+    sortNotes (notes, useScore) {
       let now = moment()
-      return _.sortBy(notes, [(note) => {
-        const date = moment(note.date_modified)
-        return now.diff(date, 'seconds')
-      }])
+      if (useScore)
+        return _.sortBy(notes, ['score', (note) => this.secondsFromNow(now, note.date_modified)])
+      else
+        return _.sortBy(notes, [(note) => this.secondsFromNow(now, note.date_modified)])
+    },
+
+    secondsFromNow (now, dateString) {
+      const date = moment(dateString)
+      return now.diff(date, 'seconds')
     }
   }
 }

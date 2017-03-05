@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueHead from 'vue-head'
 import VueRouter from 'vue-router'
+import ls from 'local-storage'
 
-import store from '../store'
 import Main from '../views/Main.vue'
 import LogIn from '../views/LogIn.vue'
 import SignUp from '../views/SignUp.vue'
@@ -20,7 +20,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.state.auth.user) {
+    if (!ls.get('user')) {
       next({
         path: '/login',
         query: {
