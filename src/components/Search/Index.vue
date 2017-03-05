@@ -82,9 +82,6 @@ export default {
       const note = this.createNote(id, this.query)
       this.SET_ACTIVE_NOTE(note)
 
-      const key = this.findKeyForNoteId(id, this.notes)
-      this.SET_ACTIVE_KEY(key)
-
       this.CREATE_NOTE(note).then(() => {
         this.$emit('onSearch')
       })
@@ -147,8 +144,7 @@ export default {
     },
 
     onDelete () {
-      const noteId = this.activeNote.id
-      this.DELETE_NOTE(noteId).then(() => {
+      this.DELETE_NOTE().then(() => {
         this.onEscape()
       })
     },

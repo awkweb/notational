@@ -47,5 +47,10 @@ export default {
                       })
                       .then(res => resolve({ key: key, date_modified: dateModified }))
     })
+  },
+
+  deleteNote (userId, key) {
+    let notesRef = database.ref(`${userId}/notes/${key}`)
+    return notesRef.remove()
   }
 }

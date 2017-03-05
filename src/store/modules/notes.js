@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import _ from 'lodash'
 
 import api from '../api'
@@ -25,8 +26,10 @@ const actions = {
                 .then(res => commit(UPDATE_NOTE, { key: res.key, date_modified: res.date_modified }))
     },
 
-    DELETE_NOTE: ({ commit }, noteId) => {
-      return commit(DELETE_NOTE, noteId)
+    DELETE_NOTE: ({ state, commit, rootState }) => {
+      return api.deleteNote(rootState.auth.user.uid, state.activeKey)
+                .then(() => commit(DELETE_NOTE, state.activeKey))
+      return 
     }
 }
 
@@ -44,7 +47,8 @@ const mutations = {
     },
 
     [CREATE_NOTE] (state, data) {
-      state.notes[`${data.key}`] = data.note
+      Vue.set(state.notes, data.key, data.note)
+      state.activeKey = data.key
     },
 
     [UPDATE_NOTE] (state, data) {
@@ -52,8 +56,8 @@ const mutations = {
       note.date_modified = data.date_modified
     },
 
-    [DELETE_NOTE] (state, noteId) {
-      state.notes = state.notes.filter(note => note.id != noteId)
+    [DELETE_NOTE] (state, key) {
+      Vue.delete(state.notes, key)
     }
 }
 
