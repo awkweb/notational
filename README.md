@@ -1,4 +1,4 @@
-# Notational Vue
+# Notational
 
 > Notational Velocity for the web built with [Vue.js](https://vuejs.org/).
 
