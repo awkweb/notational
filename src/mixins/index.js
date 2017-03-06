@@ -45,7 +45,7 @@ export const noteMixin = {
       return _.filter(notes, (note) => {
         const titleScore = note.title.score(query)
         const bodyScore = note.body.score(query)
-        note.score = 1 - titleScore + bodyScore
+        note.score = titleScore + bodyScore
         return titleScore > 0 || bodyScore > 0
       })
     },
@@ -53,9 +53,9 @@ export const noteMixin = {
     sortNotes (notes, useScore) {
       let now = moment()
       if (useScore)
-        return _.sortBy(notes, ['score', (note) => this.secondsFromNow(now, note.date_modified)])
+        return _.orderBy(notes, ['score', (note) => this.secondsFromNow(now, note.date_modified)], ['desc', 'asc'])
       else
-        return _.sortBy(notes, [(note) => this.secondsFromNow(now, note.date_modified)])
+        return _.orderBy(notes, [(note) => this.secondsFromNow(now, note.date_modified)], ['asc'])
     },
 
     secondsFromNow (now, dateString) {

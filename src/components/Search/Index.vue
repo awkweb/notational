@@ -11,6 +11,7 @@
            @keyup.down="onDown"
            placeholder="Search or create"
            v-focus
+           spellcheck="false"
            autofocus>
     
     <ul class="search__results">
@@ -74,6 +75,7 @@ export default {
 
     onEscape () {
       this.query = ''
+      this.SET_QUERY('')
       this.$emit('onEscape')
     },
 

@@ -85,9 +85,9 @@ export default {
     ]),
 
     setUpHotKeys () {
-      keyboard.bind('command + /', () => this.onSearchFocus())
-      keyboard.bind('command + enter', () => { if (this.query.length > 0) this.onCreate() })
-      keyboard.bind('command + .', () => { if (this.activeNote) this.onEditorFocus() })
+      keyboard.bind('ctrl + /', () => this.onSearchFocus())
+      keyboard.bind('ctrl + enter', () => { if (this.query.length > 0) this.onCreate() })
+      keyboard.bind('ctrl + .', () => { if (this.activeNote) this.onEditorFocus() })
       keyboard.bind('alt + ctrl + r', () => { if (this.activeNote) this.onRenameFocus() })
       keyboard.bind('alt + ctrl + d', () => { if (this.activeNote) this.onDelete() })
     },
