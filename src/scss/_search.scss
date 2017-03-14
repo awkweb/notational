@@ -2,6 +2,18 @@
     display: flex;
     flex-direction: column;
 
+    &__container {
+      display: flex;
+      flex-direction: column;
+      height: 4.5rem;
+      margin: {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 1rem;
+      }
+    }
+
     &__input {
       color: $black;
       background: {
@@ -22,12 +34,7 @@
         family: $sans-serif;
         size: 1rem;
       }
-      margin: {
-        bottom: 1rem;
-        left: 0;
-        right: 0;
-        top: 1rem;
-      }
+      max-height: 28px;
       outline: 0;
       padding: {
         bottom: 9px;
@@ -39,6 +46,20 @@
       &:focus {
         border-color: $red;
         transition: $transition;
+      }
+    }
+
+    &__help {
+      color: $gray;
+      display: flex;
+      font: {
+        size: .75rem;
+      }
+      justify-content: space-between;
+      margin: {
+        left: .2rem;
+        right: .2rem;
+        top: .3rem;
       }
     }
 

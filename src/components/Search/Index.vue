@@ -1,18 +1,34 @@
 <template>
   <div id="search" class="search">
-    <input id="search-input"
-           class="search__input"
-           type="text"
-           v-model.trim="query"
-           @input="updateQuery"
-           @keyup.enter="onSearch"
-           @keyup.esc="onEscape"
-           @keyup.up="onUp"
-           @keyup.down="onDown"
-           placeholder="Search or create"
-           v-focus
-           spellcheck="false"
-           autofocus>
+    <div class="search__container">
+      <input id="search-input"
+             class="search__input"
+             type="text"
+             v-model.trim="query"
+             @input="updateQuery"
+             @keyup.enter="onSearch"
+             @keyup.esc="onEscape"
+             @keyup.up="onUp"
+             @keyup.down="onDown"
+             placeholder="Search or create"
+             v-focus
+             spellcheck="false"
+             autofocus>
+
+      <div class="search__help"
+           v-show="query.length > 1">
+        <span v-if="filteredNotes.length == 1">
+          1 note
+        </span>
+        <span v-else>
+          {{ filteredNotes.length }} notes
+        </span>
+
+        <span v-show="!editingId">
+          Press ctrl + enter to create
+        </span>
+      </div>
+    </div>
     
     <ul class="search__results">
       <result v-for="note in filteredNotes"
