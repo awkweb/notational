@@ -4,16 +4,17 @@
       :class="{ active: isActive }"
       @click="onResultSelect">
 
-    <input v-if="note.id == editingId"
+    <input v-if="note.id == renamingId"
            :id="`search-result-editor-${note.id}`"
            v-model="note.title"
            @blur="onRenameBlur"
-           @keyup.enter="onRenameBlur"
+           @keyup.esc="onRenameBlur"
+           @keyup.enter="onRenameSave"
            v-focus
            class="search__result__editor"
            type="text">
 
-    <template v-if="!(note.id == editingId)">
+    <template v-if="!(note.id == renamingId)">
       <span class="search__result__title">
             {{ note.title }}
             <span v-show="note.body.length > 0"
@@ -37,21 +38,28 @@ import { prettyDate } from '../../filters'
 export default {
   name: 'result',
 
-  props: ['note', 'isActive', 'editingId'],
+  props: ['note', 'isActive', 'renamingId'],
 
   methods: {
-    ...mapActions(['UPDATE_NOTE']),
-    ...mapMutations(['SET_RESULT_INDEX', 'SET_EDITING_ID']),
+    ...mapActions(['UPDATE_NOTE'
+    ]),
+    ...mapMutations(['SET_RESULT_INDEX',
+                     'SET_RENAMING_ID'
+    ]),
 
     onResultSelect () {
       this.$emit('onResultSelect', this.note)
     },
 
     onRenameBlur () {
-      this.UPDATE_NOTE()
       this.SET_RESULT_INDEX(0)
-      this.SET_EDITING_ID(null)
+      this.SET_RENAMING_ID(null)
       this.$emit('onRenameBlur')
+    },
+
+    onRenameSave () {
+      this.UPDATE_NOTE()
+      this.onRenameBlur()
     }
   }
 

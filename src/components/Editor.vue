@@ -10,6 +10,7 @@
                 class="editor__textarea" 
                 v-model="activeNote.body"
                 @input="onInput"
+                @blur="onBlur"
                 @keyup.esc="onEscape"
                 rows="12">
       </textarea>
@@ -31,19 +32,29 @@ import Highlight from '../components/Highlight.vue'
 export default {
   name: 'editor',
 
-  props: ['activeNote', 'query'],
+  props: ['activeNote', 'query', 'editingId'],
 
   components: {
     Highlight
   },
 
   methods: {
-    ...mapActions(['UPDATE_NOTE']),
-    ...mapMutations(['SET_RESULT_INDEX']),
+    ...mapActions(['UPDATE_NOTE'
+    ]),
+    ...mapMutations(['SET_RESULT_INDEX',
+                     'SET_EDITING_ID'
+    ]),
     
     onInput () {
       this.UPDATE_NOTE(this.activeNote)
-      this.SET_RESULT_INDEX(0)
+
+      if (this.activeNote.id != this.editingId)
+        this.SET_RESULT_INDEX(0)
+        this.SET_EDITING_ID(this.activeNote.id)
+    },
+
+    onBlur () {
+      this.SET_EDITING_ID(null)
     },
 
     onEscape () {

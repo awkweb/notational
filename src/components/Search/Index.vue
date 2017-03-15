@@ -15,19 +15,11 @@
              spellcheck="false"
              autofocus>
 
-      <div class="search__help"
-           v-show="query.length > 1">
-        <span v-if="filteredNotes.length == 1">
-          1 note
-        </span>
-        <span v-else>
-          {{ filteredNotes.length }} notes
-        </span>
-
-        <span v-show="!editingId">
-          Press ctrl + enter to create
-        </span>
-      </div>
+      <info :resultsCount="filteredNotes.length"
+            :queryLength="query.length"
+            :renaming="renamingId != null"
+            :editing="editingId != null">
+      </info>
     </div>
     
     <ul class="search__results">
@@ -36,7 +28,7 @@
               :key="note.id"
               :note="note"
               :isActive="activeNote && note.id == activeNote.id"
-              :editingId="editingId"
+              :renamingId="renamingId"
               @onResultSelect="onSelect"
               @onRenameBlur="onRenameBlur">
       </result>
@@ -49,20 +41,22 @@ import { mapActions, mapMutations } from 'vuex'
 
 import { localStorageMixin, noteMixin, utilsMixin } from '../../mixins'
 import Result from './Result.vue'
+import Info from './Info.vue'
 
 export default {
   name: 'search',
 
   mixins: [localStorageMixin, noteMixin, utilsMixin],
 
-  props: ['activeNote', 'notes', 'user', 'resultIndex', 'editingId'],
+  props: ['activeNote', 'notes', 'user', 'resultIndex', 'renamingId', 'editingId'],
 
   data: () => ({
     query: ''
   }),
 
   components: {
-    Result
+    Result,
+    Info
   },
 
   computed: {
@@ -81,7 +75,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['SET_ACTIVE_NOTE', 'SET_ACTIVE_KEY', 'SET_QUERY', 'SET_RESULT_INDEX']),
+    ...mapMutations(['SET_ACTIVE_NOTE',
+                     'SET_ACTIVE_KEY',
+                     'SET_QUERY',
+                     'SET_RESULT_INDEX'
+    ]),
     
     onSearch () {
       if (this.activeNote) {

@@ -34,7 +34,7 @@
         family: $sans-serif;
         size: 1rem;
       }
-      max-height: 28px;
+      max-height: 26px;
       outline: 0;
       padding: {
         bottom: 9px;
@@ -49,7 +49,7 @@
       }
     }
 
-    &__help {
+    &__info {
       color: $gray;
       display: flex;
       font: {
@@ -57,9 +57,9 @@
       }
       justify-content: space-between;
       margin: {
-        left: .2rem;
-        right: .2rem;
-        top: .3rem;
+        left: .4rem;
+        right: .4rem;
+        top: .4rem;
       }
     }
 

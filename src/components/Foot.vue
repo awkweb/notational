@@ -10,10 +10,25 @@
       {{ randomMessage() }}
     </span>
 
-    <button class="foot__button"
-            v-on:click="onLogOut">
-            Log Out
-    </button>
+    <div class="foot__right">
+      <template v-if="user">
+        <button class="foot__button"
+                v-on:click="onLogOut">
+                Log Out
+        </button>
+      </template>
+
+      <template v-else>
+        <button class="foot__button"
+                v-on:click="onLogOut">
+                Log In
+        </button>
+        <button class="foot__button"
+                v-on:click="onLogOut">
+                Sign Up
+        </button>
+      </template>
+    </div>
 
   </footer>
 </template>
@@ -29,7 +44,7 @@ export default {
 
   mixins: [localStorageMixin],
 
-  props: ['activeNote'],
+  props: ['activeNote', 'user'],
 
   data: () => ({
     messages: [

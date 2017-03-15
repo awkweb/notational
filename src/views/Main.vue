@@ -10,6 +10,7 @@
               :notes="notes"
               :user="user"
               :resultIndex="resultIndex"
+              :renamingId="renamingId"
               :editingId="editingId"
               @onSearch="onEditorFocus"
               @onEscape="onEscape"
@@ -18,10 +19,12 @@
 
       <editor :activeNote="activeNote"
               :query="query"
+              :editingId="editingId"
               @onEscape="onSearchFocus">
       </editor>
 
-      <foot :activeNote="activeNote">
+      <foot :activeNote="activeNote"
+            :user="user">
       </foot>
     </template>
 
@@ -71,14 +74,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['activeNote', 'notes', 'user', 'query', 'resultIndex', 'editingId'])
+    ...mapGetters(['activeNote',
+                   'notes',
+                   'user', 
+                   'query',
+                   'resultIndex',
+                   'renamingId',
+                   'editingId'
+    ])
   },
 
   methods: {
-    ...mapActions(['FETCH_NOTES', 'CREATE_NOTE', 'DELETE_NOTE']),
+    ...mapActions(['FETCH_NOTES',
+                   'CREATE_NOTE',
+                   'DELETE_NOTE'
+    ]),
     ...mapMutations(['SET_USER',
                      'SET_NOTES',
-                     'SET_EDITING_ID',
+                     'SET_RENAMING_ID',
                      'SET_RESULT_INDEX',
                      'SET_ACTIVE_NOTE',
                      'SET_ACTIVE_KEY'
@@ -103,7 +116,7 @@ export default {
     },
 
     onRenameFocus () {
-      this.SET_EDITING_ID(this.activeNote.id)
+      this.SET_RENAMING_ID(this.activeNote.id)
       this.$nextTick(() => {
         const id = `#search-result-editor-${this.activeNote.id}`
         this.focusElement(id)

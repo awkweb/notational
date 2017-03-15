@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import notes from './modules/notes'
 import { getNotesForUserId } from './api'
-import { SET_QUERY, SET_RESULT_INDEX, SET_EDITING_ID } from './constants'
+import { SET_QUERY, SET_RESULT_INDEX, SET_RENAMING_ID, SET_EDITING_ID } from './constants'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,8 @@ const store = new Vuex.Store({
   state: {
     query: '',
     resultIndex: -1,
-    editingId: null,
+    renamingId: null,
+    editingId: null
   },
 
   modules: {
@@ -29,6 +30,10 @@ const store = new Vuex.Store({
       state.resultIndex = resultIndex
     },
 
+    [SET_RENAMING_ID] (state, renamingId) {
+      state.renamingId = renamingId
+    },
+
     [SET_EDITING_ID] (state, editingId) {
       state.editingId = editingId
     }
@@ -41,6 +46,10 @@ const store = new Vuex.Store({
 
     resultIndex: state => {
       return state.resultIndex
+    },
+
+    renamingId: state => {
+      return state.renamingId
     },
 
     editingId: state => {
