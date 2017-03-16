@@ -6,7 +6,7 @@
 
     <input v-if="note.id == renamingId"
            :id="`search-result-editor-${note.id}`"
-           v-model="note.title"
+           v-model="note.name"
            @blur="onRenameBlur"
            @keyup.esc="onRenameBlur"
            @keyup.enter="onRenameSave"
@@ -15,8 +15,8 @@
            type="text">
 
     <template v-if="!(note.id == renamingId)">
-      <span class="search__result__title">
-            {{ note.title }}
+      <span class="search__result__name">
+            {{ note.name }}
             <span v-show="note.body.length > 0"
                   class="search__result__description"> 
                   – {{ note.body }}

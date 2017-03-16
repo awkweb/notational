@@ -105,6 +105,7 @@
 				weight: 700;
 			}
 			margin-top: .5rem;
+			transition: background-color $transition;
 			width: 8rem;
 
 			&:focus {
@@ -113,7 +114,6 @@
 
 			&:hover {
 				background-color: $red-d;
-				transition: $transition;
 			}
 		}
 	}

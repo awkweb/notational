@@ -22,10 +22,10 @@ export const localStorageMixin = {
 
 export const noteMixin = {
   methods: {
-    createNote (id, title, body = '', dateModified = moment()) {
+    createNote (id, name, body = '', dateModified = moment()) {
       return  {
         id: id,
-        title: title,
+        name: name,
         body: body,
         date_modified: dateModified.toString(),
         date_created: moment().toString()
@@ -43,10 +43,10 @@ export const noteMixin = {
 
     filterNotesForQuery (query, notes) {
       return _.filter(notes, (note) => {
-        const titleScore = note.title.score(query)
+        const nameScore = note.name.score(query)
         const bodyScore = note.body.score(query)
-        note.score = titleScore + bodyScore
-        return titleScore > 0 || bodyScore > 0
+        note.score = nameScore + bodyScore
+        return nameScore > 0 || bodyScore > 0
       })
     },
 

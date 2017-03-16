@@ -12,6 +12,17 @@
 
   }
 
+  .primary {
+    background-color: $red;
+    border-color: $red;
+    color: $white;
+
+    &:hover {
+      border-color: $red-d;
+      color: $white;
+    }
+  }
+
   &__button {
     background-color: $white;
     border: {
@@ -33,6 +44,7 @@
       right: 6px;
       top: 3px;
     }
+    transition: border-color $transition, color $transition;
 
     &:focus {
       outline: 0;
@@ -41,7 +53,6 @@
     &:hover {
       border-color: $red;
       color: $red;
-      transition: $transition;
     }
   }
 }

@@ -13,6 +13,10 @@ export default {
 		return auth.signInWithEmailAndPassword(email, password)
 	},
 
+  logInAnonymously () {
+    return auth.signInAnonymously()
+  },
+
 	logOut () {
 		return auth.signOut()
 	},
@@ -20,6 +24,17 @@ export default {
 	signUp (email, password) {
 		return auth.createUserWithEmailAndPassword(email, password)
 	},
+
+  signUpAnonymously (email, password) {
+    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    return auth.currentUser.link(credential)
+  },
+
+  deleteAnonymousUser (userId) {
+    let userRef = database.ref(`users/${userId}`)
+    userRef.remove()
+    return auth.currentUser.delete()
+  },
 
   initNotesForUserId (userId) {
     const vm = this
@@ -47,7 +62,7 @@ export default {
 
 	getNotesForUserId (userId) {
     return new Promise((resolve, reject) => {
-      let notesRef = database.ref(`${userId}/notes`)
+      let notesRef = database.ref(`users/${userId}/notes`)
       return notesRef.once('value')
                      .then(res => resolve(res.val()))
     })
@@ -55,7 +70,7 @@ export default {
 
 	createNote (userId, note) {
 		return new Promise((resolve, reject) => {
-      let userNotesRef = database.ref(`${userId}/notes`)
+      let userNotesRef = database.ref(`users/${userId}/notes`)
       return userNotesRef.push(note)
                          .then(res => resolve(res.key))
     })
@@ -63,10 +78,10 @@ export default {
 
   updateNote (userId, key, note) {
     return new Promise((resolve, reject) => {
-      let notesRef = database.ref(`${userId}/notes/${key}`)
+      let notesRef = database.ref(`users/${userId}/notes/${key}`)
       const dateModified = moment().toString()
       return notesRef.update({        
-                        title: note.title,
+                        name: note.name,
                         body: note.body,
                         date_modified: dateModified,
                       })
@@ -75,7 +90,7 @@ export default {
   },
 
   deleteNote (userId, key) {
-    let notesRef = database.ref(`${userId}/notes/${key}`)
+    let notesRef = database.ref(`users/${userId}/notes/${key}`)
     return notesRef.remove()
   }
 }

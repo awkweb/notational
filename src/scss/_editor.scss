@@ -39,10 +39,10 @@
     margin: 0;
     outline: 0;
     resize: none;
+    transition: border-color $transition;
 
     &:focus {
       border-color: $red;
-      transition: $transition;
     }
   }
 

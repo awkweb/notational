@@ -71,10 +71,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(['LOG_IN_USER']),
+    ...mapActions(['LOG_IN_USER',
+                   'DELETE_ANONYMOUS_USER'
+    ]),
 
     onLogIn () {
       if (this.email != null && this.password != null) {
+        if (this.user && this.user.isAnonymous) {
+          this.DELETE_ANONYMOUS_USER(this.user.uid)
+        }
+
         const data = {
           email: this.email,
           password: this.password

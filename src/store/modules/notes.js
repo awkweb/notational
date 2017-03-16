@@ -33,7 +33,6 @@ const actions = {
     DELETE_NOTE: ({ state, commit, rootState }) => {
       return api.deleteNote(rootState.auth.user.uid, state.activeKey)
                 .then(() => commit(DELETE_NOTE, state.activeKey))
-      return 
     }
 }
 

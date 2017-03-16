@@ -42,10 +42,10 @@
         left: 10px;
         top: 9px;
       }
+      transition: border-color $transition;
 
       &:focus {
         border-color: $red;
-        transition: $transition;
       }
     }
 
@@ -97,7 +97,7 @@
         background-color: $gray-l;
       }
 
-      &__title {
+      &__name {
         overflow: hidden;
         text-overflow: ellipsis;
       }

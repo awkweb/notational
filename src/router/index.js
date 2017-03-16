@@ -12,27 +12,10 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
-    { path: '/', name: 'main', component: Main, meta: { requiresAuth: true} },
+    { path: '/', name: 'main', component: Main },
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
   ]
-})
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!ls.get('user')) {
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath,
-        },
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
 })
 
 export default router

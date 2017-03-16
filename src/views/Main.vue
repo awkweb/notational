@@ -53,13 +53,27 @@ export default {
 
   created () {
     const user = this.ls_pullUser()
-    this.SET_USER(user)
+    if (this.user || user) {
+      this.SET_USER(user)
 
+      this.FETCH_NOTES()
+        .then(() => {
+          this.loading = false
+        })
+    } else {
+      this.LOG_IN_USER_ANONYMOUSLY()
+        .then(() => {
+          this.ls_pushUser(this.user)
+          this.INIT_NOTES()
+            .then(() => {
+              this.FETCH_NOTES()
+                .then(() => this.loading = false)
+                .catch((error) => console.log(error))
+            })
+            .catch((error) => console.log(error))
+        })
+    }
     this.setUpHotKeys()
-    this.FETCH_NOTES()
-      .then(() => {
-        this.loading = false
-      })
   },
 
   beforeDestroy () {
@@ -85,7 +99,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['FETCH_NOTES',
+    ...mapActions(['INIT_NOTES',
+                   'LOG_IN_USER_ANONYMOUSLY',
+                   'FETCH_NOTES',
                    'CREATE_NOTE',
                    'DELETE_NOTE'
     ]),
