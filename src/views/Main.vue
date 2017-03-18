@@ -6,25 +6,15 @@
     </spinner>
 
     <template v-else>
-      <search :activeNote="activeNote"
-              :notes="notes"
-              :user="user"
-              :resultIndex="resultIndex"
-              :renamingId="renamingId"
-              :editingId="editingId"
-              @onSearch="onEditorFocus"
+      <search @onSearch="onEditorFocus"
               @onEscape="onEscape"
               @onRenameBlur="onSearchFocus">
       </search>
 
-      <editor :activeNote="activeNote"
-              :query="query"
-              :editingId="editingId"
-              @onEscape="onSearchFocus">
+      <editor @onEscape="onSearchFocus">
       </editor>
 
-      <foot :activeNote="activeNote"
-            :user="user">
+      <foot>
       </foot>
     </template>
 
@@ -91,10 +81,7 @@ export default {
     ...mapGetters(['activeNote',
                    'notes',
                    'user', 
-                   'query',
-                   'resultIndex',
-                   'renamingId',
-                   'editingId'
+                   'query'
     ])
   },
 

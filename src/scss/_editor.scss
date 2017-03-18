@@ -4,8 +4,7 @@
 
   mark {
     color: transparent;
-    background-color: $red;
-    opacity: .25;
+    background-color: $red-l;
   }
 
   &__textarea, &__ghost,  &__placeholder {
@@ -36,6 +35,7 @@
   &__textarea {
     background-color: transparent;
     border-radius: 0;
+    color: $black;
     margin: 0;
     outline: 0;
     resize: none;

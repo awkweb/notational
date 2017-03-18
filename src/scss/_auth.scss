@@ -26,7 +26,7 @@
 
 			&__label {
 				font: {
-			        family: $sans-serif;
+					family: $sans-serif;
 					size: .9rem;
 					weight: 500;
 				}
@@ -43,7 +43,7 @@
 				}
 				box-shadow: $box-shadow;
 				font: {
-			        family: $sans-serif;
+					family: $sans-serif;
 					size: 1rem;
 				}
 				outline: 0;
@@ -53,10 +53,10 @@
 					left: 10px;
 					top: 9px;
 				}
+				transition: border-color $transition;
 
 				&:focus {
 					border-color: $red;
-					transition: $transition;
 				}
 
 				&.email, &.password {
@@ -92,7 +92,7 @@
 				style: solid;
 				width: 3px;
 			}
-  			box-shadow: $box-shadow;
+			box-shadow: $box-shadow;
 			padding: {
 				bottom: 7px;
 				right: 10px;
@@ -120,12 +120,16 @@
 
 	a {
 		align-self: center;
-		border-bottom: 1px solid $gray-l;
+		border-bottom: {
+			color: $gray-l;
+			style: solid;
+			width: 1px;
+		}
+		color: $gray;
 		font: {
 			family: $sans-serif;
 			size: .95rem;
 		}
-		color: $gray;
 		text-decoration: none;
 	}
 }

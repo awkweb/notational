@@ -42,9 +42,13 @@ import { wordCount } from '../filters'
 export default {
   name: 'foot',
 
-  props: ['activeNote', 'user'],
-
   mixins: [localStorageMixin],
+ 
+  computed: {
+    ...mapGetters(['activeNote',
+                   'user'
+    ])
+  },
 
   data: () => ({
     messages: [

@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { utilsMixin } from '../mixins'
 
 export default {
@@ -17,7 +18,7 @@ export default {
 
   mixins: [utilsMixin],
 
-  props: ['body', 'query'],
+  props: ['body'],
 
   updated () {
     const textarea = this.selectElement('#editor-textarea')
@@ -25,6 +26,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['query'
+    ]),
+
     content () {
       const regexString = this.query.replace(/\s/g, '|')
       const re = new RegExp(regexString, 'gi');

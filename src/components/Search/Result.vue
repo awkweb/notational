@@ -4,7 +4,7 @@
       :class="{ active: isActive }"
       @click="onResultSelect">
 
-    <input v-if="note.id == renamingId"
+    <input v-if="renaming"
            :id="`search-result-editor-${note.id}`"
            v-model="note.name"
            @blur="onRenameBlur"
@@ -14,9 +14,9 @@
            class="search__result__editor"
            type="text">
 
-    <template v-if="!(note.id == renamingId)">
+    <template v-if="!(renaming)">
       <span class="search__result__name">
-            {{ note.name }}
+            <span v-html="name"></span>
             <span v-show="note.body.length > 0"
                   class="search__result__description"> 
                   – {{ note.body }}
@@ -31,14 +31,32 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import { prettyDate } from '../../filters'
 
 export default {
   name: 'result',
 
-  props: ['note', 'isActive', 'renamingId'],
+  props: ['note', 'isActive', 'renaming'],
+
+  computed: {
+    ...mapGetters(['query'
+    ]),
+
+    name () {
+      if (this.query.length > 0) {
+        console.log('query exists')
+        const regexString = this.query.replace(/\s/g, '|')
+        const re = new RegExp(regexString, 'gi')
+        console.log('name', this.query)
+        return this.note.name
+                   .replace(/\n$/g, '\n\n')
+                   .replace(re, '<mark>$&</mark>')
+      }
+      return this.note.name
+    }
+  },
 
   methods: {
     ...mapActions(['UPDATE_NOTE'

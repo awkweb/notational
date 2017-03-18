@@ -2,8 +2,7 @@
   <div class="editor">
     
     <template v-if="activeNote">
-      <highlight :body="activeNote.body"
-                 :query="query">
+      <highlight :body="activeNote.body">
       </highlight>
 
       <textarea id="editor-textarea"
@@ -25,17 +24,22 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import Highlight from '../components/Highlight.vue'
 
 export default {
   name: 'editor',
 
-  props: ['activeNote', 'query', 'editingId'],
-
   components: {
     Highlight
+  },
+
+  computed: {
+    ...mapGetters(['activeNote',
+                   'query',
+                   'editingId'
+     ])
   },
 
   methods: {

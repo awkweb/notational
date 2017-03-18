@@ -1,5 +1,8 @@
 {
   "rules": {
+    "default_notes": {
+      ".read": true,
+    },
     "users": {
       "$uid": {
         ".read": "$uid === auth.uid",

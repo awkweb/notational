@@ -28,7 +28,7 @@
               :key="note.id"
               :note="note"
               :isActive="activeNote && note.id == activeNote.id"
-              :renamingId="renamingId"
+              :renaming="renamingId == note.id"
               @onResultSelect="onSelect"
               @onRenameBlur="onRenameBlur">
       </result>
@@ -37,18 +37,16 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import { localStorageMixin, noteMixin, utilsMixin } from '../../mixins'
+import { noteMixin, utilsMixin } from '../../mixins'
 import Result from './Result.vue'
 import Info from './Info.vue'
 
 export default {
   name: 'search',
 
-  mixins: [localStorageMixin, noteMixin, utilsMixin],
-
-  props: ['activeNote', 'notes', 'user', 'resultIndex', 'renamingId', 'editingId'],
+  mixins: [noteMixin, utilsMixin],
 
   data: () => ({
     query: ''
@@ -60,6 +58,14 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['activeNote',
+                   'notes',
+                   'user', 
+                   'resultIndex',
+                   'renamingId',
+                   'editingId'
+    ]),
+
     filteredNotes () {
       let notes;
       if (this.query.length == 0) {

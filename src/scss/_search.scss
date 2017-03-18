@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: column;
 
+    mark {
+      background-color: $red-l;
+      color: #333333;
+    }
+
     &__container {
       display: flex;
       flex-direction: column;
@@ -34,7 +39,7 @@
         family: $sans-serif;
         size: 1rem;
       }
-      max-height: 26px;
+      max-height: 25px;
       outline: 0;
       padding: {
         bottom: 9px;
