@@ -10,7 +10,9 @@
                 v-model="activeNote.body"
                 @input="onInput"
                 @blur="onBlur"
+                @focus="onFocus"
                 @keyup.esc="onEscape"
+                placeholder="The quick brown fox..." 
                 rows="12">
       </textarea>
     </template>    
@@ -54,6 +56,10 @@ export default {
 
       if (this.activeNote.id != this.editingId)
         this.SET_RESULT_INDEX(0)
+    },
+
+    onFocus () {
+      if (this.activeNote.id != this.editingId)
         this.SET_EDITING_ID(this.activeNote.id)
     },
 

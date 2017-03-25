@@ -1,7 +1,7 @@
 {
   "rules": {
     "default_notes": {
-      ".read": true,
+      ".read": true
     },
     "users": {
       "$uid": {

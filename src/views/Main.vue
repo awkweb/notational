@@ -81,7 +81,9 @@ export default {
     ...mapGetters(['activeNote',
                    'notes',
                    'user', 
-                   'query'
+                   'query',
+                   'renamingId',
+                   'editingId'
     ])
   },
 

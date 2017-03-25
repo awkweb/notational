@@ -8,8 +8,6 @@
              @input="updateQuery"
              @keyup.enter="onSearch"
              @keyup.esc="onEscape"
-             @keyup.up="onUp"
-             @keyup.down="onDown"
              placeholder="Search or create"
              v-focus
              spellcheck="false"
@@ -38,6 +36,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import keyboard from 'keyboardjs'
 
 import { noteMixin, utilsMixin } from '../../mixins'
 import Result from './Result.vue'
@@ -51,6 +50,14 @@ export default {
   data: () => ({
     query: ''
   }),
+
+  created () {
+    this.setUpHotKeys()
+  },
+
+  beforeDestroy () {
+    keyboard.reset()
+  },
 
   components: {
     Result,
@@ -86,6 +93,11 @@ export default {
                      'SET_QUERY',
                      'SET_RESULT_INDEX'
     ]),
+
+    setUpHotKeys () {
+      keyboard.bind('up', () => { if (!this.editingId && !this.renamingId) this.onUp() })
+      keyboard.bind('down', () => { if (!this.editingId && !this.renamingId) this.onDown() })
+    },
     
     onSearch () {
       if (this.activeNote) {
