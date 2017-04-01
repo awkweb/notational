@@ -67,6 +67,7 @@
 				}
 
 				&.email {
+					text-transform: lowercase;
 					background: {
 						image: url("../assets/email.svg");
 						size: 25px;

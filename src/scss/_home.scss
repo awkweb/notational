@@ -80,12 +80,12 @@
 		display: flex;
 		justify-content: space-between;
 		color: $gray-l;
-    	transition: color $transition;
+		transition: color $transition;
 
-    	a {
+		a {
 			color: $gray-l;
-    		transition: color $transition;
-    	}
+			transition: color $transition;
+		}
 
 		font: {
 			size: .95rem;
@@ -97,92 +97,119 @@
 
 			a {
 				color: $red;
-    		}
+			}
+		}
+
+		@media screen and (max-width: $sm) {
+			flex-direction: column;
+			align-items: center;
 		}
 	}
 }
 
 .home__form {
-  box-shadow: $box-shadow;
-  background: $white-d;
-  margin: {
-  	bottom: 3rem;
-  	left: 0;
-  	right: 0;
-  	top: 2.5rem;
-  };
-  border: {
-  	width: 1px;
-  	style: solid;
-  	color: $gray-l;
-  	radius: $border-radius;
-  };
-  padding: {
-  	top: 1.25rem;
-  	left: 1.25rem;
-  	right: 1.25rem;
-  	bottom: .75rem;
-  };
-  display: flex;
-  flex-direction: column;
+	box-shadow: $box-shadow;
+	background: $white-d;
+	margin: {
+		bottom: 3rem;
+		left: 0;
+		right: 0;
+		top: 2.5rem;
+	};
+	border: {
+		width: 1px;
+		style: solid;
+		color: $gray-l;
+		radius: $border-radius;
+	};
+	padding: {
+		top: 1.25rem;
+		left: 1.25rem;
+		right: 1.25rem;
+		bottom: .75rem;
+	};
+	display: flex;
+	flex-direction: column;
 
-  & > form {
-    flex: 1;
-    display: flex;
-    margin-bottom: .75rem;
-  }
+	& > form {
+		flex: 1;
+		display: flex;
+		margin-bottom: .75rem;
+	}
 
-  &__email {
-    flex: 8;
-    color: $gray-d;
-    margin-right: 0;
-    border: {
-  		width: 1px;
-  		style: solid;
-  		color: $gray-l;
-  		top-left-radius: $border-radius;
-  		bottom-left-radius: $border-radius;
-  	};
-    padding: 1rem;
-    font-size: 1.15rem;
-    outline: 0;
-    transition: border-color $transition;
+	@media screen and (max-width: $sm) {
+		padding: {
+			top: .5rem;
+			left: .5rem;
+			right: .5rem;
+			bottom: .5rem;
+		};
+	}
 
-    &:hover {
-      border-color: $blue;
-    }
+	&__email {
+		flex: 8;
+		color: $gray-d;
+		margin: 0;
+		border: {
+			width: 1px;
+			style: solid;
+			color: $gray-l;
+			top-left-radius: $border-radius;
+			bottom-left-radius: $border-radius;
+			top-right-radius: 0;
+			bottom-right-radius: 0;
+		};
+		padding: 1rem;
+		font-size: 1.15rem;
+		outline: 0;
+		transition: border-color $transition;
+		text-transform: lowercase;
+		-webkit-appearance: none;
 
-    &:focus {
-      border-color: $red;
-    }
-  }
+		&:hover {
+			border-color: $blue;
+		}
 
-  &__button {
-    flex: 2;
-    background-color: $white;
-    color: $gray-d;
-    margin-left: 0;
-    border: {
-  		width: 1px;
-  		style: solid;
-  		color: $gray-l;
-    	left-width: 0;
-  		top-right-radius: $border-radius;
-  		bottom-right-radius: $border-radius;
-  	};
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 700;
-    font-family: $sans-serif;
-    cursor: pointer;
+		&:focus {
+			border-color: $red;
+		}
+	}
 
-    &:focus {
-      outline: 0;
-    }
-  }
+	&__button {
+		flex: 2;
+		background-color: $white;
+		color: $gray-d;
+		margin: 0;
+		border: {
+			width: 1px;
+			style: solid;
+			color: $gray-l;
+			left-width: 0;
+			top-right-radius: $border-radius;
+			bottom-right-radius: $border-radius;
+		};
+		padding: 1rem;
+		font-size: 1rem;
+		font-weight: 700;
+		font-family: $sans-serif;
+		cursor: pointer;
 
-  &__description {
-    color: $gray;
-    font-weight: 500;
-  }
+		&:focus {
+			outline: 0;
+		}
+
+		@media screen and (max-width: $sm) {
+			padding: {
+				top: .5rem;
+				left: .5rem;
+				right: .5rem;
+				bottom: .5rem;
+			};
+		}
+	}
+
+	&__description {
+		color: $gray;
+		font-weight: 500;
+	}
 }

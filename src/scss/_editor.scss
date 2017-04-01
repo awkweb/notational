@@ -7,6 +7,10 @@
     background-color: $red-l;
   }
 
+  &__textarea {
+    -webkit-appearance: none;
+  }
+
   &__textarea, &__ghost,  &__placeholder {
     border: {
       top: 1px solid;

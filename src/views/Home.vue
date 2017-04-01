@@ -21,7 +21,7 @@
         
         <button v-on:click.prevent="getStarted"
                 class="home__form__button">
-          Get started
+          Get Started
         </button>
       </form>
       <span class="home__form__description">Join 250+ others reducing cognitive load</span>
