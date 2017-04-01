@@ -99,7 +99,7 @@ export default {
           this.SIGN_UP_USER_ANONYMOUSLY(data)
             .then(() => {
               this.ls_pushUser(this.user)
-              this.$router.push({ name: 'main'})
+              this.$router.push({ name: 'app'})
             })
             .catch((error) => {
               this.error = error.message
@@ -109,7 +109,7 @@ export default {
             .then(() => {
               this.ls_pushUser(this.user)
               this.INIT_NOTES()
-                .then(() => this.$router.push({ name: 'main'}))
+                .then(() => this.$router.push({ name: 'app'}))
                 .catch((error) => this.error = error.message)
             })
             .catch((error) => {

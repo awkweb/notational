@@ -13,18 +13,18 @@
     <div class="foot__right">
       <template v-if="user && !user.isAnonymous">
         <button @click="onLogOut"
-                class="foot__button">
+                class="button">
                 Log Out
         </button>
       </template>
 
       <template v-else>
         <button @click="onLogIn"
-                class="foot__button">
+                class="button">
                 Log In
         </button>
         <button @click="onSignUp"
-                class="foot__button primary">
+                class="button primary">
                 Sign Up
         </button>
       </template>

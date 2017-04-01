@@ -88,7 +88,7 @@ export default {
         this.LOG_IN_USER(data)
           .then(() => {
             this.ls_pushUser(this.user)
-            this.$router.push({ name: 'main'})
+            this.$router.push({ name: 'app'})
           })
           .catch((error) => {
             this.error = error.message

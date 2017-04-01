@@ -1,0 +1,188 @@
+.home {
+	mark {
+		background-color: $red-l;
+	}
+
+	margin: {
+		top: 4rem;
+	}
+
+	&__headline {
+		color: $black;
+		font: {
+			size: 2rem;
+			weight: 700;
+		}
+		margin: {
+			top: 0;
+			bottom: .5rem;
+		}
+	}
+
+	&__subline {
+		color: $gray;
+		font: {
+			size: 1.5rem;
+			weight: 500;
+		}
+		margin: {
+			top: 0;
+		}
+	}
+
+	&__reasons {
+		margin-bottom: 3rem;
+
+		.reason {
+			margin-bottom: 2rem;
+		}
+
+		h2 {
+			padding-left: 2.5rem;
+			font: {
+				size: 1.35rem;
+				weight: 600;
+			}
+		}
+
+		.search, .share {
+			background: {
+				position: 0% 55%;
+				repeat: no-repeat;
+				size: 35px;
+			}
+		}
+
+		.search {
+			background: {
+				image: url("../assets/search.svg");
+			}
+		}
+
+		.share {
+			background: {
+				image: url("../assets/share.svg");
+			}
+		}
+	}
+
+	&__buttons {
+		margin-bottom: 5rem;
+		display: flex;
+		justify-content: center;
+
+		#sign-up {
+			margin-left: .5rem;
+		}
+	}
+
+	&__foot {
+		display: flex;
+		justify-content: space-between;
+		color: $gray-l;
+    	transition: color $transition;
+
+    	a {
+			color: $gray-l;
+    		transition: color $transition;
+    	}
+
+		font: {
+			size: .95rem;
+			weight: 400;
+		}
+
+		&:hover {
+			color: $gray;
+
+			a {
+				color: $red;
+    		}
+		}
+	}
+}
+
+.home__form {
+  box-shadow: $box-shadow;
+  background: $white-d;
+  margin: {
+  	bottom: 3rem;
+  	left: 0;
+  	right: 0;
+  	top: 2.5rem;
+  };
+  border: {
+  	width: 1px;
+  	style: solid;
+  	color: $gray-l;
+  	radius: $border-radius;
+  };
+  padding: {
+  	top: 1.25rem;
+  	left: 1.25rem;
+  	right: 1.25rem;
+  	bottom: .75rem;
+  };
+  display: flex;
+  flex-direction: column;
+
+  & > form {
+    flex: 1;
+    display: flex;
+    margin-bottom: .75rem;
+  }
+
+  &__email {
+    flex: 8;
+    color: $gray-d;
+    margin-right: 0;
+    border: {
+  		width: 1px;
+  		style: solid;
+  		color: $gray-l;
+  		top-left-radius: $border-radius;
+  		bottom-left-radius: $border-radius;
+  	};
+    padding: 1rem;
+    font-size: 1.15rem;
+    outline: 0;
+    transition: border-color $transition;
+
+    &:hover {
+      border-color: $blue;
+    }
+
+    &:focus {
+      border-color: $red;
+    }
+  }
+
+  &__button {
+    flex: 2;
+    background-color: $white;
+    color: $gray-d;
+    margin-left: 0;
+    border: {
+  		width: 1px;
+  		style: solid;
+  		color: $gray-l;
+    	left-width: 0;
+  		top-right-radius: $border-radius;
+  		bottom-right-radius: $border-radius;
+  	};
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: $sans-serif;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__description {
+    color: $gray;
+    font-weight: 500;
+  }
+}

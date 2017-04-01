@@ -11,48 +11,4 @@
   &__right {
 
   }
-
-  .primary {
-    background-color: $red;
-    border-color: $red;
-    color: $white;
-
-    &:hover {
-      border-color: $red-d;
-      color: $white;
-    }
-  }
-
-  &__button {
-    background-color: $white;
-    border: {
-      color: $gray-l;
-      radius: $border-radius;
-      style: solid;
-      width: 1px;
-    }
-    color: $gray;
-    cursor: pointer;
-    font: {
-      family: $sans-serif;
-      size: .85rem;
-      weight: 500;
-    }
-    padding: {
-      bottom: 3px;
-      left: 6px;
-      right: 6px;
-      top: 3px;
-    }
-    transition: border-color $transition, color $transition;
-
-    &:focus {
-      outline: 0;
-    }
-
-    &:hover {
-      border-color: $red;
-      color: $red;
-    }
-  }
 }

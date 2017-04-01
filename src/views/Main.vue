@@ -152,7 +152,7 @@ export default {
 
   head: {
     title: {
-      inner: 'Home'
+      inner: 'App'
     }
   }
 

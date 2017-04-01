@@ -87,17 +87,17 @@
 			cursor: pointer;
 			background-color: $red;
 			border: {
-				color: $red;
+				color: $red-d;
 				radius: $border-radius;
 				style: solid;
-				width: 3px;
+				width: 1px;
 			}
 			box-shadow: $box-shadow;
 			padding: {
-				bottom: 7px;
-				right: 10px;
-				left: 10px;
-				top: 7px;
+				bottom: 9px;
+				right: 11px;
+				left: 11px;
+				top: 9px;
 			}
 			font: {
 				family: $sans-serif;
@@ -105,7 +105,7 @@
 				weight: 700;
 			}
 			margin-top: .5rem;
-			transition: background-color $transition;
+			transition: border-color $transition;
 			width: 8rem;
 
 			&:focus {
@@ -113,7 +113,7 @@
 			}
 
 			&:hover {
-				background-color: $red-d;
+				border-color: darken($red, 15);
 			}
 		}
 	}
