@@ -24,7 +24,7 @@
           Get Started
         </button>
       </form>
-      <span class="home__form__description">Join 250+ others reducing cognitive load</span>
+      <span class="home__form__description">Join 50+ others reducing cognitive load</span>
     </div>
 
     <div class="home__reasons">

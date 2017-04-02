@@ -7,7 +7,7 @@
     </span>
     
     <span v-else>
-      {{ randomMessage() }}
+      {{ nextMessage() }}
     </span>
 
     <div class="foot__right">
@@ -51,12 +51,18 @@ export default {
   },
 
   data: () => ({
+    currentMessageIndex: 0,
     messages: [
-      'I don\'t paint things, I paint the difference between things.',
+      'Praise specifically, criticize generally.',
       'Good artists borrow, great artists steal.',
       'Have no fear of perfection – you\'ll never reach it.',
       'Simplicity is the ultimate sophistication.',
-      'This is your moment of glory.'
+      'This is your moment of glory.',
+      'Stay present.',
+      'Even elephants do slip.',
+      'True will is wishing backed by power.',
+      'I never learned anything while I was talking.',
+      'Do things that have never been done.'
     ]
   }),
 
@@ -90,11 +96,13 @@ export default {
       this.$router.push({ name: 'login'})
     },
 
-    randomMessage () {
-      const to = 0
-      const from = this.messages.length - 1
-      const index = Math.floor(Math.random() * (to - from + 1) + from)
-      return this.messages[index]
+    nextMessage () {
+      if (this.currentMessageIndex == this.messages.length - 1) {
+        this.currentMessageIndex = 0
+      } else {
+        this.currentMessageIndex++
+      }
+      return this.messages[this.currentMessageIndex]
     }
   }
 

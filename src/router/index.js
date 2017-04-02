@@ -7,27 +7,39 @@ import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import LogIn from '../views/LogIn.vue'
 import SignUp from '../views/SignUp.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueHead)
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     { path: '/', name: 'home', component: Home },
-    { path: '/app', name: 'app', component: Main },
+    { path: '/app', name: 'app', component: Main, meta: { requiresAuth: true } },
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
+    { path: '*', component: NotFound }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'app' && ls.get('user')) {
-    next({
-      path: '/app'
-    });
+  const user = ls.get('user')
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!user) {
+      next({
+        name: 'login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
   } else {
-    next();
+    if ((to.name === 'login' || to.name === 'signup') && user && !user.isAnonymous) {
+      next({ name: 'app' })
+    } else {
+      next()
+    }
   }
 })
 

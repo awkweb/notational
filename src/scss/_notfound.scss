@@ -1,0 +1,33 @@
+.notfound {
+	margin: {
+		top: 4rem;
+	}
+
+	&__headline {
+		color: $black;
+		font: {
+			size: 2rem;
+			weight: 700;
+		}
+		margin: {
+			top: 0;
+			bottom: .5rem;
+		}
+	}
+
+	&__subline {
+		color: $gray;
+		font: {
+			size: 1.5rem;
+			weight: 500;
+		}
+		margin: {
+			top: 0;
+			bottom: 2rem;
+		}
+	}
+
+	a {
+		text-decoration: none; 
+	}
+}
