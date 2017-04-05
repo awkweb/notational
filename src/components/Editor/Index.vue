@@ -28,7 +28,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import Highlight from '../components/Highlight.vue'
+import Highlight from './Highlight.vue'
 
 export default {
   name: 'editor',

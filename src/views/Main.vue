@@ -26,10 +26,10 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 import keyboard from 'keyboardjs'
 
 import { localStorageMixin, noteMixin, utilsMixin } from '../mixins'
-import Editor from '../components/Editor.vue'
-import Foot from '../components/Foot.vue'
-import Search from '../components/Search/Index.vue'
 import Spinner from '../components/Spinner.vue'
+import Search from '../components/Search/Index.vue'
+import Editor from '../components/Editor/Index.vue'
+import Foot from '../components/Foot.vue'
 
 
 export default {

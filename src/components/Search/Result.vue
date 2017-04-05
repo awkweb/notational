@@ -7,6 +7,7 @@
     <input v-if="renaming"
            :id="`search-result-editor-${note.id}`"
            v-model="note.name"
+           @focus="onRenameFocus"
            @blur="onRenameBlur"
            @keyup.esc="onRenameBlur"
            @keyup.enter="onRenameSave"
@@ -40,16 +41,19 @@ export default {
 
   props: ['note', 'isActive', 'renaming'],
 
+  data: () => ({
+    oldName: null,
+    isRenamed: false
+  }),
+
   computed: {
     ...mapGetters(['query'
     ]),
 
     name () {
       if (this.query.length > 0) {
-        console.log('query exists')
         const regexString = this.query.replace(/\s/g, '|')
         const re = new RegExp(regexString, 'gi')
-        console.log('name', this.query)
         return this.note.name
                    .replace(/\n$/g, '\n\n')
                    .replace(re, '<mark>$&</mark>')
@@ -69,7 +73,16 @@ export default {
       this.$emit('onResultSelect', this.note)
     },
 
+    onRenameFocus () {
+      this.oldName = this.note.name
+    },
+
     onRenameBlur () {
+      if (this.oldName != null && this.name !== this.oldName && !this.isRenamed) {
+        this.note.name = this.oldName
+      }
+      this.isRenamed = false
+
       this.SET_RESULT_INDEX(0)
       this.SET_RENAMING_ID(null)
       this.$emit('onRenameBlur')
@@ -77,6 +90,8 @@ export default {
 
     onRenameSave () {
       this.UPDATE_NOTE()
+      this.oldName = null
+      this.isRenamed = true
       this.onRenameBlur()
     }
   }

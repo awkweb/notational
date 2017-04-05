@@ -11,7 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { utilsMixin } from '../mixins'
+import { utilsMixin } from '../../mixins'
 
 export default {
   name: 'highlight',
