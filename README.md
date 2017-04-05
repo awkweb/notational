@@ -2,7 +2,7 @@
 
 > Notational Velocity for the web built with [Vue.js](https://vuejs.org/).
 
-[Notational screenshot](screenshot.png)
+![Notational screenshot](screenshot.png)
 
 ## Build Setup
 
