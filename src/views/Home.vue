@@ -57,11 +57,11 @@
 
     <footer class="home__foot">
       <div>
-        Made in Boston by <a href="http://meagher.co">Tom</a>.
+        Made in Boston by <a href="http://meagher.co">Tom</a>
       </div>
 
       <div>
-        Inspired by <a href="http://notational.net/">Notational Velocity</a>.
+        Inspired by <a href="http://notational.net/">Notational Velocity</a>
       </div>
     </footer>
   </div>

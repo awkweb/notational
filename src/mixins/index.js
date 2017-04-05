@@ -43,8 +43,9 @@ export const noteMixin = {
 
     filterNotesForQuery (query, notes) {
       return _.filter(notes, (note) => {
-        const nameScore = note.name.score(query)
-        const bodyScore = note.body.score(query)
+        const queryLower = query.toLowerCase()
+        const nameScore = note.name.toLowerCase().score(queryLower)
+        const bodyScore = note.body.toLowerCase().score(queryLower)
         note.score = nameScore + bodyScore
         return nameScore > 0 || bodyScore > 0
       })

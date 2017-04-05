@@ -89,34 +89,26 @@ export default {
         return
       }
 
-      if (this.email != null && this.password != null) {
-        const data = {
-          email: this.email,
-          password: this.password
-        }
+      if (this.email === null & this.password === null) {
+        this.error = 'Please enter an email.'
+        return
+      }
 
-        if (this.user && this.user.isAnonymous) {
-          this.SIGN_UP_USER_ANONYMOUSLY(data)
-            .then(() => {
-              this.ls_pushUser(this.user)
-              this.$router.push({ name: 'app'})
-            })
-            .catch((error) => {
-              this.error = error.message
-            })
-        } else {
-          this.SIGN_UP_USER(data)
-            .then(() => {
-              this.ls_pushUser(this.user)
-              this.INIT_NOTES()
-                .then(() => this.$router.push({ name: 'app'}))
-                .catch((error) => this.error = error.message)
-            })
-            .catch((error) => {
-              this.error = error.message
-            })
-        }
-      } 
+      const data = {
+        email: this.email,
+        password: this.password
+      }
+
+      this.SIGN_UP_USER(data)
+        .then(() => {
+          this.ls_pushUser(this.user)
+          this.INIT_NOTES()
+            .then(() => this.$router.push({ name: 'app'}))
+            .catch((error) => this.error = error.message)
+        })
+        .catch((error) => {
+          this.error = error.message
+        })
     },
 
     closeMessage () {

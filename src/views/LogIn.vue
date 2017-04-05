@@ -55,8 +55,8 @@ export default {
   components: { Message },
 
   data: () => ({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
     error: null
   }),
 
@@ -76,24 +76,28 @@ export default {
     ]),
 
     onLogIn () {
-      if (this.email != null && this.password != null) {
-        if (this.user && this.user.isAnonymous) {
-          this.DELETE_ANONYMOUS_USER(this.user.uid)
-        }
-
-        const data = {
-          email: this.email,
-          password: this.password
-        }
-        this.LOG_IN_USER(data)
-          .then(() => {
-            this.ls_pushUser(this.user)
-            this.$router.push({ name: 'app'})
-          })
-          .catch((error) => {
-            this.error = error.message
-          })
+      if (this.email.length == 0) {
+        this.error = 'Please enter an email.'
+        return
       }
+
+      if (this.password.length == 0) {
+        this.error = 'Please enter a password.'
+        return
+      }
+
+      const data = {
+        email: this.email,
+        password: this.password
+      }
+      this.LOG_IN_USER(data)
+        .then(() => {
+          this.ls_pushUser(this.user)
+          this.$router.push({ name: 'app'})
+        })
+        .catch((error) => {
+          this.error = error.message
+        })
     },
 
     closeMessage () {

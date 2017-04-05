@@ -43,26 +43,11 @@ export default {
 
   created () {
     const user = this.ls_pullUser()
-    if (this.user || user) {
-      this.SET_USER(user)
-
-      this.FETCH_NOTES()
-        .then(() => {
-          this.loading = false
-        })
-    } else {
-      this.LOG_IN_USER_ANONYMOUSLY()
-        .then(() => {
-          this.ls_pushUser(this.user)
-          this.INIT_NOTES()
-            .then(() => {
-              this.FETCH_NOTES()
-                .then(() => this.loading = false)
-                .catch((error) => console.log(error))
-            })
-            .catch((error) => console.log(error))
-        })
-    }
+    this.SET_USER(user)
+    this.FETCH_NOTES()
+      .then(() => {
+        this.loading = false
+      })
     this.setUpHotKeys()
   },
 

@@ -13,10 +13,6 @@ export default {
 		return auth.signInWithEmailAndPassword(email, password)
 	},
 
-  logInAnonymously () {
-    return auth.signInAnonymously()
-  },
-
 	logOut () {
 		return auth.signOut()
 	},
@@ -24,17 +20,6 @@ export default {
 	signUp (email, password) {
 		return auth.createUserWithEmailAndPassword(email, password)
 	},
-
-  signUpAnonymously (email, password) {
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
-    return auth.currentUser.link(credential)
-  },
-
-  deleteAnonymousUser (userId) {
-    let userRef = database.ref(`users/${userId}`)
-    userRef.remove()
-    return auth.currentUser.delete()
-  },
 
   initNotesForUserId (userId) {
     const vm = this

@@ -11,23 +11,10 @@
     </span>
 
     <div class="foot__right">
-      <template v-if="user && !user.isAnonymous">
         <button @click="onLogOut"
                 class="button">
                 Log Out
         </button>
-      </template>
-
-      <template v-else>
-        <button @click="onLogIn"
-                class="button">
-                Log In
-        </button>
-        <button @click="onSignUp"
-                class="button primary">
-                Sign Up
-        </button>
-      </template>
     </div>
 
   </footer>
@@ -35,6 +22,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import _ from 'lodash'
 
 import { localStorageMixin } from '../mixins'
 import { wordCount } from '../filters'
@@ -51,11 +39,9 @@ export default {
   },
 
   data: () => ({
-    currentMessageIndex: 0,
     messages: [
       'Praise specifically, criticize generally.',
       'Good artists borrow, great artists steal.',
-      'Have no fear of perfection – you\'ll never reach it.',
       'Simplicity is the ultimate sophistication.',
       'This is your moment of glory.',
       'Stay present.',
@@ -88,21 +74,9 @@ export default {
       })
     },
 
-    onSignUp() {
-      this.$router.push({ name: 'signup'})
-    },
-
-    onLogIn () {
-      this.$router.push({ name: 'login'})
-    },
-
     nextMessage () {
-      if (this.currentMessageIndex == this.messages.length - 1) {
-        this.currentMessageIndex = 0
-      } else {
-        this.currentMessageIndex++
-      }
-      return this.messages[this.currentMessageIndex]
+      const index = _.random(0, this.messages.length - 1);
+      return this.messages[index]
     }
   }
 

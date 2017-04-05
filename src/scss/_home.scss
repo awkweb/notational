@@ -135,6 +135,10 @@
 		flex: 1;
 		display: flex;
 		margin-bottom: .75rem;
+
+		@media screen and (max-width: $sm) {
+			margin-bottom: .5rem;
+		}
 	}
 
 	@media screen and (max-width: $sm) {

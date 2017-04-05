@@ -26,16 +26,13 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const user = ls.get('user')
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!user) {
-      next({
-        name: 'login',
-        query: { redirect: to.fullPath }
-      })
-    } else {
+    if (user) {
       next()
+    } else {
+      next({ name: 'login', query: { redirect: to.fullPath } })
     }
   } else {
-    if ((to.name === 'login' || to.name === 'signup') && user && !user.isAnonymous) {
+    if (user) {
       next({ name: 'app' })
     } else {
       next()
