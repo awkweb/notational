@@ -34,8 +34,6 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import { prettyDate } from '../../filters'
-
 export default {
   name: 'result',
 

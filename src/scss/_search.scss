@@ -17,6 +17,12 @@
         right: 0;
         top: 1rem;
       }
+
+      @media screen and (max-width: $sm) {
+        margin: {
+          top: .25rem;
+        }
+      }
     }
 
     &__input {

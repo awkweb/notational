@@ -19,9 +19,9 @@
                spellcheck="false"
                autofocus>
         
-        <button v-on:click.prevent="getStarted"
+        <button @click.prevent="onStart"
                 class="home__form__button">
-          Get Started
+          Start
         </button>
       </form>
       <span class="home__form__description">Join 50+ others reducing cognitive load</span>
@@ -78,7 +78,7 @@ export default {
   }),
 
   methods: {
-    getStarted () {
+    onStart () {
       router.push({ name: 'signup', query: { email: this.email }})
     },
 

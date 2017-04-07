@@ -163,8 +163,15 @@
 			top-right-radius: 0;
 			bottom-right-radius: 0;
 		};
-		padding: 1rem;
-		font-size: 1.15rem;
+		padding: {
+			top: 1rem;
+			left: 1rem;
+			right: 1rem;
+			bottom: 1rem;
+		};
+		font: {
+			size: 1.15rem;
+		}
 		outline: 0;
 		transition: border-color $transition;
 		text-transform: lowercase;
@@ -176,6 +183,15 @@
 
 		&:focus {
 			border-color: $red;
+		}
+
+		@media screen and (max-width: $sm) {
+			padding: {
+				top: .85rem;
+				left: .85rem;
+				right: .85rem;
+				bottom: .85rem;
+			};
 		}
 	}
 
@@ -214,6 +230,15 @@
 
 	&__description {
 		color: $gray;
-		font-weight: 500;
+		font: {
+			size: 1rem;
+			weight: 500;
+		}
+
+		@media screen and (max-width: $sm) {
+			font: {
+				size: .95rem;
+			}
+		}
 	}
 }

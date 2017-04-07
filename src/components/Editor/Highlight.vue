@@ -22,7 +22,8 @@ export default {
 
   updated () {
     const textarea = this.selectElement('#editor-textarea')
-    textarea.onscroll = this.onScroll
+    if (textarea)
+      textarea.onscroll = this.onScroll
   },
 
   computed: {
@@ -31,10 +32,10 @@ export default {
 
     content () {
       const regexString = this.query.replace(/\s/g, '|')
-      const re = new RegExp(regexString, 'gi');
+      const re = new RegExp(regexString, 'gi')
       return this.body
                  .replace(/\n$/g, '\n\n')
-                 .replace(re, '<mark>$&</mark>');
+                 .replace(re, '<mark>$&</mark>')
     }
   },
 
