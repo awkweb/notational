@@ -9,6 +9,124 @@
   justify-content: space-between;
 
   &__right {
+  	display: flex;
+  }
+}
 
+.main-actions, .share-note {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+
+  &__right {
+    display: flex;
+  }
+}
+
+.main-actions {
+  align-items: center;
+}
+
+#note-url-hidden {
+  display: none;
+}
+
+.share-note {
+  align-items: flex-start;
+  
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__copy {
+    display: flex;
+    margin: {
+      bottom: .35rem;
+    }
+  }
+  
+  &__url {
+    border: {
+      width: 1px;
+      style: solid;
+      color: $gray-l;
+      right-width: 0;
+      top-left-radius: $border-radius;
+      bottom-left-radius: $border-radius;
+    }
+    padding: {
+      top: 3px;
+      left: 6px;
+      right: 6px;
+      bottom: 3px;
+    }
+  }
+
+  &__link {
+    color: $red;
+  }
+
+  &__button {
+    cursor: pointer;
+    background-color: $red;
+    color: $white;
+    cursor: pointer;
+    border: {
+      width: 1px;
+      style: solid;
+      color: $red-d;
+      top-right-radius: $border-radius;
+      bottom-right-radius: $border-radius;
+    }
+    font: {
+      size: .85rem;
+      weight: 500;
+      family: $sans-serif;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__permission {
+    display: flex;
+    align-items: center;
+  }
+
+  &__checkbox {
+    cursor: pointer;
+    background-color: $white;
+    color: $gray;
+    border: {
+      color: $gray-l;
+      style: solid;
+      width: 1px;
+      radius: $border-radius;
+    }
+    margin: {
+      right: .25rem;
+    }
+    font: {
+      weight: 500;
+      family: $sans-serif;
+    }
+    padding: {
+      top: 3px;
+      left: 6px;
+      right: 6px;
+      bottom: 3px;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__info {
+    font: {
+      size: .8rem;
+    }
   }
 }

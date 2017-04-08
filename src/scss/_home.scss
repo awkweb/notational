@@ -209,9 +209,11 @@
 			bottom-right-radius: $border-radius;
 		};
 		padding: 1rem;
-		font-size: 1rem;
-		font-weight: 700;
-		font-family: $sans-serif;
+		font {
+			size: 1rem;
+			weight: 700;
+			family: $sans-serif;
+		}
 		cursor: pointer;
 
 		&:focus {

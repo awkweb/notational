@@ -1,45 +1,46 @@
 <template>
-  <footer class="foot">
-    
-    <span v-if="activeNote">
-      {{ activeNote.body | wordCount }} words,
-      {{ activeNote.body | charCount }} characters
-    </span>
-    
-    <span v-else>
-      {{ nextMessage() }}
-    </span>
+  <div class="main-actions">
+      <span v-if="activeNote">
+        {{ activeNote.body | wordCount }} words,
+        {{ activeNote.body | charCount }} characters
+      </span>
+      
+      <span v-else>
+        {{ randomQuote() }}
+      </span>
 
-    <div class="foot__right">
-        <button @click="onLogOut"
-                class="button">
-                Log Out
-        </button>
-    </div>
+      <div class="foot__right">
+          <button @click="onLogOut"
+                  class="button">
+                  Log Out
+          </button>
+          <button v-show="activeNote"
+                  @click="onShare"
+                  class="button-icon share">
+          </button>
+      </div>
 
-  </footer>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import _ from 'lodash'
 
-import { localStorageMixin } from '../mixins'
-import { wordCount } from '../filters'
+import { localStorageMixin } from '../../mixins'
 
 export default {
-  name: 'foot',
+  name: 'main-actions',
 
   mixins: [localStorageMixin],
  
   computed: {
-    ...mapGetters(['activeNote',
-                   'user'
+    ...mapGetters(['activeNote'
     ])
   },
 
   data: () => ({
-    messages: [
+    quotes: [
       'Praise specifically, criticize generally.',
       'Good artists borrow, great artists steal.',
       'Simplicity is the ultimate sophistication.',
@@ -74,9 +75,13 @@ export default {
       })
     },
 
-    nextMessage () {
-      const index = _.random(0, this.messages.length - 1);
-      return this.messages[index]
+    onShare () {
+      this.$emit('onShare')
+    },
+
+    randomQuote () {
+      const index = _.random(0, this.quotes.length - 1);
+      return this.quotes[index]
     }
   }
 

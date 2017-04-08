@@ -29,8 +29,7 @@ import { localStorageMixin, noteMixin, utilsMixin } from '../mixins'
 import Spinner from '../components/Spinner.vue'
 import Search from '../components/Search/Index.vue'
 import Editor from '../components/Editor/Index.vue'
-import Foot from '../components/Foot.vue'
-
+import Foot from '../components/Foot/Index.vue'
 
 export default {
   name: 'main',

@@ -33,10 +33,6 @@
     background-color: $red;
     border-color: $red-d;
     color: $white;
-
-    &:hover {
-      border-color: $red-d;
-    }
   }
 
   &.large {
@@ -52,5 +48,43 @@
       weight: 700;
     }
     width: 5.5rem;
+  }
+}
+
+.button-icon {
+  height: 27px;
+  width: 27px;
+  background: {
+    color: $white;
+    position: center;
+    repeat: no-repeat;
+    size: 24px;
+  }
+  border: {
+    color: $gray-l;
+    radius: $border-radius;
+    style: solid;
+    width: 1px;
+  }
+  cursor: pointer;
+  transition: background-image $transition, border-color $transition;
+
+  &.share {
+    background: {
+      image: url("../assets/share.svg");
+    }
+    margin: {
+      left: .25rem;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background: {
+      image: url("../assets/share-hover.svg");
+    }
   }
 }

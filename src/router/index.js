@@ -7,6 +7,7 @@ import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import LogIn from '../views/LogIn.vue'
 import SignUp from '../views/SignUp.vue'
+import Public from '../views/Public.vue'
 import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueHead)
@@ -19,6 +20,7 @@ const router = new VueRouter({
     { path: '/app', name: 'app', component: Main, meta: { requiresAuth: true } },
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
+    { path: '/n/:id', name: 'public', component: Public },
     { path: '*', component: NotFound }
   ]
 })
@@ -32,7 +34,7 @@ router.beforeEach((to, from, next) => {
       next({ name: 'login', query: { redirect: to.fullPath } })
     }
   } else {
-    if (user) {
+    if (user && to.name !== 'public') {
       next({ name: 'app' })
     } else {
       next()
