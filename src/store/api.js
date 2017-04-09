@@ -4,9 +4,9 @@ import moment from 'moment'
 
 import '../../settings'
 
-let app = firebase.initializeApp(ENV.firebase)
-let auth = app.auth()
-let database = app.database()
+const app = firebase.initializeApp(ENV.firebase)
+const auth = app.auth()
+const database = app.database()
 
 export default {
 	logIn (email, password) {
@@ -39,7 +39,7 @@ export default {
 
   getDefaultNotes () {
     return new Promise((resolve, reject) => {
-      let notesRef = database.ref('default_notes/notes')
+      const notesRef = database.ref('default_notes/notes')
       return notesRef.once('value')
                      .then(res => resolve(res.val()))
     })
@@ -47,7 +47,7 @@ export default {
 
 	getNotesForUserId (userId) {
     return new Promise((resolve, reject) => {
-      let notesRef = database.ref(`users/${userId}/notes`)
+      const notesRef = database.ref(`users/${userId}/notes`)
       return notesRef.once('value')
                      .then(res => resolve(res.val()))
     })
@@ -55,7 +55,7 @@ export default {
 
 	createNote (userId, note) {
 		return new Promise((resolve, reject) => {
-      let userNotesRef = database.ref(`users/${userId}/notes`)
+      const userNotesRef = database.ref(`users/${userId}/notes`)
       return userNotesRef.push(note)
                          .then(res => resolve(res.key))
     })
@@ -63,19 +63,57 @@ export default {
 
   updateNote (userId, key, note) {
     return new Promise((resolve, reject) => {
-      let notesRef = database.ref(`users/${userId}/notes/${key}`)
+      const notesRef = database.ref(`users/${userId}/notes/${key}`)
       const dateModified = moment().toString()
       return notesRef.update({        
                         name: note.name,
                         body: note.body,
-                        date_modified: dateModified,
+                        date_modified: dateModified
                       })
                       .then(res => resolve({ key: key, date_modified: dateModified }))
     })
   },
 
   deleteNote (userId, key) {
-    let notesRef = database.ref(`users/${userId}/notes/${key}`)
+    const notesRef = database.ref(`users/${userId}/notes/${key}`)
     return notesRef.remove()
+  },
+
+  getPublicNoteForId (noteId) {
+    return new Promise((resolve, reject) => {
+      const noteRef = database.ref(`public_notes/${noteId}`)
+      return noteRef.once('value')
+                    .then(res => {
+                      const data = res.val()
+                      if (data) {
+                        const notesRef = database.ref(`users/${data.user_id}/notes/${data.note_id}`)
+                        notesRef.once('value').then(res => resolve(res.val()))
+                      } else {
+                        reject('Nothing there')
+                      }
+                    })
+    })
+  },
+
+  toggleIsPublic (userId, key, note) {
+    const is_public = !note.is_public
+    return new Promise((resolve, reject) => {
+      const notesRef = database.ref(`users/${userId}/notes/${key}`)
+      return notesRef.update({
+                        is_public: is_public,
+                      })
+                      .then(res => {
+                        const publicNoteRef = database.ref(`public_notes/${key}`)
+                        if (is_public) {
+                          publicNoteRef.set({
+                                          user_id: userId,
+                                          note_id: key
+                                        })
+                        } else {
+                          publicNoteRef.remove()
+                        }
+                        resolve({ key: key, is_public: is_public })
+                      })
+    })
   }
 }

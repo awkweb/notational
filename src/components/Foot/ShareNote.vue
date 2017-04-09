@@ -4,21 +4,21 @@
       <div class="share-note__copy">
         <div class="share-note__url">
           https://notational.co/n/<span class="share-note__link">{{ noteKey }}</span>
-
-          <input v-model="noteUrl"
-                 id="note-url-hidden">
         </div>
         
         <button @click="onCopyLink"
+                :data-clipboard-text="noteUrl"
+                id="clipboardjs"
                 class="share-note__button">
-          {{ isCopied ? "Copied!" : "Copy" }}
+          {{ copyButtonText }}
         </button>
       </div>
 
       <div class="share-note__permission">
         <button @click="onTogglePermission"
+                :class="activeNote.is_public ? 'on' : 'off'"
                 class="share-note__checkbox">
-          {{ isShareOn ? "On" : "Off" }}
+          {{ activeNote.is_public ? "On" : "Off" }}
         </button>
 
         <span class="share-note__info">Anyone with the link can view</span>
@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import Clipboard from 'clipboard'
 
 import { noteMixin, utilsMixin } from '../../mixins'
 
@@ -41,9 +42,16 @@ export default {
   name: 'share-note',
 
   data: () => ({
-    isCopied: false,
-    isShareOn: false
+    copyButtonText: 'Copy'
   }),
+
+  mounted () {
+    const id = '#clipboardjs'
+    const button = this.selectElement(id)
+    const clipboard = new Clipboard(button)
+    clipboard.on('success', (e) => { this.copyButtonText = 'Copied!' })
+    clipboard.on('error', (e) => { this.copyButtonText = 'Error' })
+  },
 
   mixins: [noteMixin, utilsMixin],
 
@@ -62,24 +70,15 @@ export default {
   },
 
   methods: {
-    onCopyLink () {
-      this.isCopied = true
-      const id = '#note-url-hidden'
-      const copySpan = this.selectElement(id);
-      copySpan.select();
+    ...mapActions(['TOGGLE_IS_PUBLIC'
+    ]),
 
-      try {
-        const successful = document.execCommand('copy');
-        const msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Success ' + copySpan.value);
-      } catch (err) {
-        console.log('Oops, unable to copy');
-      }
-      setTimeout(() => { this.isCopied = false }, 950);
+    onCopyLink () {
+      setTimeout(() => { this.copyButtonText = 'Copy' }, 800);
     },
 
     onTogglePermission () {
-      this.isShareOn = !this.isShareOn
+      this.TOGGLE_IS_PUBLIC(this.activeNote)
     },
 
     onShareNoteDone () {

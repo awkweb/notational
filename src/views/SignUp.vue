@@ -79,8 +79,7 @@ export default {
 
   methods: {
     ...mapActions(['SIGN_UP_USER',
-                   'INIT_NOTES',
-                   'SIGN_UP_USER_ANONYMOUSLY'
+                   'INIT_NOTES'
     ]),
 
     onSignUp () {

@@ -21,7 +21,7 @@ const router = new VueRouter({
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
     { path: '/n/:id', name: 'public', component: Public },
-    { path: '*', component: NotFound }
+    { path: '*', name: 'notfound', component: NotFound }
   ]
 })
 

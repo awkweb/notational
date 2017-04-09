@@ -1,0 +1,69 @@
+.public {
+	&__header, &__body {
+		border-bottom: {
+			width: 1px;
+			style: solid;
+			color: $gray-l;
+		}
+	}
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: {
+			bottom: .35rem;
+		}
+
+		h1 {
+			color: $red;
+			margin: 0;
+			font: {
+				size: 1rem;
+			}
+		}
+
+		span {
+			font: {
+				size: .9rem;
+			}
+		}
+	}
+
+	&__body {
+		word-wrap: break-word;
+		white-space: pre-wrap;
+    	height: 18rem;
+    	overflow-y: scroll;
+    	color: $black;
+    	font: {
+      		size: .95rem;
+      		family: $sans-serif;
+    	}
+		padding: {
+			top: .75rem;
+			bottom: .75rem;
+		}
+		margin: {
+			bottom: .5rem;
+		}
+	}
+
+	&__footer {
+		text-align: center;
+		font: {
+			weight: 500;
+			size: .9rem;
+		}
+
+		a {
+			color: $gray-l;
+			transition: color $transition;
+			text-decoration: none;
+
+			&:hover {
+				color: $red;
+			}
+		}
+	}
+}

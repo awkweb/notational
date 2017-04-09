@@ -4,7 +4,13 @@
 	}
 
 	margin: {
-		top: 4rem;
+		top: 2rem;
+	}
+
+	@media screen and (max-width: $sm) {
+		margin: {
+			top: 1rem;
+		}
 	}
 
 	&__headline {
@@ -207,9 +213,9 @@
 			left-width: 0;
 			top-right-radius: $border-radius;
 			bottom-right-radius: $border-radius;
-		};
+		}
 		padding: 1rem;
-		font {
+		font: {
 			size: 1rem;
 			weight: 700;
 			family: $sans-serif;

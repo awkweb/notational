@@ -28,7 +28,8 @@ export const noteMixin = {
         name: name,
         body: body,
         date_modified: dateModified.toString(),
-        date_created: moment().toString()
+        date_created: moment().toString(),
+        is_public: false
       }
     },
 

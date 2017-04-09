@@ -1,12 +1,22 @@
 {
   "rules": {
     "default_notes": {
-      ".read": true
+      ".read": true,
+      ".write": false
+    },
+    "public_notes": {
+      ".read": true,
+      ".write": "auth != null"
     },
     "users": {
       "$uid": {
         ".read": "$uid === auth.uid",
-        ".write": "$uid === auth.uid"
+        ".write": "$uid === auth.uid",
+        "notes": {
+          "$id": {
+            ".read": "data.child('is_public').val() == true"
+          }
+        }
       }
     }
   }

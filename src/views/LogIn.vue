@@ -71,8 +71,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['LOG_IN_USER',
-                   'DELETE_ANONYMOUS_USER'
+    ...mapActions(['LOG_IN_USER'
     ]),
 
     onLogIn () {

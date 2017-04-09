@@ -27,10 +27,6 @@
   align-items: center;
 }
 
-#note-url-hidden {
-  display: none;
-}
-
 .share-note {
   align-items: flex-start;
   
@@ -98,9 +94,7 @@
   &__checkbox {
     cursor: pointer;
     background-color: $white;
-    color: $gray;
     border: {
-      color: $gray-l;
       style: solid;
       width: 1px;
       radius: $border-radius;
@@ -121,6 +115,20 @@
 
     &:focus {
       outline: 0;
+    }
+
+    &.on {
+      color: $green;
+      border: {
+        color: $green;
+      }
+    }
+
+    &.off {
+      color: $red-2;
+      border: {
+        color: $red-2;
+      }
     }
   }
 

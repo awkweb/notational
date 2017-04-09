@@ -2,7 +2,7 @@ import Vue from 'vue'
 import _ from 'lodash'
 
 import api from '../api'
-import { SET_NOTES, SET_ACTIVE_NOTE, SET_ACTIVE_KEY, UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE } from '../constants'
+import { SET_NOTES, SET_ACTIVE_NOTE, SET_ACTIVE_KEY, UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, TOGGLE_IS_PUBLIC } from '../constants'
 
 const state = {
     notes: [],
@@ -17,22 +17,32 @@ const actions = {
 
     FETCH_NOTES: ({ state, commit, rootState }) => {
       return api.getNotesForUserId(rootState.auth.user.uid)
-                .then(notes => commit(SET_NOTES, notes))
+                .then((notes) => commit(SET_NOTES, notes))
     },
 
     CREATE_NOTE: ({ state, commit, rootState }, note) => {
       return api.createNote(rootState.auth.user.uid, note)
-                .then(key => commit(CREATE_NOTE, { key: key, note: note }))
+                .then((key) => commit(CREATE_NOTE, { key: key, note: note }))
     },
 
     UPDATE_NOTE: ({ state, commit, rootState }) => {
       return api.updateNote(rootState.auth.user.uid, state.activeKey, state.activeNote)
-                .then(res => commit(UPDATE_NOTE, { key: res.key, date_modified: res.date_modified }))
+                .then((res) => commit(UPDATE_NOTE, { key: res.key, date_modified: res.date_modified }))
     },
 
     DELETE_NOTE: ({ state, commit, rootState }) => {
       return api.deleteNote(rootState.auth.user.uid, state.activeKey)
                 .then(() => commit(DELETE_NOTE, state.activeKey))
+    },
+
+    FETCH_PUBLIC_NOTE_FOR_ID: ({ state, commit, rootState }, noteId) => {
+      return api.getPublicNoteForId(noteId)
+                .then((note) => commit(SET_ACTIVE_NOTE, note))
+    },
+
+    TOGGLE_IS_PUBLIC: ({ state, commit, rootState }, note) => {
+      return api.toggleIsPublic(rootState.auth.user.uid, state.activeKey, note)
+                .then((res) => commit(TOGGLE_IS_PUBLIC, { key: res.key, is_public: res.is_public }))
     }
 }
 
@@ -61,6 +71,11 @@ const mutations = {
 
     [DELETE_NOTE] (state, key) {
       Vue.delete(state.notes, key)
+    },
+
+    [TOGGLE_IS_PUBLIC] (state, data) {
+      let note = state.notes[`${data.key}`]
+      note.is_public = data.is_public 
     }
 }
 

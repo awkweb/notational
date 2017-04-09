@@ -10,6 +10,7 @@
     "deploy": "firebase deploy"
   },
   "dependencies": {
+    "clipboard": "^1.6.1",
     "firebase": "^3.7.0",
     "keyboardjs": "^2.3.3",
     "local-storage": "^1.4.2",
