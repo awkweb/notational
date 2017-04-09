@@ -10,6 +10,7 @@
 
   &__right {
   	display: flex;
+    align-items: center;
   }
 }
 
@@ -57,6 +58,13 @@
       right: 6px;
       bottom: 3px;
     }
+
+    @media screen and (max-width: $sm) {
+      width: 185px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   &__link {
@@ -79,6 +87,13 @@
       size: .85rem;
       weight: 500;
       family: $sans-serif;
+    }
+
+    padding: {
+      top: 3px;
+      left: 6px;
+      right: 6px;
+      bottom: 3px;
     }
 
     &:focus {

@@ -3,7 +3,7 @@
     <div class="share-note__container">
       <div class="share-note__copy">
         <div class="share-note__url">
-          https://notational.co/n/<span class="share-note__link">{{ noteKey }}</span>
+          https://notational.co/n/{{ noteKey }}
         </div>
         
         <button @click="onCopyLink"
