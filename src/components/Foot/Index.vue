@@ -22,7 +22,7 @@ export default {
   name: 'foot',
 
   data: () => ({
-    showShareNote: true
+    showShareNote: false
   }),
 
   computed: {
