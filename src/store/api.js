@@ -82,16 +82,18 @@ export default {
   getPublicNoteForId (noteId) {
     return new Promise((resolve, reject) => {
       const noteRef = database.ref(`public_notes/${noteId}`)
-      return noteRef.once('value')
-                    .then(res => {
-                      const data = res.val()
-                      if (data) {
-                        const notesRef = database.ref(`users/${data.user_id}/notes/${data.note_id}`)
-                        notesRef.once('value').then(res => resolve(res.val()))
-                      } else {
-                        reject('Nothing there')
-                      }
-                    })
+      return noteRef.on('value', (snapshot) => {
+                const data = snapshot.val()
+                if (data) {
+                  const notesRef = database.ref(`users/${data.user_id}/notes/${data.note_id}`)
+                  notesRef.on('value', (snapshot) => {
+                    const note = snapshot.val()
+                    resolve(note)
+                  })
+                } else {
+                  reject('Nothing here.')
+                }
+              })
     })
   },
 

@@ -8,19 +8,19 @@
     </span>
 
     <span v-if="editing">
-      Press <span class="command">esc</span> to focus search
-    </span>
-    <span v-else-if="!searching">
-      Press <span class="command">ctrl</span> + <span class="command">/</span> to focus search
-    </span>
-    <span v-else-if="queryLength > 0">
-      Press <span class="command">ctrl</span> + <span class="command">enter</span> to create
+      <span class="command">esc</span> to focus search
     </span>
     <span v-else-if="renaming">
-      Press <span class="command">enter</span> to save
+      <span class="command">enter</span> to save title
+    </span>
+    <span v-else-if="!searching">
+      <span class="command">ctrl</span> + <span class="command">/</span> to focus search
+    </span>
+    <span v-else-if="queryLength > 0">
+      <span class="command">ctrl</span> + <span class="command">enter</span> to create note
     </span>
     <span v-else-if="selected">
-      Press <span class="command">enter</span> to edit note
+      <span class="command">enter</span> to edit note
     </span>
     <span v-else>
       Type to search
@@ -38,6 +38,7 @@ export default {
           'selected',
           'searching',
           'renaming',
-          'editing']
+          'editing'
+  ]
 }
 </script>

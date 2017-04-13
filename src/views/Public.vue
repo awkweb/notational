@@ -32,7 +32,7 @@ export default {
   name: 'public',
 
   data: () => ({
-    loading: true
+    loading: true,
   }),
 
   created () {

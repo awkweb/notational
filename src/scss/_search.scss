@@ -74,18 +74,19 @@
       }
 
       .command {
+        text-transform: uppercase;
         color: $gray-d;
         background: {
-          color: lighten($gray-l, 3);
+          color: lighten($gray-l, 2);
         }
         font: {
           family: $mono;
         }
         padding: {
-          bottom: .1rem;
+          bottom: .05rem;
           right: .1rem;
           left: .1rem;
-          top: .1rem;
+          top: .05rem;
         }
       }
     }
@@ -121,7 +122,9 @@
       }
 
       &.active {
-        background-color: $gray-l;
+        background: {  
+          color: lighten($gray-l, 2);
+        }
       }
 
       &__name {
@@ -138,7 +141,9 @@
       }
 
       &__editor {
-        background-color: $gray-l;
+        background: {  
+          color: lighten($gray-l, 2);
+        }
         border: 0;
         color: $gray-d;
         flex: 1;
