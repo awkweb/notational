@@ -30,7 +30,7 @@ import _ from 'lodash'
 import { localStorageMixin } from '../../mixins'
 
 export default {
-  name: 'main-actions',
+  name: 'foot-actions',
 
   mixins: [localStorageMixin],
  

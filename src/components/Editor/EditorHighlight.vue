@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex'
 import { utilsMixin } from '../../mixins'
 
 export default {
-  name: 'highlight',
+  name: 'editor-highlight',
 
   mixins: [utilsMixin],
 

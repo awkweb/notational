@@ -1,6 +1,6 @@
 <template>
-  <div id="main"
-       class="main">
+  <div id="nv"
+       class="nv">
 
     <spinner v-if="loading">
     </spinner>
@@ -32,7 +32,7 @@ import Editor from '../components/Editor/Index.vue'
 import Foot from '../components/Foot/Index.vue'
 
 export default {
-  name: 'main',
+  name: 'nv',
 
   mixins: [localStorageMixin, noteMixin, utilsMixin],
 
@@ -87,7 +87,7 @@ export default {
     ]),
 
     setUpHotKeys () {
-      keyboard.bind('ctrl + /', () => this.onSearchFocus())
+      keyboard.bind('ctrl + /', () => { this.onSearchFocus() })
       keyboard.bind('ctrl + enter', () => { if (this.query.length > 0) this.onCreate() })
       keyboard.bind('ctrl + .', () => { if (this.activeNote) this.onEditorFocus() })
       keyboard.bind('alt + ctrl + r', () => { if (this.activeNote) this.onRenameFocus() })

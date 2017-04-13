@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import ls from 'local-storage'
 
 import Home from '../views/Home.vue'
-import Main from '../views/Main.vue'
+import NV from '../views/NV.vue'
 import LogIn from '../views/LogIn.vue'
 import SignUp from '../views/SignUp.vue'
 import Public from '../views/Public.vue'
@@ -17,7 +17,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', name: 'home', component: Home },
-    { path: '/app', name: 'app', component: Main, meta: { requiresAuth: true } },
+    { path: '/app', name: 'app', component: NV, meta: { requiresAuth: true } },
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
     { path: '/n/:id', name: 'public', component: Public },

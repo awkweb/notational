@@ -2,8 +2,8 @@
   <div class="editor">
     
     <template v-if="activeNote">
-      <highlight :body="activeNote.body">
-      </highlight>
+      <editor-highlight :body="activeNote.body">
+      </editor-highlight>
 
       <textarea id="editor-textarea"
                 class="editor__textarea" 
@@ -28,13 +28,13 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import Highlight from './Highlight.vue'
+import EditorHighlight from './EditorHighlight.vue'
 
 export default {
   name: 'editor',
 
   components: {
-    Highlight
+    EditorHighlight
   },
 
   computed: {

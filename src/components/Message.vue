@@ -1,8 +1,12 @@
 <template>
   <div class="message">
-    <span class="text">{{ text }}</span>
+    <span class="text">
+      {{ text }}
+    </span>
+    
     <span class="close"
-          @click="closeMessage"></span>
+          @click="closeMessage">
+    </span>
   </div>
 </template>
 

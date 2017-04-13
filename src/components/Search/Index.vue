@@ -5,6 +5,8 @@
              class="search__input"
              type="text"
              v-model.trim="query"
+             @focus="isSearchFocused = true"
+             @blur="isSearchFocused = false"
              @input="updateQuery"
              @keyup.enter="onSearch"
              @keyup.esc="onEscape"
@@ -13,23 +15,25 @@
              spellcheck="false"
              autofocus>
 
-      <info :resultsCount="filteredNotes.length"
-            :queryLength="query.length"
-            :renaming="renamingId != null"
-            :editing="editingId != null">
-      </info>
+      <search-info :resultsCount="filteredNotes.length"
+                   :queryLength="query.length"
+                   :selected="activeNote != null"
+                   :searching="isSearchFocused"
+                   :renaming="renamingId != null"
+                   :editing="editingId != null">
+      </search-info>
     </div>
     
     <ul class="search__results">
-      <result v-for="note in filteredNotes"
-              class="list-complete-item"
-              :key="note.id"
-              :note="note"
-              :isActive="activeNote && note.id == activeNote.id"
-              :renaming="renamingId == note.id"
-              @onResultSelect="onSelect"
-              @onRenameBlur="onRenameBlur">
-      </result>
+      <search-result v-for="note in filteredNotes"
+                     class="list-complete-item"
+                     :key="note.id"
+                     :note="note"
+                     :isActive="activeNote && note.id == activeNote.id"
+                     :renaming="renamingId == note.id"
+                     @onResultSelect="onSelect"
+                     @onRenameBlur="onRenameBlur">
+      </search-result>
     </ul>
   </div>
 </template>
@@ -39,8 +43,8 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 import keyboard from 'keyboardjs'
 
 import { noteMixin, utilsMixin } from '../../mixins'
-import Result from './Result.vue'
-import Info from './Info.vue'
+import SearchInfo from './SearchInfo.vue'
+import SearchResult from './SearchResult.vue'
 
 export default {
   name: 'search',
@@ -48,7 +52,8 @@ export default {
   mixins: [noteMixin, utilsMixin],
 
   data: () => ({
-    query: ''
+    query: '',
+    isSearchFocused: true
   }),
 
   created () {
@@ -60,8 +65,8 @@ export default {
   },
 
   components: {
-    Result,
-    Info
+    SearchInfo,
+    SearchResult
   },
 
   computed: {
@@ -95,8 +100,18 @@ export default {
     ]),
 
     setUpHotKeys () {
-      keyboard.bind('up', () => { if (!this.editingId && !this.renamingId) this.onUp() })
-      keyboard.bind('down', () => { if (!this.editingId && !this.renamingId) this.onDown() })
+      keyboard.bind('up', (e) => {
+        if (!this.editingId && !this.renamingId) {
+          e.preventDefault()
+          this.onUp()
+        }
+      })
+      keyboard.bind('down', (e) => {
+        if (!this.editingId && !this.renamingId) {
+          e.preventDefault()
+          this.onDown()
+        }
+      })
     },
     
     onSearch () {
@@ -122,8 +137,9 @@ export default {
         const key = this.findKeyForNoteId(note.id, this.notes)
         this.SET_ACTIVE_KEY(key)
 
-        const element = this.selectElement(`#result_${note.id}`)
-        element.scrollIntoView()
+        if ((this.resultIndex + 1) % 4 == 0) {
+          this.scrollToResultId(note.id, false)
+        }
       }
     },
 
@@ -138,11 +154,15 @@ export default {
         const key = this.findKeyForNoteId(note.id, this.notes)
         this.SET_ACTIVE_KEY(key)
         
-        if (index > 3) {
-          const element = this.selectElement(`#result_${note.id}`)
-          element.scrollIntoView()
+        if (index % 4 == 0) {
+          this.scrollToResultId(note.id, true)
         }
       }
+    },
+
+    scrollToResultId (noteId, alignToTop) {
+      const element = this.selectElement(`#result_${noteId}`)
+      element.scrollIntoView(alignToTop)
     },
 
     onSelect (note) {

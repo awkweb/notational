@@ -3,8 +3,8 @@
   display: flex;
   color: $gray;
   font: {
-    size: .85rem;
     weight: 500;
+    size: .85rem;
   }
   justify-content: space-between;
 
@@ -44,6 +44,14 @@
   }
   
   &__url {
+    cursor: default;
+    width: 275px;
+    text-overflow: ellipsis;
+    color: $gray-d;
+    font: {
+      size: .8rem;
+      family: $sans-serif;
+    }
     border: {
       width: 1px;
       style: solid;
@@ -51,6 +59,8 @@
       right-width: 0;
       top-left-radius: $border-radius;
       bottom-left-radius: $border-radius;
+      top-right-radius: 0;
+      bottom-right-radius: 0;
     }
     padding: {
       top: 3px;
@@ -58,12 +68,14 @@
       right: 6px;
       bottom: 3px;
     }
+    -webkit-appearance: none;
 
     @media screen and (max-width: $sm) {
       width: 185px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    }
+
+    &:focus {
+      outline: 0;
     }
   }
 
@@ -121,12 +133,10 @@
       weight: 500;
       family: $sans-serif;
     }
-    padding: {
-      top: 3px;
-      left: 6px;
-      right: 6px;
-      bottom: 3px;
-    }
+    height: 23px;
+    width: 27px;
+    padding: 0;
+    transition: border-color $transition, color $transition;
 
     &:focus {
       outline: 0;

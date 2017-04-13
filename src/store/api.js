@@ -101,8 +101,8 @@ export default {
       const notesRef = database.ref(`users/${userId}/notes/${key}`)
       return notesRef.update({
                         is_public: is_public,
-                      })
-                      .then(res => {
+                     })
+                     .then(res => {
                         const publicNoteRef = database.ref(`public_notes/${key}`)
                         if (is_public) {
                           publicNoteRef.set({
@@ -113,7 +113,7 @@ export default {
                           publicNoteRef.remove()
                         }
                         resolve({ key: key, is_public: is_public })
-                      })
+                     })
     })
   }
 }

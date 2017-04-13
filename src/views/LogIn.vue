@@ -30,7 +30,7 @@
       <button class="auth__form__button"
               v-on:click.prevent="onLogIn"
               v-on:keyup.enter="onLogIn">
-              Log In
+        Log In
       </button>
     </form>
 

@@ -72,6 +72,22 @@
         right: .4rem;
         top: .4rem;
       }
+
+      .command {
+        color: $gray-d;
+        background: {
+          color: lighten($gray-l, 3);
+        }
+        font: {
+          family: $mono;
+        }
+        padding: {
+          bottom: .1rem;
+          right: .1rem;
+          left: .1rem;
+          top: .1rem;
+        }
+      }
     }
 
     &__results {
@@ -82,7 +98,7 @@
         top: 0;
       }
       overflow-y: auto;
-      padding-left: 0rem;
+      padding-left: 0;
     }
 
     &__result {

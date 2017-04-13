@@ -86,6 +86,10 @@ const getters = {
 
     activeNote: state => {
       return state.activeNote
+    },
+
+    activeKey: state => {
+      return state.activeKey
     }
 }
 

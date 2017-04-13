@@ -15,7 +15,8 @@
         <input v-model="email"
                v-focus
                class="home__form__email"
-               type="text" placeholder="tom@wpi.edu"
+               type="text"
+               placeholder="tom@wpi.edu"
                spellcheck="false"
                autofocus>
         
@@ -24,7 +25,10 @@
           Start
         </button>
       </form>
-      <span class="home__form__description">Join 50+ others reducing cognitive load</span>
+
+      <span class="home__form__description">
+        Join 50+ others reducing cognitive load
+      </span>
     </div>
 
     <div class="home__reasons">
@@ -32,26 +36,30 @@
         <h2 class="search">
           Search as you type
         </h2>
-        <p>Searching encompasses all notes' content and occurs immediately with each key pressed.</p>
+        <p>
+          Searching encompasses all notes' content and occurs immediately with each key pressed.
+        </p>
       </div>
       
       <div class="reason">
         <h2 class="share">
           Instantly shareable
         </h2>
-        <p>Copy, paste, and send your note's unique link: Anyone can see your next great idea from anywhere.</p>
+        <p>
+          Copy, paste, and send your note's unique link: Anyone can see your next great idea from anywhere.
+        </p>
       </div>
     </div>
 
     <div class="home__buttons">
       <button @click="onLogIn"
                 class="button large">
-                Log In
+        Log In
       </button>
       <button @click="onSignUp"
               class="button primary large"
               id="sign-up">
-              Sign Up
+        Sign Up
       </button>
     </div>
 

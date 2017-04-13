@@ -2,9 +2,11 @@
   <div class="share-note">
     <div class="share-note__container">
       <div class="share-note__copy">
-        <div class="share-note__url">
-          https://notational.co/n/{{ noteKey }}
-        </div>
+        <input v-model="noteUrl"
+               @focus="selectUrl"
+               id="share-note-url"
+               class="share-note__url"
+               readonly="true">
         
         <button @click="onCopyLink"
                 :data-clipboard-text="noteUrl"
@@ -39,7 +41,7 @@ import Clipboard from 'clipboard'
 import { noteMixin, utilsMixin } from '../../mixins'
 
 export default {
-  name: 'share-note',
+  name: 'foot-share-note',
 
   data: () => ({
     copyButtonText: 'Copy'
@@ -53,25 +55,27 @@ export default {
     clipboard.on('error', (e) => { this.copyButtonText = 'Error' })
   },
 
-  mixins: [noteMixin, utilsMixin],
+  mixins: [utilsMixin],
 
   computed: {
-    ...mapGetters(['activeNote',
-                   'notes'
+    ...mapGetters(['activeKey',
+                   'activeNote'
     ]),
 
-    noteKey () {
-      return this.activeNote ? this.findKeyForNoteId(this.activeNote.id, this.notes) : ''
-    },
-
     noteUrl () {
-      return `https://notational.co/n/${this.noteKey}`
+      return `https://notational.co/n/${this.activeKey}`
     }
   },
 
   methods: {
     ...mapActions(['TOGGLE_IS_PUBLIC'
     ]),
+
+    selectUrl () {
+      const id = "#share-note-url"
+      const input = this.selectElement(id)
+      input.select()
+    },
 
     onCopyLink () {
       setTimeout(() => { this.copyButtonText = 'Copy' }, 800);

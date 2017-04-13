@@ -35,7 +35,7 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'result',
+  name: 'search-result',
 
   props: ['note', 'isActive', 'renaming'],
 

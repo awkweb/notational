@@ -1,13 +1,13 @@
 <template>
   <footer class="foot">
     
-    <share-note v-if="showShareNote && activeNote"
-                @onShareNoteDone="onShare">
-    </share-note>
+    <foot-share-note v-if="showShareNote && activeNote"
+                     @onShareNoteDone="onShare">
+    </foot-share-note>
 
-    <main-actions v-else
+    <foot-actions v-else
                   @onShare="onShare">
-    </main-actions>
+    </foot-actions>
 
   </footer>
 </template>
@@ -15,8 +15,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import MainActions from './MainActions.vue'
-import ShareNote from './ShareNote.vue'
+import FootActions from './FootActions.vue'
+import FootShareNote from './FootShareNote.vue'
 
 export default {
   name: 'foot',
@@ -31,8 +31,8 @@ export default {
   },
 
   components: {
-    MainActions,
-    ShareNote
+    FootActions,
+    FootShareNote
   },
 
   methods: {

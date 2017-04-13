@@ -11,18 +11,24 @@
 
 	&__title {
 		color: $gray-d;
-		font-size: 1.9rem;
+		font: {
+			size: 1.9rem;
+		}
 	}
 
 	&__form {
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 3rem;
+		margin: {
+			bottom: 3rem;
+		}
 
 		&__group {
 			display: flex;
 			flex-direction: column;
-			margin-bottom: 1.2rem;
+			margin: {
+				bottom: 1.2rem;
+			}
 
 			&__label {
 				font: {
@@ -30,7 +36,9 @@
 					size: .9rem;
 					weight: 500;
 				}
-				margin-bottom: 3px;
+				margin: {
+					bottom: 3px;
+				}
 			}
 
 			&__input {
@@ -86,7 +94,9 @@
 		&__button {
 			color: #fff;
 			cursor: pointer;
-			background-color: $red;
+			background: {
+				color: $red;
+			}
 			border: {
 				color: $red-d;
 				radius: $border-radius;

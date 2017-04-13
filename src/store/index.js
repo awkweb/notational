@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './modules/auth'
-import notes from './modules/notes'
+import editor from './modules/editor'
 import { getNotesForUserId } from './api'
 import { SET_QUERY, SET_RESULT_INDEX, SET_RENAMING_ID, SET_EDITING_ID } from './constants'
 
@@ -18,7 +18,7 @@ const store = new Vuex.Store({
 
   modules: {
     auth,
-    notes
+    editor
   },
 
   mutations: {
