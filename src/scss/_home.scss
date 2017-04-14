@@ -1,6 +1,6 @@
 .home {
 	mark {
-		background-color: $red-l;
+		background-color: $orange-l;
 	}
 
 	margin: {
@@ -61,7 +61,7 @@
 
 		.search {
 			background: {
-				image: url("../assets/search.svg");
+				image: url("../assets/search-day.svg");
 			}
 		}
 
@@ -102,7 +102,7 @@
 			color: $gray;
 
 			a {
-				color: $red;
+				color: $orange;
 			}
 		}
 
@@ -188,7 +188,7 @@
 		}
 
 		&:focus {
-			border-color: $red;
+			border-color: $orange;
 		}
 
 		@media screen and (max-width: $sm) {

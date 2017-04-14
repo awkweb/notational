@@ -1,0 +1,41 @@
+body {
+  background-color: $white;
+  margin: 0;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  font: {
+    family: $sans-serif;
+    size: 16px;
+  }
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@each $theme, $colors in (day, $day),
+                         (night, $night) {
+  .#{$theme} {
+    color: map-get($colors, font-color);
+    background: {
+      color: map-get($colors, background-color);
+    }
+  }
+}
+
+#home, #login, #signup, #notfound, #nv, #public {
+  margin: {
+    bottom: 0;
+    left: auto;
+    right: auto;
+    top: 0;
+  }
+  max-width: 35rem;
+  padding: {
+    top: 1rem;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+}

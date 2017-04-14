@@ -1,158 +1,170 @@
-.search {
-    display: flex;
-    flex-direction: column;
+@each $theme, $colors in (day, $day),
+                         (night, $night) {
+  .#{$theme} {
+    .search {
+        display: flex;
+        flex-direction: column;
 
-    mark {
-      background-color: $red-l;
-      color: #333333;
+        mark {
+          background: {
+            color: map-get($colors, primary-color-light);
+          }
+          color: map-get($colors, font-color-dark);
+        }
+
+        &__container {
+          display: flex;
+          flex-direction: column;
+          height: 4.5rem;
+          margin: {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 1rem;
+          }
+
+          @media screen and (max-width: $sm) {
+            margin: {
+              top: .25rem;
+            }
+          }
+        }
+
+        &__input {
+          color: map-get($colors, font-color-dark);
+          background: {
+            color: map-get($colors, background-color);
+            image: url("../assets/search-#{$theme}.svg");
+            size: 25px;
+            position: 99%;
+            repeat: no-repeat;
+          }
+          border: {
+            color: map-get($colors, border-color);
+            radius: $border-radius;
+            style: solid;
+            width: 1px;
+          }
+          box-shadow: $box-shadow;
+          flex: 1;
+          font: {
+            family: $sans-serif;
+            size: 1rem;
+          }
+          max-height: 25px;
+          outline: 0;
+          padding: {
+            bottom: 9px;
+            right: 30px;
+            left: 10px;
+            top: 9px;
+          }
+          transition: border-color $transition;
+
+          &:focus {
+            border-color: map-get($colors, primary-color);
+          }
+
+          &::placeholder {
+            color: map-get($colors, font-color-light);  
+          }
+        }
+
+        &__info {
+          color: map-get($colors, font-color-lighter);
+          display: flex;
+          font: {
+            size: .75rem;
+          }
+          justify-content: space-between;
+          margin: {
+            left: .4rem;
+            right: .4rem;
+            top: .4rem;
+          }
+
+          .command {
+            text-transform: uppercase;
+            color: map-get($colors, font-color);
+            background: {
+              color: map-get($colors, border-color-light);
+            }
+            font: {
+              family: $mono;
+            }
+            padding: {
+              bottom: .05rem;
+              right: .1rem;
+              left: .1rem;
+              top: .05rem;
+            }
+          }
+        }
+
+        &__results {
+          height: 8rem;
+          list-style-type: none;
+          margin: {
+            bottom: .5rem;
+            top: 0;
+          }
+          overflow-y: auto;
+          padding-left: 0;
+        }
+
+        &__result {
+          cursor: pointer;
+          display: flex;
+          font: {
+            family: $sans-serif;
+            size: .95rem;
+          }
+          justify-content: space-between;
+          padding: {
+            bottom: .3rem;
+            right: .4rem;
+            left: .4rem;
+            top: .3rem;
+          }
+
+          span {
+            white-space: nowrap;
+          }
+
+          &.active {
+            background: {  
+              color: map-get($colors, border-color-light);
+            }
+          }
+
+          &__name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          &__description {
+            color: map-get($colors, font-color-lighter);
+          }
+
+          &__time {
+            padding-left: .5rem;
+          }
+
+          &__editor {
+            background: {  
+              color: map-get($colors, border-color-light);
+            }
+            border: 0;
+            color: map-get($colors, font-color);
+            flex: 1;
+            font: {
+              family: $sans-serif;
+              size: .95rem;
+            }
+            padding: 0;
+            outline: 0;
+          }
+        }
     }
-
-    &__container {
-      display: flex;
-      flex-direction: column;
-      height: 4.5rem;
-      margin: {
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: 1rem;
-      }
-
-      @media screen and (max-width: $sm) {
-        margin: {
-          top: .25rem;
-        }
-      }
-    }
-
-    &__input {
-      color: $black;
-      background: {
-        image: url("../assets/search.svg");
-        size: 25px;
-        position: 99%;
-        repeat: no-repeat;
-      }
-      border: {
-        color: $gray-l;
-        radius: $border-radius;
-        style: solid;
-        width: 1px;
-      }
-      box-shadow: $box-shadow;
-      flex: 1;
-      font: {
-        family: $sans-serif;
-        size: 1rem;
-      }
-      max-height: 25px;
-      outline: 0;
-      padding: {
-        bottom: 9px;
-        right: 30px;
-        left: 10px;
-        top: 9px;
-      }
-      transition: border-color $transition;
-
-      &:focus {
-        border-color: $red;
-      }
-    }
-
-    &__info {
-      color: $gray;
-      display: flex;
-      font: {
-        size: .75rem;
-      }
-      justify-content: space-between;
-      margin: {
-        left: .4rem;
-        right: .4rem;
-        top: .4rem;
-      }
-
-      .command {
-        text-transform: uppercase;
-        color: $gray-d;
-        background: {
-          color: lighten($gray-l, 2);
-        }
-        font: {
-          family: $mono;
-        }
-        padding: {
-          bottom: .05rem;
-          right: .1rem;
-          left: .1rem;
-          top: .05rem;
-        }
-      }
-    }
-
-    &__results {
-      height: 8rem;
-      list-style-type: none;
-      margin: {
-        bottom: .5rem;
-        top: 0;
-      }
-      overflow-y: auto;
-      padding-left: 0;
-    }
-
-    &__result {
-      cursor: pointer;
-      display: flex;
-      font: {
-        family: $sans-serif;
-        size: .95rem;
-      }
-      justify-content: space-between;
-      padding: {
-        bottom: .3rem;
-        right: .4rem;
-        left: .4rem;
-        top: .3rem;
-      }
-
-      span {
-        white-space: nowrap;
-      }
-
-      &.active {
-        background: {  
-          color: lighten($gray-l, 2);
-        }
-      }
-
-      &__name {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      &__description {
-        color: $gray;
-      }
-
-      &__time {
-        padding-left: .5rem;
-      }
-
-      &__editor {
-        background: {  
-          color: lighten($gray-l, 2);
-        }
-        border: 0;
-        color: $gray-d;
-        flex: 1;
-        font: {
-          family: $sans-serif;
-          size: .95rem;
-        }
-        padding: 0;
-        outline: 0;
-      }
-    }
+  }
 }

@@ -1,4 +1,5 @@
 // Root state constants
+export const SET_THEME = 'SET_THEME'
 export const SET_QUERY = 'SET_QUERY'
 export const SET_RESULT_INDEX = 'SET_RESULT_INDEX'
 export const SET_RENAMING_ID = 'SET_RENAMING_ID'

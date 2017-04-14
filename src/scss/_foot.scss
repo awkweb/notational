@@ -80,18 +80,18 @@
   }
 
   &__link {
-    color: $red;
+    color: $orange;
   }
 
   &__button {
     cursor: pointer;
-    background-color: $red;
+    background-color: $orange;
     color: $white;
     cursor: pointer;
     border: {
       width: 1px;
       style: solid;
-      color: $red-d;
+      color: $orange-d;
       top-right-radius: $border-radius;
       bottom-right-radius: $border-radius;
     }
@@ -150,9 +150,9 @@
     }
 
     &.off {
-      color: $red-2;
+      color: $red;
       border: {
-        color: $red-2;
+        color: $red;
       }
     }
   }

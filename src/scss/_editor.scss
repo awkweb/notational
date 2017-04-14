@@ -1,75 +1,80 @@
-.editor {
-  display: flex;
-  margin-bottom: .75rem;
+@each $theme, $colors in (day, $day),
+                         (night, $night) {
+  .#{$theme} {
+      .editor {
+        display: flex;
+        margin-bottom: .75rem;
 
-  mark {
-    color: transparent;
-    background-color: $red-l;
-  }
+        mark {
+          color: transparent;
+          background-color: map-get($colors, primary-color-light);
+        }
 
-  &__textarea {
-    -webkit-appearance: none;
-  }
+        &__textarea {
+          -webkit-appearance: none;
+        }
 
-  &__textarea, &__ghost,  &__placeholder {
-    border: {
-      top: 1px solid;
-      bottom: 1px solid;
-      right: 0;
-      left: 0;
-    }
-    flex: 1;
-    font: {
-      size: .95rem;
-      family: $sans-serif;
-    }
-    height: 15.5rem;
-    padding: {
-      bottom: 1rem;
-      left: 0;
-      right: 0;
-      top: 1rem;
-    }
-  }
+        &__textarea, &__ghost,  &__placeholder {
+          border: {
+            top: 1px solid;
+            bottom: 1px solid;
+            right: 0;
+            left: 0;
+          }
+          flex: 1;
+          font: {
+            size: .95rem;
+            family: $sans-serif;
+          }
+          height: 15.5rem;
+          padding: {
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            top: 1rem;
+          }
+        }
 
-  &__textarea,  &__placeholder {
-    border-color: $gray-l;
-  }
+        &__textarea,  &__placeholder {
+          border-color: map-get($colors, border-color);
+        }
 
-  &__textarea {
-    background-color: transparent;
-    border-radius: 0;
-    color: $black;
-    margin: 0;
-    outline: 0;
-    resize: none;
-    transition: border-color $transition;
+        &__textarea {
+          background-color: transparent;
+          border-radius: 0;
+          color: map-get($colors, font-color);
+          margin: 0;
+          outline: 0;
+          resize: none;
+          transition: border-color $transition;
 
-    &:focus {
-      border-color: $red;
-    }
-  }
+          &:focus {
+            border-color: map-get($colors, primary-color);
+          }
+        }
 
-  &__ghost {
-    max-width: 35rem;
-    background-color: transparent;
-    border-color: transparent;
-    color: transparent;
-    position: absolute;
-    z-index: -1;
+        &__ghost {
+          max-width: 35rem;
+          background-color: transparent;
+          border-color: transparent;
+          color: transparent;
+          position: absolute;
+          z-index: -1;
 
-    .highlights {
-      height: 100%;
-      overflow: hidden;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-  }
+          .highlights {
+            height: 100%;
+            overflow: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+          }
+        }
 
-  &__placeholder {
-    align-items: center;
-    color: $gray;
-    display: flex;
-    justify-content: center;
+        &__placeholder {
+          align-items: center;
+          color: map-get($colors, font-color-light);
+          display: flex;
+          justify-content: center;
+        }
+      }
   }
 }

@@ -2,7 +2,13 @@ import Vue from 'vue'
 import _ from 'lodash'
 
 import api from '../api'
-import { SET_NOTES, SET_ACTIVE_NOTE, SET_ACTIVE_KEY, UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, TOGGLE_IS_PUBLIC } from '../constants'
+import { SET_NOTES,
+         SET_ACTIVE_NOTE,
+         SET_ACTIVE_KEY,
+         UPDATE_NOTE,
+         CREATE_NOTE,
+         DELETE_NOTE,
+         TOGGLE_IS_PUBLIC } from '../constants'
 
 const state = {
     notes: [],

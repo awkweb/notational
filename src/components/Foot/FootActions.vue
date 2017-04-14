@@ -14,6 +14,7 @@
                   class="button">
                   Log Out
           </button>
+
           <button v-show="activeNote"
                   @click="onShare"
                   class="button-icon share">

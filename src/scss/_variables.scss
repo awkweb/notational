@@ -1,7 +1,11 @@
 // Colors
-$red: #FF5722;
-$red-d: darken($red, 10);
-$red-l: rgba(255, 87, 34, .25);
+$blue: #0087F8;
+$green: #00b27f;
+$red: #FA5744;
+
+$orange: #FF5722;
+$orange-d: darken($orange, 10);
+$orange-l: RGBA(255, 87, 34, .25);
 
 $white: #FFFFFF;
 $white-d: #FDFDFD;
@@ -12,9 +16,61 @@ $gray-d: #555555;
 
 $black: #000000;
 
-$blue: #0087F8;
-$green: #00b27f;
-$red-2: #FA5744;
+// Light
+$day-primary-color: #FF5722;
+$day-primary-color-dark: darken($day-primary-color, 10);
+$day-primary-color-light: RGBA(255, 87, 34, .25);
+
+$day-background-color: #FFFFFF;
+
+$day-font-color: #555555;
+$day-font-color-dark: #000000;
+$day-font-color-light: #888888;
+$day-font-color-lighter: #8A8A8A;
+
+$day-border-color: #EAEAEA;
+$day-border-color-light: lighten($day-border-color, 2);
+
+$day: (
+	primary-color: $day-primary-color,
+	primary-color-dark: $day-primary-color-dark,
+	primary-color-light: $day-primary-color-light,
+	background-color: $day-background-color,
+	font-color: $day-font-color,
+	font-color-dark: $day-font-color-dark,
+	font-color-light: $day-font-color-light,
+	font-color-lighter: $day-font-color-lighter,
+	border-color: $day-border-color,
+	border-color-light: $day-border-color-light
+);
+
+// Dark
+$night-primary-color: #0087F8;
+$night-primary-color-dark: darken($night-primary-color, 10);
+$night-primary-color-light: RGBA(22, 121, 255, .25);
+
+$night-background-color: #333333;
+
+$night-font-color: #FFFFFF;
+$night-font-color-dark: #FFFFFF;
+$night-font-color-light: #CECECE;
+$night-font-color-lighter: #CECECE;
+
+$night-border-color: #9F9F9F;
+$night-border-color-light: darken($night-border-color, 2);
+
+$night: (
+	primary-color: $night-primary-color,
+	primary-color-dark: $night-primary-color-dark,
+	primary-color-light: $night-primary-color-light,
+	background-color: $night-background-color,
+	font-color: $night-font-color,
+	font-color-dark: $night-font-color-dark,
+	font-color-light: $night-font-color-light,
+	font-color-lighter: $night-font-color-lighter,
+	border-color: $night-border-color,
+	border-color-light: $night-border-color-light
+);
 
 // Type
 $sans-serif: 'Avenir', 'Lato', sans-serif;
@@ -22,6 +78,6 @@ $mono: 'Inconsolata', 'Lucida Console', monospace;
 
 // Misc
 $border-radius: 3px;
-$box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+$box-shadow: 0 2px 4px RGBA(0,0,0,0.04);
 $transition: .25s ease-in-out;
 $sm: 544px;

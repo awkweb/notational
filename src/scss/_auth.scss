@@ -64,7 +64,7 @@
 				transition: border-color $transition;
 
 				&:focus {
-					border-color: $red;
+					border-color: $orange;
 				}
 
 				&.email, &.password {
@@ -95,10 +95,10 @@
 			color: #fff;
 			cursor: pointer;
 			background: {
-				color: $red;
+				color: $orange;
 			}
 			border: {
-				color: $red-d;
+				color: $orange-d;
 				radius: $border-radius;
 				style: solid;
 				width: 1px;
@@ -124,7 +124,7 @@
 			}
 
 			&:hover {
-				border-color: darken($red, 15);
+				border-color: darken($orange, 15);
 			}
 		}
 	}
