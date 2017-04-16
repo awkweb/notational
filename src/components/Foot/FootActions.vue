@@ -2,7 +2,7 @@
   <div class="main-actions">
       <span v-if="activeNote">
         {{ activeNote.body | wordCount }} words,
-        {{ activeNote.body | charCount }} characters
+        {{ activeNote.body | charCount }} chars
       </span>
       
       <span v-else>
@@ -10,30 +10,28 @@
       </span>
 
       <div class="foot__right">
-          <button @click="onLogOut"
-                  class="button">
-                  Log Out
-          </button>
-
-          <button v-show="activeNote"
-                  @click="onShare"
+          <template v-if="activeNote">
+            <button @click="onDeleteNote"
+                  class="button-icon trash">
+            </button>
+            
+            <button @click="onShareNote"
                   class="button-icon share">
+            </button>
+          </template>
+
+          <button @click="onUserProfile"
+                  class="button-icon user">
           </button>
       </div>
-
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-import _ from 'lodash'
-
-import { localStorageMixin } from '../../mixins'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'foot-actions',
-
-  mixins: [localStorageMixin],
  
   computed: {
     ...mapGetters(['activeNote'
@@ -54,30 +52,17 @@ export default {
     ]
   }),
 
-  methods: {
-    ...mapActions(['LOG_OUT_USER']),
-    ...mapMutations(['SET_QUERY',
-                     'SET_RESULT_INDEX',
-                     'SET_NOTES',
-                     'SET_ACTIVE_NOTE',
-                     'SET_ACTIVE_KEY'
-    ]),
-    
-    onLogOut () {
-      this.SET_QUERY('')
-      this.SET_RESULT_INDEX(-1)
-      this.SET_NOTES([])
-      this.SET_ACTIVE_NOTE(null)
-      this.SET_ACTIVE_KEY(null)
-
-      this.LOG_OUT_USER().then(() => {
-        this.ls_logOut()
-        this.$router.push({ name: 'login'})
-      })
+  methods: {    
+    onDeleteNote () {
+      this.$emit('onDeleteNote')
     },
 
-    onShare () {
-      this.$emit('onShare')
+    onShareNote () {
+      this.$emit('onShareNote')
+    },
+
+    onUserProfile () {
+      this.$emit('onUserProfile')
     },
 
     randomQuote () {

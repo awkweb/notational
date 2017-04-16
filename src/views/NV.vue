@@ -1,23 +1,23 @@
 <template>
   <div id="nv"
-       class="nv">
+       class="nv"
+       :class="theme">
+    <div class="container">
+      <spinner v-if="loading">
+      </spinner>
 
-    <spinner v-if="loading">
-    </spinner>
+      <template v-else>
+        <search @onSearch="onEditorFocus"
+                @onRenameBlur="onSearchFocus">
+        </search>
 
-    <template v-else>
-      <search @onSearch="onEditorFocus"
-              @onEscape="onEscape"
-              @onRenameBlur="onSearchFocus">
-      </search>
+        <editor @onEscape="onSearchFocus">
+        </editor>
 
-      <editor @onEscape="onSearchFocus">
-      </editor>
-
-      <foot>
-      </foot>
-    </template>
-    
+        <foot>
+        </foot>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
   created () {
     const user = this.ls_pullUser()
     this.SET_USER(user)
-    this.FETCH_NOTES()
+    this.FETCH_USER_DATA()
       .then(() => {
         this.loading = false
       })
@@ -67,23 +67,20 @@ export default {
                    'user', 
                    'query',
                    'renamingId',
-                   'editingId'
+                   'editingId',
+                   'theme'
     ])
   },
 
   methods: {
-    ...mapActions(['INIT_NOTES',
-                   'LOG_IN_USER_ANONYMOUSLY',
-                   'FETCH_NOTES',
+    ...mapActions(['FETCH_USER_DATA',
                    'CREATE_NOTE',
-                   'DELETE_NOTE'
+                   'DELETE_NOTE',
+                   'RESET_ACTIVE_NOTE'
     ]),
     ...mapMutations(['SET_USER',
-                     'SET_NOTES',
                      'SET_RENAMING_ID',
-                     'SET_RESULT_INDEX',
-                     'SET_ACTIVE_NOTE',
-                     'SET_ACTIVE_KEY'
+                     'SET_ACTIVE_NOTE'
     ]),
 
     setUpHotKeys () {
@@ -112,12 +109,6 @@ export default {
       })
     },
 
-    onEscape () {
-      this.SET_RESULT_INDEX(-1)
-      this.SET_ACTIVE_NOTE(null)
-      this.SET_ACTIVE_KEY(null)
-    },
-
     onCreate () {
       const id = this.nextIdForNotes(this.notes)
       const note = this.createNote(id, this.query)
@@ -128,8 +119,7 @@ export default {
 
     onDelete () {
       this.DELETE_NOTE().then(() => {
-        this.onEscape()
-        this.onSearchFocus()
+        this.RESET_ACTIVE_NOTE().then(() => this.onSearchFocus())
       })
     },
   },

@@ -27,7 +27,7 @@
       </div>
     </div>
       
-    <button @click="onShareNoteDone"
+    <button @click="onDone"
             class="button">
       Done
     </button>
@@ -85,8 +85,8 @@ export default {
       this.TOGGLE_IS_PUBLIC(this.activeNote)
     },
 
-    onShareNoteDone () {
-      this.$emit('onShareNoteDone')
+    onDone () {
+      this.$emit('onDone')
     }
   }
 

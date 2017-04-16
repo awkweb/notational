@@ -39,7 +39,8 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: 'assets/[name].[ext]?[hash]'
+          context: path.resolve(__dirname, './src/'),
+          name: '[path][name].[ext]?[hash]'
         }
       }
     ]

@@ -1,165 +1,173 @@
-.foot {
-  align-items: center;
-  display: flex;
-  color: $gray;
-  font: {
-    weight: 500;
-    size: .85rem;
-  }
-  justify-content: space-between;
+@each $theme, $colors in (light, $light),
+                         (dark, $dark) {
+  .#{$theme} {
+    .foot {
+      align-items: center;
+      display: flex;
+      color: map-get($colors, font-color-light);
+      font: {
+        weight: 500;
+        size: .85rem;
+      }
+      justify-content: space-between;
 
-  &__right {
-  	display: flex;
-    align-items: center;
-  }
-}
-
-.main-actions, .share-note {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-
-  &__right {
-    display: flex;
-  }
-}
-
-.main-actions {
-  align-items: center;
-}
-
-.share-note {
-  align-items: flex-start;
-  
-  &__container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__copy {
-    display: flex;
-    margin: {
-      bottom: .35rem;
-    }
-  }
-  
-  &__url {
-    cursor: default;
-    width: 275px;
-    text-overflow: ellipsis;
-    color: $gray-d;
-    font: {
-      size: .8rem;
-      family: $sans-serif;
-    }
-    border: {
-      width: 1px;
-      style: solid;
-      color: $gray-l;
-      right-width: 0;
-      top-left-radius: $border-radius;
-      bottom-left-radius: $border-radius;
-      top-right-radius: 0;
-      bottom-right-radius: 0;
-    }
-    padding: {
-      top: 3px;
-      left: 6px;
-      right: 6px;
-      bottom: 3px;
-    }
-    -webkit-appearance: none;
-
-    @media screen and (max-width: $sm) {
-      width: 185px;
-    }
-
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  &__link {
-    color: $orange;
-  }
-
-  &__button {
-    cursor: pointer;
-    background-color: $orange;
-    color: $white;
-    cursor: pointer;
-    border: {
-      width: 1px;
-      style: solid;
-      color: $orange-d;
-      top-right-radius: $border-radius;
-      bottom-right-radius: $border-radius;
-    }
-    font: {
-      size: .85rem;
-      weight: 500;
-      family: $sans-serif;
-    }
-
-    padding: {
-      top: 3px;
-      left: 6px;
-      right: 6px;
-      bottom: 3px;
-    }
-
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  &__permission {
-    display: flex;
-    align-items: center;
-  }
-
-  &__checkbox {
-    cursor: pointer;
-    background-color: $white;
-    border: {
-      style: solid;
-      width: 1px;
-      radius: $border-radius;
-    }
-    margin: {
-      right: .25rem;
-    }
-    font: {
-      weight: 500;
-      family: $sans-serif;
-    }
-    height: 23px;
-    width: 27px;
-    padding: 0;
-    transition: border-color $transition, color $transition;
-
-    &:focus {
-      outline: 0;
-    }
-
-    &.on {
-      color: $green;
-      border: {
-        color: $green;
+      &__right {
+      	display: flex;
+        align-items: center;
       }
     }
 
-    &.off {
-      color: $red;
-      border: {
-        color: $red;
+    .main-actions, .share-note, .user-profile {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+
+      &__right {
+        display: flex;
       }
     }
-  }
 
-  &__info {
-    font: {
-      size: .8rem;
+    .main-actions {
+      align-items: center;
+    }
+
+    .share-note {
+      align-items: flex-start;
+      
+      &__container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__copy {
+        display: flex;
+        margin: {
+          bottom: .35rem;
+        }
+      }
+      
+      &__url {
+        cursor: default;
+        width: 275px;
+        text-overflow: ellipsis;
+        color: map-get($colors, font-color);
+        font: {
+          size: .8rem;
+          family: $sans-serif;
+        }
+        background: {
+          color: map-get($colors, background-color);
+        }
+        border: {
+          width: 1px;
+          style: solid;
+          color: map-get($colors, border-color);
+          right-width: 0;
+          top-left-radius: $border-radius;
+          bottom-left-radius: $border-radius;
+          top-right-radius: 0;
+          bottom-right-radius: 0;
+        }
+        padding: {
+          top: 3px;
+          left: 6px;
+          right: 6px;
+          bottom: 3px;
+        }
+        -webkit-appearance: none;
+
+        @media screen and (max-width: $sm) {
+          width: 185px;
+        }
+
+        &:focus {
+          outline: 0;
+        }
+      }
+
+      &__link {
+        color: map-get($colors, primary-color);
+      }
+
+      &__button {
+        cursor: pointer;
+        background-color: map-get($colors, primary-color);
+        color: $white;
+        cursor: pointer;
+        border: {
+          width: 1px;
+          style: solid;
+          color: map-get($colors, primary-color-dark);
+          top-right-radius: $border-radius;
+          bottom-right-radius: $border-radius;
+        }
+        font: {
+          size: .85rem;
+          weight: 500;
+          family: $sans-serif;
+        }
+
+        padding: {
+          top: 3px;
+          left: 6px;
+          right: 6px;
+          bottom: 3px;
+        }
+
+        &:focus {
+          outline: 0;
+        }
+      }
+
+      &__permission {
+        display: flex;
+        align-items: center;
+      }
+
+      &__checkbox {
+        cursor: pointer;
+        background-color: map-get($colors, background-color);
+        border: {
+          style: solid;
+          width: 1px;
+          radius: $border-radius;
+        }
+        margin: {
+          right: .25rem;
+        }
+        font: {
+          weight: 500;
+          family: $sans-serif;
+        }
+        height: 23px;
+        width: 27px;
+        padding: 0;
+        transition: border-color $transition, color $transition;
+
+        &:focus {
+          outline: 0;
+        }
+
+        &.on {
+          color: $green;
+          border: {
+            color: $green;
+          }
+        }
+
+        &.off {
+          color: $red;
+          border: {
+            color: $red;
+          }
+        }
+      }
+
+      &__info {
+        font: {
+          size: .8rem;
+        }
+      }
     }
   }
 }

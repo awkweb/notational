@@ -31,7 +31,7 @@ $day-font-color-lighter: #8A8A8A;
 $day-border-color: #EAEAEA;
 $day-border-color-light: lighten($day-border-color, 2);
 
-$day: (
+$light: (
 	primary-color: $day-primary-color,
 	primary-color-dark: $day-primary-color-dark,
 	primary-color-light: $day-primary-color-light,
@@ -59,7 +59,7 @@ $night-font-color-lighter: #CECECE;
 $night-border-color: #9F9F9F;
 $night-border-color-light: darken($night-border-color, 2);
 
-$night: (
+$dark: (
 	primary-color: $night-primary-color,
 	primary-color-dark: $night-primary-color-dark,
 	primary-color-light: $night-primary-color-light,

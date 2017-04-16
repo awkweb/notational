@@ -1,5 +1,5 @@
-@each $theme, $colors in (day, $day),
-                         (night, $night) {
+@each $theme, $colors in (light, $light),
+                         (dark, $dark) {
   .#{$theme} {
       .editor {
         display: flex;
@@ -42,7 +42,7 @@
         &__textarea {
           background-color: transparent;
           border-radius: 0;
-          color: map-get($colors, font-color);
+          color: map-get($colors, font-color-dark);
           margin: 0;
           outline: 0;
           resize: none;
@@ -59,7 +59,7 @@
           border-color: transparent;
           color: transparent;
           position: absolute;
-          z-index: -1;
+          pointer-events: none;
 
           .highlights {
             height: 100%;

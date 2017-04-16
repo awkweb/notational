@@ -7,7 +7,7 @@
 		right: auto;
 		top: 2rem;
 	}
-	width: 22rem;
+	max-width: 22rem;
 
 	&__title {
 		color: $gray-d;
@@ -42,13 +42,9 @@
 			}
 
 			&__input {
+				@include border($gray-l);
+				
 				color: $black;
-				border: {
-					color: $gray-l;
-					radius: $border-radius;
-					style: solid;
-					width: 1px;
-				}
 				box-shadow: $box-shadow;
 				font: {
 					family: $sans-serif;
@@ -67,26 +63,23 @@
 					border-color: $orange;
 				}
 
-				&.email, &.password {
-					background: {
-						position: 98%;
-						repeat: no-repeat;
-					}
-				}
-
 				&.email {
+					@include background(
+		            	transparent,
+		            	"../assets/email.svg",
+		            	25px,
+		            	98%
+		          	);
 					text-transform: lowercase;
-					background: {
-						image: url("../assets/email.svg");
-						size: 25px;
-					}
 				}
 
 				&.password {
-					background: {
-						image: url("../assets/password.svg");
-						size: 27px;
-					}
+					@include background(
+		            	transparent,
+		            	"../assets/password.svg",
+		            	25px,
+		            	98%
+		          	);
 				}
 			}
 		}

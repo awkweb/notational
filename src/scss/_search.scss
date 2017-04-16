@@ -1,5 +1,5 @@
-@each $theme, $colors in (day, $day),
-                         (night, $night) {
+@each $theme, $colors in (light, $light),
+                         (dark, $dark) {
   .#{$theme} {
     .search {
         display: flex;
@@ -31,20 +31,15 @@
         }
 
         &__input {
+          @include border(map-get($colors, border-color));
+          @include background(
+            map-get($colors, background-color),
+            "../assets/#{$theme}/search.svg",
+            25px,
+            99%
+          );
+
           color: map-get($colors, font-color-dark);
-          background: {
-            color: map-get($colors, background-color);
-            image: url("../assets/search-#{$theme}.svg");
-            size: 25px;
-            position: 99%;
-            repeat: no-repeat;
-          }
-          border: {
-            color: map-get($colors, border-color);
-            radius: $border-radius;
-            style: solid;
-            width: 1px;
-          }
           box-shadow: $box-shadow;
           flex: 1;
           font: {

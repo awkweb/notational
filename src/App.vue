@@ -1,18 +1,11 @@
 <template>
-  <div id="app"
-  	   :class="theme">
+  <div id="app">
    	<router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  name: 'app',
-
-  computed: {
-    ...mapGetters(['theme'])
-  }
+  name: 'app'
 }
 </script>

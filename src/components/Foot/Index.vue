@@ -1,12 +1,22 @@
 <template>
   <footer class="foot">
     
-    <foot-share-note v-if="showShareNote && activeNote"
-                     @onShareNoteDone="onShare">
+    <foot-delete-note v-if="showDeleteNote"
+                      @onCancel="onDeleteNote">
+    </foot-delete-note>
+
+    <foot-share-note v-else-if="showShareNote && activeNote"
+                     @onDone="onShareNote">
     </foot-share-note>
 
+    <foot-user-profile v-else-if="showUserProfile"
+                     @onDone="onUserProfile">
+    </foot-user-profile>
+
     <foot-actions v-else
-                  @onShare="onShare">
+                  @onDeleteNote="onDeleteNote"
+                  @onShareNote="onShareNote"
+                  @onUserProfile="onUserProfile">
     </foot-actions>
 
   </footer>
@@ -16,13 +26,17 @@
 import { mapGetters } from 'vuex'
 
 import FootActions from './FootActions.vue'
+import FootDeleteNote from './FootDeleteNote.vue'
 import FootShareNote from './FootShareNote.vue'
+import FootUserProfile from './FootUserProfile.vue'
 
 export default {
   name: 'foot',
 
   data: () => ({
-    showShareNote: false
+    showDeleteNote: false,
+    showShareNote: false,
+    showUserProfile: false
   }),
 
   computed: {
@@ -32,12 +46,30 @@ export default {
 
   components: {
     FootActions,
-    FootShareNote
+    FootDeleteNote,
+    FootShareNote,
+    FootUserProfile
+  },
+
+  watch: {
+    activeNote () {
+      this.showDeleteNote = false
+      this.showShareNote = false
+      this.showUserProfile = false
+    }
   },
 
   methods: {
-    onShare () {
+    onDeleteNote () {
+      this.showDeleteNote = !this.showDeleteNote
+    },
+
+    onShareNote () {
       this.showShareNote = !this.showShareNote
+    },
+
+    onUserProfile () {
+      this.showUserProfile = !this.showUserProfile
     }
   }
 

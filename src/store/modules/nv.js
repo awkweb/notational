@@ -2,7 +2,9 @@ import Vue from 'vue'
 import _ from 'lodash'
 
 import api from '../api'
-import { SET_NOTES,
+import { SET_RESULT_INDEX,
+         SET_THEME,
+         SET_NOTES,
          SET_ACTIVE_NOTE,
          SET_ACTIVE_KEY,
          UPDATE_NOTE,
@@ -11,6 +13,7 @@ import { SET_NOTES,
          TOGGLE_IS_PUBLIC } from '../constants'
 
 const state = {
+    theme: 'day',
     notes: [],
     activeNote: null,
     activeKey: null
@@ -21,9 +24,12 @@ const actions = {
       return api.initNotesForUserId(rootState.auth.user.uid)
     },
 
-    FETCH_NOTES: ({ state, commit, rootState }) => {
-      return api.getNotesForUserId(rootState.auth.user.uid)
-                .then((notes) => commit(SET_NOTES, notes))
+    FETCH_USER_DATA: ({ state, commit, rootState }) => {
+      return api.getDataForUserId(rootState.auth.user.uid)
+                .then((res) => {
+                  commit(SET_NOTES, res.notes)
+                  commit(SET_THEME, res.theme)
+                })
     },
 
     CREATE_NOTE: ({ state, commit, rootState }, note) => {
@@ -38,21 +44,30 @@ const actions = {
 
     DELETE_NOTE: ({ state, commit, rootState }) => {
       return api.deleteNote(rootState.auth.user.uid, state.activeKey)
-                .then(() => commit(DELETE_NOTE, state.activeKey))
+                .then(() => {commit(DELETE_NOTE, state.activeKey)})
     },
 
-    FETCH_PUBLIC_NOTE_FOR_ID: ({ state, commit, rootState }, noteId) => {
-      return api.getPublicNoteForId(noteId)
-                .then((note) => commit(SET_ACTIVE_NOTE, note))
+    UPDATE_THEME: ({ state, commit, rootState }, theme) => {
+      return api.updateTheme(rootState.auth.user.uid, theme)
+                .then((theme) => commit(SET_THEME, theme))
     },
 
     TOGGLE_IS_PUBLIC: ({ state, commit, rootState }, note) => {
       return api.toggleIsPublic(rootState.auth.user.uid, state.activeKey, note)
                 .then((res) => commit(TOGGLE_IS_PUBLIC, { key: res.key, is_public: res.is_public }))
+    },
+
+    FETCH_PUBLIC_NOTE_FOR_ID: ({ state, commit, rootState }, noteId) => {
+      return api.getPublicNoteForId(noteId)
+                .then((note) => commit(SET_ACTIVE_NOTE, note))
     }
 }
 
 const mutations = {
+    [SET_THEME] (state, theme) {
+      state.theme = theme
+    },
+
     [SET_NOTES] (state, notes) {
       state.notes = notes
     },
@@ -86,6 +101,10 @@ const mutations = {
 }
 
 const getters = {
+    theme: state => {
+      return state.theme
+    },
+
     notes: state => {
       return state.notes
     },

@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <div class="home__buttons">
+    <div class="home__buttons light">
       <button @click="onLogIn"
                 class="button large">
         Log In

@@ -45,10 +45,10 @@ export default {
     })
   },
 
-	getNotesForUserId (userId) {
+	getDataForUserId (userId) {
     return new Promise((resolve, reject) => {
-      const notesRef = database.ref(`users/${userId}/notes`)
-      return notesRef.once('value')
+      const userRef = database.ref(`users/${userId}`)
+      return userRef.once('value')
                      .then(res => resolve(res.val()))
     })
 	},
@@ -77,6 +77,14 @@ export default {
   deleteNote (userId, key) {
     const notesRef = database.ref(`users/${userId}/notes/${key}`)
     return notesRef.remove()
+  },
+
+  updateTheme (userId, theme) {
+    return new Promise((resolve, reject) => {
+      const userRef = database.ref(`users/${userId}`)
+      return userRef.update({theme: theme})
+                    .then(res => resolve(theme))
+    })
   },
 
   getPublicNoteForId (noteId) {

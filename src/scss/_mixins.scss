@@ -1,0 +1,18 @@
+@mixin border($color) {
+  border: {
+    color: $color;
+	radius: $border-radius;
+    width: 1px;
+    style: solid;
+  }
+}
+
+@mixin background($color, $image, $size, $position) {
+  background: {
+    color: $color;
+    image: url($image);
+    size: $size;
+    position: $position;
+    repeat: no-repeat;
+  }
+}

@@ -93,6 +93,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['RESET_ACTIVE_NOTE'
+    ]),
     ...mapMutations(['SET_ACTIVE_NOTE',
                      'SET_ACTIVE_KEY',
                      'SET_QUERY',
@@ -123,7 +125,7 @@ export default {
     onEscape () {
       this.query = ''
       this.SET_QUERY('')
-      this.$emit('onEscape')
+      this.RESET_ACTIVE_NOTE()
     },
 
     onUp () {

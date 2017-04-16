@@ -1,89 +1,136 @@
-.button {
-  background-color: $white;
-  border: {
-    color: $gray-l;
-    radius: $border-radius;
-    style: solid;
-    width: 1px;
-  }
-  color: $gray;
-  cursor: pointer;
-  font: {
-    family: $sans-serif;
-    size: .85rem;
-    weight: 500;
-  }
-  padding: {
-    bottom: 3px;
-    left: 6px;
-    right: 6px;
-    top: 3px;
-  }
-  transition: border-color $transition, color $transition;
+@each $theme, $colors in (light, $light),
+                         (dark, $dark) {
+  .#{$theme} {
+    .button {
+      @include border(map-get($colors, border-color));
+      
+      background-color: map-get($colors, background-color);
+      color: map-get($colors, font-color-light);
+      cursor: pointer;
+      font: {
+        family: $sans-serif;
+        size: .85rem;
+        weight: 500;
+      }
+      padding: {
+        bottom: 3px;
+        left: 6px;
+        right: 6px;
+        top: 3px;
+      }
+      transition: border-color $transition, color $transition;
 
-  &:focus {
-    outline: 0;
-  }
+      &:focus {
+        outline: 0;
+      }
 
-  &:hover {
-    color: $gray-d;
-  }
+      &:hover {
+        color: map-get($colors, font-color);
+      }
 
-  &.primary {
-    background-color: $orange;
-    border-color: $orange-d;
-    color: $white;
-  }
+      &.primary {
+        background: {
+          color: map-get($colors, primary-color);
+        }
+        border: {
+          color: map-get($colors, primary-color-dark);
+        }
+        color: $white;
+      }
 
-  &.large {
-    box-shadow: $box-shadow;
-    padding: {
-      bottom: 7px;
-      right: 10px;
-      left: 10px;
-      top: 7px;
+      &.danger {
+        background: {
+          color: $red;
+        }
+        border: {
+          color: darken($red, 10);
+        }
+        color: $white;
+      }
+
+      &.large {
+        box-shadow: $box-shadow;
+        padding: {
+          bottom: 7px;
+          right: 10px;
+          left: 10px;
+          top: 7px;
+        }
+        font: {
+          size: 1rem;
+          weight: 700;
+        }
+        width: 5.5rem;
+      }
     }
-    font: {
-      size: 1rem;
-      weight: 700;
+
+    .button-icon {
+      height: 27px;
+      width: 27px;
+      background: {
+        color: map-get($colors, background-color);
+        size: cover;
+        repeat: no-repeat;
+      }
+      border: {
+        color: map-get($colors, border-color);
+        radius: $border-radius;
+        style: solid;
+        width: 1px;
+      }
+      cursor: pointer;
+
+      &.user {
+        background: {
+          image: url("../assets/#{$theme}/profile.svg");
+        }
+        margin: {
+          left: .25rem;
+        }
+      }
+
+      &.share {
+        background: {
+          image: url("../assets/#{$theme}/share.svg");
+        }
+        margin: {
+          left: .25rem;
+        }
+      }
+
+      &.trash {
+        background: {
+          image: url("../assets/#{$theme}/trash.svg");
+        }
+        margin: {
+          left: .25rem;
+        }
+      }
+
+      &:focus {
+        outline: 0;
+      }
     }
-    width: 5.5rem;
-  }
-}
 
-.button-icon {
-  height: 27px;
-  width: 27px;
-  background: {
-    color: $white;
-    position: center;
-    repeat: no-repeat;
-  }
-  border: {
-    color: $gray-l;
-    radius: $border-radius;
-    style: solid;
-    width: 1px;
-  }
-  cursor: pointer;
-  transition: background-image $transition, border-color $transition;
+    .button-group {
+      display: inline-flex;
 
-  &.share {
-    background: {
-      image: url("../assets/share.svg");
-    }
-    margin: {
-      left: .25rem;
-    }
-  }
+      button {
+        &:first-child {
+          border: {
+            right-width: 0;
+            top-right-radius: 0;
+            bottom-right-radius: 0;
+          }
+        }
 
-  &:focus {
-    outline: 0;
-  }
-
-  &:hover {
-    background: {
-      image: url("../assets/share-hover.svg");
+        &:last-child {
+          border: {
+            top-left-radius: 0;
+            bottom-left-radius: 0;
+          }
+        }
+      }
     }
   }
 }

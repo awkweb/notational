@@ -5,7 +5,6 @@ body {
 
 #app {
   width: 100vw;
-  height: 100vh;
   font: {
     family: $sans-serif;
     size: 16px;
@@ -14,28 +13,51 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@each $theme, $colors in (day, $day),
-                         (night, $night) {
-  .#{$theme} {
-    color: map-get($colors, font-color);
-    background: {
-      color: map-get($colors, background-color);
-    }
-  }
+#app, #nv {
+  height: 100vh;
 }
 
-#home, #login, #signup, #notfound, #nv, #public {
+#home, #login, #signup, #notfound, #public, .container {
   margin: {
     bottom: 0;
     left: auto;
     right: auto;
-    top: 0;
   }
-  max-width: 35rem;
   padding: {
     top: 1rem;
     bottom: 1rem;
     right: 1rem;
     left: 1rem;
   }
+}
+
+#login, #signup, #notfound, #public, .container {
+  margin: {
+    top: 0;
+  }
+}
+
+#home, #notfound, #public, .container {
+  max-width: 35rem;  
+}
+
+#login, #signup {
+  max-width: 22;
+}
+
+@each $theme, $colors in (light, $light),
+                         (dark, $dark) {
+  #nv {
+      &.#{$theme} {
+        color: map-get($colors, font-color);
+        background: {
+          color: map-get($colors, background-color);
+        }
+        transition: background-color $transition;
+    }
+  }
+}
+
+.text-center {
+  text-align: center;
 }
