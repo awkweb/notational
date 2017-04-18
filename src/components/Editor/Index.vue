@@ -33,7 +33,7 @@ import EditorHighlight from './EditorHighlight.vue'
 
 export default {
   name: 'editor',
-
+  
   components: {
     EditorHighlight
   },

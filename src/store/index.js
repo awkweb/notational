@@ -7,6 +7,7 @@ import { getNotesForUserId } from './api'
 import { SET_ACTIVE_NOTE,
          SET_ACTIVE_KEY,
          SET_QUERY,
+         SET_THEME,
          SET_NOTES,
          SET_RESULT_INDEX,
          SET_RENAMING_ID,
@@ -35,6 +36,7 @@ const store = new Vuex.Store({
     },
 
     RESET_APP: ({ state, commit, rootState }) => {
+      commit(SET_THEME, 'light')
       commit(SET_QUERY, '')
       commit(SET_RESULT_INDEX, -1)
       commit(SET_NOTES, [])

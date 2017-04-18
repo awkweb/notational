@@ -32,6 +32,7 @@ export default {
                     note.date_created = dateModified
                     vm.createNote(userId, note)
                   })
+                  vm.updateTheme(userId, 'light')
                   resolve(true)
                 })
     })

@@ -139,9 +139,7 @@ export default {
         const key = this.findKeyForNoteId(note.id, this.notes)
         this.SET_ACTIVE_KEY(key)
 
-        if ((this.resultIndex + 1) % 4 == 0) {
-          this.scrollToResultId(note.id, false)
-        }
+        this.scrollToNoteId(note.id, false)
       }
     },
 
@@ -156,15 +154,23 @@ export default {
         const key = this.findKeyForNoteId(note.id, this.notes)
         this.SET_ACTIVE_KEY(key)
         
-        if (index % 4 == 0) {
-          this.scrollToResultId(note.id, true)
-        }
+        this.scrollToNoteId(note.id, true)
       }
     },
 
-    scrollToResultId (noteId, alignToTop) {
+    scrollToNoteId (noteId, alignToTop) {
+      const container = this.selectElement('.search__results')
+      const containerViewTop = container.scrollTop
+      const containerViewBottom = containerViewTop + container.offsetHeight
+
       const element = this.selectElement(`#result_${noteId}`)
-      element.scrollIntoView(alignToTop)
+      const elementTop = element.offsetTop - 104
+      const elementBottom = elementTop + element.offsetHeight
+
+      const isVisible = (elementBottom <= containerViewBottom) && (elementTop >= containerViewTop)
+      if (!isVisible) {
+        element.scrollIntoView(alignToTop)
+      }
     },
 
     onSelect (note) {
