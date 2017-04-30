@@ -7,11 +7,10 @@
       </spinner>
 
       <template v-else>
-        <search @onSearch="onEditorFocus"
-                @onRenameBlur="onSearchFocus">
+        <search @onSearch="onEditorFocus">
         </search>
 
-        <editor @onEscape="onSearchFocus">
+        <editor>
         </editor>
 
         <foot>
@@ -66,8 +65,6 @@ export default {
                    'notes',
                    'user', 
                    'query',
-                   'renamingId',
-                   'editingId',
                    'theme'
     ])
   },
@@ -79,15 +76,12 @@ export default {
                    'RESET_ACTIVE_NOTE'
     ]),
     ...mapMutations(['SET_USER',
-                     'SET_RENAMING_ID',
                      'SET_ACTIVE_NOTE'
     ]),
 
     setUpHotKeys () {
-      keyboard.bind('ctrl + /', () => { this.onSearchFocus() })
-      keyboard.bind('ctrl + enter', () => { if (this.query.length > 0) this.onCreate() })
+      keyboard.bind('ctrl + enter', () => this.onCreate())
       keyboard.bind('ctrl + .', () => { if (this.activeNote) this.onEditorFocus() })
-      keyboard.bind('alt + ctrl + r', () => { if (this.activeNote) this.onRenameFocus() })
       keyboard.bind('alt + ctrl + d', () => { if (this.activeNote) this.onDelete() })
     },
 
@@ -96,22 +90,10 @@ export default {
       this.focusElement(id)
     },
 
-    onSearchFocus () {
-      const id = '#search-input'
-      this.focusElement(id)
-    },
-
-    onRenameFocus () {
-      this.SET_RENAMING_ID(this.activeNote.id)
-      this.$nextTick(() => {
-        const id = `#search-result-editor-${this.activeNote.id}`
-        this.focusElement(id)
-      })
-    },
-
     onCreate () {
       const id = this.nextIdForNotes(this.notes)
-      const note = this.createNote(id, this.query)
+      const name = this.query.length > 0 ? this.query : 'Untitled Note'
+      const note = this.createNote(id, name)
       this.SET_ACTIVE_NOTE(note)
 
       this.CREATE_NOTE(note).then(() => { this.onEditorFocus() })

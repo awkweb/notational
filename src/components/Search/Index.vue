@@ -9,7 +9,6 @@
              @blur="isSearchFocused = false"
              @input="updateQuery"
              @keyup.enter="onSearch"
-             @keyup.esc="onEscape"
              placeholder="Search or create"
              v-focus
              spellcheck="false"
@@ -102,6 +101,7 @@ export default {
     ]),
 
     setUpHotKeys () {
+      keyboard.bind('esc', () => this.onEscape())
       keyboard.bind('up', (e) => {
         if (!this.editingId && !this.renamingId) {
           e.preventDefault()
@@ -123,9 +123,13 @@ export default {
     },
 
     onEscape () {
-      this.query = ''
-      this.SET_QUERY('')
-      this.RESET_ACTIVE_NOTE()
+      if (!this.editingId && !this.renamingId) {
+        this.query = ''
+        this.SET_QUERY('')
+        this.RESET_ACTIVE_NOTE()
+      }
+      const id = '#search-input'
+      this.focusElement(id)
     },
 
     onUp () {
@@ -183,7 +187,8 @@ export default {
     },
 
     onRenameBlur () {
-      this.$emit('onRenameBlur')
+      const id = '#search-input'
+      this.focusElement(id)
     },
 
     updateQuery () {

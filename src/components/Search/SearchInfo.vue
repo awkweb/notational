@@ -7,14 +7,11 @@
       {{ resultsCount }} notes
     </span>
 
-    <span v-if="editing">
+    <span v-if="editing || !searching">
       <span class="command">esc</span> to focus search
     </span>
     <span v-else-if="renaming">
       <span class="command">enter</span> to save title
-    </span>
-    <span v-else-if="!searching">
-      <span class="command">ctrl</span> + <span class="command">/</span> to focus search
     </span>
     <span v-else-if="queryLength > 0">
       <span class="command">ctrl</span> + <span class="command">enter</span> to create note

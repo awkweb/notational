@@ -7,7 +7,6 @@
     <input v-if="renaming"
            :id="`search-result-editor-${note.id}`"
            v-model="note.name"
-           @focus="onRenameFocus"
            @blur="onRenameBlur"
            @keyup.esc="onRenameBlur"
            @keyup.enter="onRenameSave"
@@ -33,19 +32,29 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import keyboard from 'keyboardjs'
+
+import { utilsMixin } from '../../mixins'
 
 export default {
   name: 'search-result',
 
   props: ['note', 'isActive', 'renaming'],
+  
+  mixins: [utilsMixin],
 
   data: () => ({
     oldName: null,
     isRenamed: false
   }),
 
+  created () {
+    this.setUpHotKeys()
+  },
+
   computed: {
-    ...mapGetters(['query'
+    ...mapGetters(['query',
+                   'activeNote'
     ]),
 
     name () {
@@ -67,12 +76,21 @@ export default {
                      'SET_RENAMING_ID'
     ]),
 
+    setUpHotKeys () {
+      keyboard.bind('alt + ctrl + r', () => { if (this.activeNote) this.onRenameFocus() })
+    },
+
     onResultSelect () {
       this.$emit('onResultSelect', this.note)
     },
 
     onRenameFocus () {
       this.oldName = this.note.name
+      this.SET_RENAMING_ID(this.activeNote.id)
+      this.$nextTick(() => {
+        const id = `#search-result-editor-${this.activeNote.id}`
+        this.focusElement(id)
+      })
     },
 
     onRenameBlur () {
@@ -81,7 +99,6 @@ export default {
       }
       this.isRenamed = false
 
-      this.SET_RESULT_INDEX(0)
       this.SET_RENAMING_ID(null)
       this.$emit('onRenameBlur')
     },
@@ -90,6 +107,7 @@ export default {
       this.UPDATE_NOTE()
       this.oldName = null
       this.isRenamed = true
+      this.SET_RESULT_INDEX(0)
       this.onRenameBlur()
     }
   }

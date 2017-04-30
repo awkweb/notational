@@ -66,10 +66,6 @@ export default {
 
     onBlur () {
       this.SET_EDITING_ID(null)
-    },
-
-    onEscape () {
-      this.$emit('onEscape')
     }
   }
 
