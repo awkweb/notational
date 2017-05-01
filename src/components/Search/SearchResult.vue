@@ -53,8 +53,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['query',
-                   'activeNote'
+    ...mapGetters([
+      'query',
+      'activeNote'
     ]),
 
     name () {
@@ -70,14 +71,20 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_NOTE'
+    ...mapActions([
+      'UPDATE_NOTE'
     ]),
-    ...mapMutations(['SET_RESULT_INDEX',
-                     'SET_RENAMING_ID'
+    ...mapMutations([
+      'SET_RESULT_INDEX',
+      'SET_RENAMING_ID'
     ]),
 
     setUpHotKeys () {
-      keyboard.bind('alt + ctrl + r', () => { if (this.activeNote) this.onRenameFocus() })
+      keyboard.bind('alt + ctrl + r', () => {
+        if (this.activeNote) {
+          this.onRenameFocus()
+        }
+      })
     },
 
     onResultSelect () {

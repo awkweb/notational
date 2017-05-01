@@ -61,28 +61,39 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['activeNote',
-                   'notes',
-                   'user', 
-                   'query',
-                   'theme'
+    ...mapGetters([
+      'activeNote',
+      'notes',
+      'user', 
+      'query',
+      'editingId',
+      'theme'
     ])
   },
 
   methods: {
-    ...mapActions(['FETCH_USER_DATA',
-                   'CREATE_NOTE',
-                   'DELETE_NOTE',
-                   'RESET_ACTIVE_NOTE'
+    ...mapActions([
+      'FETCH_USER_DATA',
+      'CREATE_NOTE',
+      'DELETE_NOTE',
+      'RESET_ACTIVE_NOTE'
     ]),
-    ...mapMutations(['SET_USER',
-                     'SET_ACTIVE_NOTE'
+    ...mapMutations([
+      'SET_USER',
+      'SET_ACTIVE_NOTE'
     ]),
 
     setUpHotKeys () {
       keyboard.bind('ctrl + enter', () => this.onCreate())
-      keyboard.bind('ctrl + .', () => { if (this.activeNote) this.onEditorFocus() })
-      keyboard.bind('alt + ctrl + d', () => { if (this.activeNote) this.onDelete() })
+      keyboard.bind('tab', (e) => {
+        e.preventDefault()
+        if (this.activeNote) {
+          this.onEditorFocus()
+        }
+      })
+      keyboard.bind('alt + ctrl + d', () => {
+        if (this.activeNote) this.onDelete()
+      })
     },
 
     onEditorFocus () {
