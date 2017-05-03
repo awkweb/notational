@@ -1,67 +1,49 @@
 <template>
   <div id="home"
        class="home">
-    <header>
+    <nav class="home__nav">
+      <router-link
+        :to="{ name: 'home'}"
+        class="home__nav__logo">
+        Notational
+      </router-link>
+
+      <div>
+        <button
+          @click="onLogIn"
+          class="home__nav__button">
+          Log In
+        </button>
+        
+        <button
+          @click="onSignUp"
+          class="home__nav__button primary"
+          id="sign-up">
+          Sign Up
+        </button>
+      </div>
+    </nav>
+
+    <header class="home__header">
       <h1 class="home__headline">
-        Notes at the speed of <mark>thought</mark>.
+        Notes at the speed of thought.
       </h1>
-      <h2 class="home__subline">
-        Smart shortcuts and auto-save keep your hands on the keyboard—and your brain happy.
-      </h2>
     </header>
 
-    <div class="home__form">
-      <form>
-        <input v-model="email"
-               v-focus
-               class="home__form__email"
-               type="text"
-               placeholder="tom@wpi.edu"
-               spellcheck="false"
-               autofocus>
-        
-        <button @click.prevent="onStart"
-                class="home__form__button">
-          Start
-        </button>
-      </form>
-
-      <span class="home__form__description">
-        Join 50+ others reducing cognitive load
-      </span>
-    </div>
-
-    <div class="home__reasons">
-      <div class="reason">
-        <h2 class="search">
-          Search as you type
-        </h2>
-        <p>
-          Searching encompasses all notes' content and occurs immediately with each key pressed.
-        </p>
+    <div class="home__browser">
+      <div class="home__browser__header">
+        <div class="home__browser__button-group">
+          <div class="home__browser__button"></div>
+          <div class="home__browser__button"></div>
+          <div class="home__browser__button"></div>
+        </div>
       </div>
-      
-      <div class="reason">
-        <h2 class="share">
-          Instantly shareable
-        </h2>
-        <p>
-          Copy, paste, and send your note's unique link: Anyone can see your next great idea from anywhere.
-        </p>
-      </div>
+      <div class="home__browser__body"></div>
     </div>
 
-    <div class="home__buttons light">
-      <button @click="onLogIn"
-                class="button large">
-        Log In
-      </button>
-      <button @click="onSignUp"
-              class="button primary large"
-              id="sign-up">
-        Sign Up
-      </button>
-    </div>
+      <p class="home__subline">
+        <span>Smart shortcuts</span>, <span>magic save</span>, and <span>incremental search</span> keep your hands on the keyboard—and your brain happy.
+      </p>
 
     <footer class="home__foot">
       <div>

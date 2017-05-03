@@ -7,7 +7,7 @@ body {
   width: 100vw;
   font: {
     family: $sans-serif;
-    size: 16px;
+    size: 18px;
   }
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,7 +17,7 @@ body {
   height: 100vh;
 }
 
-#home, #login, #signup, #notfound, #public, .container {
+#login, #signup, #notfound, #public, .container {
   margin: {
     bottom: 0;
     left: auto;
@@ -37,7 +37,7 @@ body {
   }
 }
 
-#home, #notfound, #public, .container {
+#notfound, #public, .container {
   max-width: 35rem;  
 }
 

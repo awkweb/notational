@@ -1,84 +1,159 @@
 .home {
-	mark {
-		background-color: $orange-l;
+	color: $gray-d;
+	max-width: 40rem;
+
+	padding: {
+		top: 1rem;
+		right: 1rem;
+		bottom: 1rem;
+		left: 1rem;
 	}
 
 	margin: {
-		top: 2rem;
+		right: auto;
+		left: auto;
 	}
 
-	@media screen and (max-width: $sm) {
+	&__nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		margin: {
-			top: 1rem;
+			bottom: 2rem;
 		}
+		padding: {
+			top: .5rem;
+			bottom: .5rem;
+		}
+
+		&__logo {
+			color: $orange;
+			text-decoration: none;
+			font: {
+				family: $sans-serif;
+				size: 1.5rem;
+				weight: 700;
+			}
+		}
+
+		&__button {
+			color: $gray-d;
+			cursor: pointer;
+			border: 0;
+			background: {
+				color: transparent;
+			}
+			font: {
+				family: $sans-serif;
+				size: 1rem;
+				weight: 500;
+			}
+			padding: {
+				bottom: 6px;
+				right: 10px;
+				left: 10px;
+				top: 6px;
+			}
+
+			&.primary {
+				box-shadow: 0 2px 4px RGBA(0,0,0,0.04);
+				color: $white;
+				border: {
+					style: solid;
+					width: 1px;
+					color: darken($orange, 10);
+					radius: $border-radius;
+				}
+				font: {
+					weight: 900;
+				}
+				background: {
+					color: $orange;
+				}
+			}
+		}
+	}
+
+	&__header {
+		text-align: center;
 	}
 
 	&__headline {
 		color: $black;
-		font: {
-			size: 2rem;
-			weight: 700;
-		}
-		margin: {
-			top: 0;
-			bottom: .5rem;
-		}
+		margin: 0;
 	}
 
 	&__subline {
-		color: $gray;
+		text-align: center;
+		color: $gray-d;
 		font: {
+			family: $sans-serif;
 			size: 1.5rem;
-			weight: 500;
-		}
-		margin: {
-			top: 0;
-		}
-	}
-
-	&__reasons {
-		margin-bottom: 3rem;
-
-		.reason {
-			margin-bottom: 2rem;
 		}
 
-		h2 {
-			padding-left: 2.5rem;
+		span {
+			color: $black;
+			background: {
+				color: lighten($orange, 35);
+			}
 			font: {
-				size: 1.35rem;
-				weight: 600;
+				weight: 700;
 			}
-		}
-
-		.search, .share {
-			background: {
-				position: 0% 55%;
-				repeat: no-repeat;
-				size: 35px;
-			}
-		}
-
-		.search {
-			background: {
-				image: url("../assets/light/search.svg");
-			}
-		}
-
-		.share {
-			background: {
-				image: url("../assets/light/share.svg");
+			transition: background-color $transition;
+			&:hover {
+				background: {
+					color: lighten($blue, 35);
+				}
 			}
 		}
 	}
 
-	&__buttons {
-		margin-bottom: 5rem;
-		display: flex;
-		justify-content: center;
+	&__browser {
+		box-shadow: $box-shadow-2;
+		max-width: 37rem;
+		height: 24rem;
 
-		#sign-up {
-			margin-left: .5rem;
+		margin: {
+			top: 1rem;
+			right: auto;
+			bottom: 2rem;
+			left: auto;
+		}
+
+		border: {
+			style: solid;
+			width: 1px;
+			color: $orange;
+			radius: $border-radius;
+		}
+
+		&__header {
+			display: flex;
+			align-items: center;
+			height: 2rem;
+			border-bottom: {
+				style: solid;
+				width: 1px;
+				color: $orange;
+			}
+		}
+
+		&__button-group {
+			padding: {
+				left: 10px;
+			}
+		}
+
+		&__button {
+			display: inline-block;
+			width: .5rem;
+			height: .5rem;
+			border: {
+				style: solid;
+				width: 1px;
+				color: $orange;
+				radius: 50%;
+			}
 		}
 	}
 
@@ -87,6 +162,11 @@
 		justify-content: space-between;
 		color: $gray-l;
 		transition: color $transition;
+
+		margin: {
+			top: 1rem;
+			bottom: 2rem;
+		}
 
 		a {
 			color: $gray-l;
@@ -109,144 +189,6 @@
 		@media screen and (max-width: $sm) {
 			flex-direction: column;
 			align-items: center;
-		}
-	}
-}
-
-.home__form {
-	box-shadow: $box-shadow;
-	background: $white-d;
-	margin: {
-		bottom: 3rem;
-		left: 0;
-		right: 0;
-		top: 2.5rem;
-	};
-	border: {
-		width: 1px;
-		style: solid;
-		color: $gray-l;
-		radius: $border-radius;
-	};
-	padding: {
-		top: 1.25rem;
-		left: 1.25rem;
-		right: 1.25rem;
-		bottom: .75rem;
-	};
-	display: flex;
-	flex-direction: column;
-
-	& > form {
-		flex: 1;
-		display: flex;
-		margin-bottom: .75rem;
-
-		@media screen and (max-width: $sm) {
-			margin-bottom: .5rem;
-		}
-	}
-
-	@media screen and (max-width: $sm) {
-		padding: {
-			top: .5rem;
-			left: .5rem;
-			right: .5rem;
-			bottom: .5rem;
-		};
-	}
-
-	&__email {
-		flex: 8;
-		color: $black;
-		margin: 0;
-		border: {
-			width: 1px;
-			style: solid;
-			color: $gray-l;
-			top-left-radius: $border-radius;
-			bottom-left-radius: $border-radius;
-			top-right-radius: 0;
-			bottom-right-radius: 0;
-		};
-		padding: {
-			top: 1rem;
-			left: 1rem;
-			right: 1rem;
-			bottom: 1rem;
-		};
-		font: {
-			size: 1.15rem;
-		}
-		outline: 0;
-		transition: border-color $transition;
-		text-transform: lowercase;
-		-webkit-appearance: none;
-
-		&:hover {
-			border-color: $blue;
-		}
-
-		&:focus {
-			border-color: $orange;
-		}
-
-		@media screen and (max-width: $sm) {
-			padding: {
-				top: .85rem;
-				left: .85rem;
-				right: .85rem;
-				bottom: .85rem;
-			};
-		}
-	}
-
-	&__button {
-		flex: 2;
-		background-color: $white;
-		color: $gray-d;
-		margin: 0;
-		border: {
-			width: 1px;
-			style: solid;
-			color: $gray-l;
-			left-width: 0;
-			top-right-radius: $border-radius;
-			bottom-right-radius: $border-radius;
-		}
-		padding: 1rem;
-		font: {
-			size: 1rem;
-			weight: 700;
-			family: $sans-serif;
-		}
-		cursor: pointer;
-
-		&:focus {
-			outline: 0;
-		}
-
-		@media screen and (max-width: $sm) {
-			padding: {
-				top: .5rem;
-				left: .5rem;
-				right: .5rem;
-				bottom: .5rem;
-			};
-		}
-	}
-
-	&__description {
-		color: $gray;
-		font: {
-			size: 1rem;
-			weight: 500;
-		}
-
-		@media screen and (max-width: $sm) {
-			font: {
-				size: .95rem;
-			}
 		}
 	}
 }
