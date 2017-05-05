@@ -1,0 +1,220 @@
+.search {
+  display: flex;
+  flex-direction: column;
+
+  mark {
+    background: {
+      color: $day-primary-color-light;
+    }
+    color: $day-font-color-dark;
+
+    &.dark {
+      background: {
+        color: $night-primary-color-light;
+      }   
+      color: $night-font-color-dark;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    height: 4.5rem;
+    margin: {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 1rem;
+    }
+
+    @media screen and (max-width: $sm) {
+      margin: {
+        top: .25rem;
+      }
+    }
+  }
+
+  &__input {
+    @include border($day-border-color);
+    @include background(
+      $day-background-color,
+      "../assets/light/search.svg",
+      25px,
+      99%
+    );
+
+    color: $day-font-color-dark;
+    box-shadow: $box-shadow;
+    flex: 1;
+    font: {
+      family: $sans-serif;
+      size: 1rem;
+    }
+    max-height: 25px;
+    outline: 0;
+    padding: {
+      bottom: 9px;
+      right: 30px;
+      left: 10px;
+      top: 9px;
+    }
+    transition: border-color $transition;
+
+    &:focus {
+      border-color: $day-primary-color;
+    }
+
+    &::placeholder {
+      color: $day-font-color-light;  
+    }
+  }
+
+  .dark &__input {
+    border-color: $night-border-color;
+    @include background(
+      $night-background-color,
+      "../assets/dark/search.svg",
+      25px,
+      99%
+      );
+    color: $night-font-color-dark;
+
+    &:focus {
+      border-color: $night-primary-color;
+    }
+
+    &::placeholder {
+      color: $night-font-color-light;
+    }
+  }
+
+  &__info {
+    color: $day-font-color-lighter;
+    display: flex;
+    font: {
+      size: .75rem;
+    }
+    justify-content: space-between;
+    margin: {
+      left: .4rem;
+      right: .4rem;
+      top: .4rem;
+    }
+
+    &.dark {
+      color: $night-font-color-lighter;
+    }
+
+    .command {
+      text-transform: uppercase;
+      color: $day-font-color;
+      background: {
+        color: $day-border-color-light;
+      }
+      font: {
+        family: $mono;
+      }
+      padding: {
+        bottom: .05rem;
+        right: .1rem;
+        left: .1rem;
+        top: .05rem;
+      }
+    }
+  }
+
+  .dark &__info {
+    color: $night-font-color-lighter;
+
+    .command {
+      color: $night-font-color;
+      background: {
+        color: $night-border-color-light;
+      }
+    }
+  }
+
+  &__results {
+    height: 8rem;
+    list-style-type: none;
+    margin: {
+      bottom: .5rem;
+      top: 0;
+    }
+    overflow-y: auto;
+    padding-left: 0;
+  }
+
+  &__result {
+    cursor: pointer;
+    display: flex;
+    font: {
+      family: $sans-serif;
+      size: .95rem;
+    }
+    justify-content: space-between;
+    padding: {
+      bottom: .3rem;
+      right: .4rem;
+      left: .4rem;
+      top: .3rem;
+    }
+
+    span {
+      white-space: nowrap;
+    }
+
+    &.active {
+      background: {  
+        color: $day-border-color-light;
+      }
+    }
+
+    &__name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__description {
+      color: $day-font-color-lighter;
+    }
+
+    &__time {
+      padding-left: .5rem;
+    }
+
+    &__editor {
+      background: {  
+        color: $day-border-color-light;
+      }
+      border: 0;
+      color: $day-font-color;
+      flex: 1;
+      font: {
+        family: $sans-serif;
+        size: .95rem;
+      }
+      padding: 0;
+      outline: 0;
+    }
+  }
+
+  .dark &__result {
+    &.active {
+      background: {  
+        color: $night-border-color-light;
+      }
+    }
+
+    &__description {
+      color: $night-font-color-lighter;
+    }
+
+    &__editor {
+      background: {  
+        color: $night-border-color-light;
+      }
+      color: $night-font-color;
+    }
+  }
+}

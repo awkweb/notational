@@ -4,11 +4,12 @@
 @import "app";
 @import "auth";
 @import "button";
-@import "editor";
-@import "foot";
 @import "home";
 @import "message";
 @import "notfound";
 @import "public";
-@import "search";
 @import "spinner";
+
+@import "nv/editor";
+@import "nv/foot";
+@import "nv/search";

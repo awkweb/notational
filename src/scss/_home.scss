@@ -81,6 +81,9 @@
 	&__headline {
 		color: $black;
 		margin: 0;
+		font: {
+			weight: 900;
+		}
 	}
 
 	&__subline {

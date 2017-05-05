@@ -45,16 +45,18 @@ body {
   max-width: 22;
 }
 
-@each $theme, $colors in (light, $light),
-                         (dark, $dark) {
-  #nv {
-      &.#{$theme} {
-        color: map-get($colors, font-color);
-        background: {
-          color: map-get($colors, background-color);
-        }
-        transition: background-color $transition;
-    }
+#nv {
+  color: $day-font-color;
+  background: {
+    color: $day-background-color;
+  }
+  transition: background-color $transition;
+
+  &.dark {
+    color: $night-font-color;
+    background: {
+      color: $night-background-color;
+    }   
   }
 }
 

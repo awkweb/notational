@@ -41,9 +41,9 @@
       <div class="home__browser__body"></div>
     </div>
 
-      <p class="home__subline">
-        <span>Smart shortcuts</span>, <span>magic save</span>, and <span>incremental search</span> keep your hands on the keyboard—and your brain happy.
-      </p>
+    <p class="home__subline">
+      <span>Smart shortcuts</span>, <span>magic save</span>, and <span>incremental search</span> keep your hands on the keyboard—and your brain happy.
+    </p>
 
     <footer class="home__foot">
       <div>
