@@ -1,30 +1,44 @@
 <template>
-  <li class="search__result"
-      :id="`result_${note.id}`"
-      :class="{ active: isActive }"
-      @click="onResultSelect">
+  <li
+    class="search__result"
+    :id="`result_${note.id}`"
+    :class="{ active: isActive }"
+    @dblclick="onRenameFocus"
+    @click="onResultSelect"
+    @mouseenter="showDelete = true"
+    @mouseleave="showDelete = false">
 
-    <input v-if="renaming"
-           :id="`search-result-editor-${note.id}`"
-           v-model="note.name"
-           @blur="onRenameBlur"
-           @keyup.esc="onRenameBlur"
-           @keyup.enter="onRenameSave"
-           v-focus
-           class="search__result__editor"
-           type="text">
+    <input
+      v-if="renaming"
+      :id="`search-result-editor-${note.id}`"
+      v-model="note.name"
+      @blur="onRenameBlur"
+      @keyup.esc="onRenameBlur"
+      @keyup.enter="onRenameSave"
+      v-focus
+      class="search__result__editor"
+      type="text">
 
     <template v-if="!(renaming)">
       <span class="search__result__name">
-            <span v-html="name"></span>
-            <span v-show="note.body.length > 0"
-                  class="search__result__description"> 
-                  – {{ note.body }}
-            </span>
+        <span v-html="name"></span>
+        <span
+          v-show="note.body.length > 0"
+          class="search__result__description"> 
+          – {{ note.body }}
+        </span>
       </span>
-      
-      <span class="search__result__time">
-            {{ note.date_modified | prettyDate }}
+
+      <button
+        v-if="showDelete"
+        @click="onDelete"
+        class="search__result__delete">
+      </button>
+
+      <span
+        v-else
+        class="search__result__time">
+        {{ note.date_modified | prettyDate }}
       </span>
     </template>
   </li>
@@ -45,7 +59,8 @@ export default {
 
   data: () => ({
     oldName: null,
-    isRenamed: false
+    isRenamed: false,
+    showDelete: false
   }),
 
   created () {
@@ -72,7 +87,9 @@ export default {
 
   methods: {
     ...mapActions([
-      'UPDATE_NOTE'
+      'UPDATE_NOTE',
+      'DELETE_NOTE',
+      'RESET_ACTIVE_NOTE'
     ]),
     ...mapMutations([
       'SET_RESULT_INDEX',
@@ -116,6 +133,17 @@ export default {
       this.isRenamed = true
       this.SET_RESULT_INDEX(0)
       this.onRenameBlur()
+    },
+
+    onSearchFocus () {
+      const id = '#search-input'
+      this.focusElement(id)
+    },
+
+    onDelete () {
+      this.DELETE_NOTE().then(() => {
+        this.RESET_ACTIVE_NOTE().then(() => this.onSearchFocus())
+      })
     }
   }
 

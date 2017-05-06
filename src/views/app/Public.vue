@@ -25,8 +25,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import router from '../router'
-import Spinner from '../components/Spinner.vue'
+import router from '../../router'
+import Spinner from '../../components/Spinner.vue'
 
 export default {
   name: 'public',

@@ -1,6 +1,6 @@
 <template>
-  <div id="login" class="auth">
-    <h1 class="auth__title text-center">Log In</h1>
+  <div id="signup" class="auth">
+    <h1 class="auth__title text-center">Sign Up</h1>
 
     <message v-if="error"
              :text="error"
@@ -26,17 +26,23 @@
                type="password"
                placeholder="Super, secret">
       </div>
+
+      <div class="auth__form__group">
+        <label class="auth__form__group__label">Confirm Password</label>
+        <input class="auth__form__group__input password" 
+               v-model="confirm"
+               type="password"
+               placeholder="You know the drill">
+      </div>
       
       <button class="auth__form__button"
-              v-on:click.prevent="onLogIn"
-              v-on:keyup.enter="onLogIn">
-        Log In
+              v-on:click.prevent="onSignUp"
+              v-on:keyup.enter="onSignUp">
+              Sign Up
       </button>
     </form>
 
-    <router-link :to="{ name: 'signup', query: { email: email }}">
-      New here? Sign up
-    </router-link>
+    <router-link :to="{ name: 'login', query: { email: email }}">Have an account? Log in</router-link>
 
   </div>
 </template>
@@ -44,19 +50,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { localStorageMixin } from '../mixins'
-import Message from '../components/Message.vue'
+import { localStorageMixin } from '../../mixins'
+import Message from '../../components/Message.vue'
 
 export default {
-  name: 'login',
+  name: 'signup',
 
   mixins: [localStorageMixin],
 
   components: { Message },
 
   data: () => ({
-    email: '',
-    password: '',
+    email: null,
+    password: null,
+    confirm: null,
     error: null
   }),
 
@@ -65,23 +72,24 @@ export default {
       this.email = this.$route.query.email
     }
   },
-  
+
   computed: {
     ...mapGetters(['user'])
   },
 
   methods: {
-    ...mapActions(['LOG_IN_USER'
+    ...mapActions(['SIGN_UP_USER',
+                   'INIT_NOTES'
     ]),
 
-    onLogIn () {
-      if (this.email.length == 0) {
-        this.error = 'Please enter an email.'
+    onSignUp () {
+      if (this.password != this.confirm) {
+        this.error = 'The passwords did not match.'
         return
       }
 
-      if (this.password.length == 0) {
-        this.error = 'Please enter a password.'
+      if (this.email === null & this.password === null) {
+        this.error = 'Please enter an email.'
         return
       }
 
@@ -89,10 +97,13 @@ export default {
         email: this.email,
         password: this.password
       }
-      this.LOG_IN_USER(data)
+
+      this.SIGN_UP_USER(data)
         .then(() => {
           this.ls_pushUser(this.user)
-          this.$router.push({ name: 'app'})
+          this.INIT_NOTES()
+            .then(() => this.$router.push({ name: 'app'}))
+            .catch((error) => this.error = error.message)
         })
         .catch((error) => {
           this.error = error.message
@@ -106,9 +117,10 @@ export default {
 
   head: {
     title: {
-      inner: 'Log In'
+      inner: 'Sign Up'
     }
   }
 
 }
 </script>
+

@@ -7,13 +7,13 @@
       color: $day-primary-color-light;
     }
     color: $day-font-color-dark;
+  }
 
-    &.dark {
-      background: {
-        color: $night-primary-color-light;
-      }   
-      color: $night-font-color-dark;
-    }
+  .dark & mark {
+    background: {
+      color: $night-primary-color-light;
+    }   
+    color: $night-font-color-dark;
   }
 
   &__container {
@@ -101,10 +101,6 @@
       top: .4rem;
     }
 
-    &.dark {
-      color: $night-font-color-lighter;
-    }
-
     .command {
       text-transform: uppercase;
       color: $day-font-color;
@@ -148,16 +144,18 @@
   &__result {
     cursor: pointer;
     display: flex;
+    align-items: center;
     font: {
       family: $sans-serif;
       size: .95rem;
     }
     justify-content: space-between;
+    height: 31px;
     padding: {
-      bottom: .3rem;
+      bottom: 0;
       right: .4rem;
       left: .4rem;
-      top: .3rem;
+      top: 0;
     }
 
     span {
@@ -181,6 +179,21 @@
 
     &__time {
       padding-left: .5rem;
+    }
+
+    &__delete {
+      height: 27px;
+      min-width: 27px;
+      padding: 0;
+      outline: 0;
+      background: {
+        color: transparent;
+        repeat: no-repeat;
+        position: center;
+        image: url("../assets/trash.svg");
+      }
+      border: 0;
+      cursor: pointer;
     }
 
     &__editor {

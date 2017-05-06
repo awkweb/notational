@@ -13,7 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#app, #nv {
+#app, #nv, #profile {
   height: 100vh;
 }
 
@@ -45,7 +45,7 @@ body {
   max-width: 22;
 }
 
-#nv {
+#nv, #profile {
   color: $day-font-color;
   background: {
     color: $day-background-color;

@@ -4,11 +4,14 @@ import VueRouter from 'vue-router'
 import ls from 'local-storage'
 
 import Home from '../views/Home.vue'
-import NV from '../views/NV.vue'
-import LogIn from '../views/LogIn.vue'
-import SignUp from '../views/SignUp.vue'
-import Public from '../views/Public.vue'
 import NotFound from '../views/NotFound.vue'
+
+import LogIn from '../views/auth/LogIn.vue'
+import SignUp from '../views/auth/SignUp.vue'
+
+import NV from '../views/app/NV.vue'
+import Me from '../views/app/Me.vue'
+import Public from '../views/app/Public.vue'
 
 Vue.use(VueHead)
 Vue.use(VueRouter)
@@ -18,6 +21,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', name: 'home', component: Home },
     { path: '/app', name: 'app', component: NV, meta: { requiresAuth: true } },
+    { path: '/me', name: 'me', component: Me, meta: { requiresAuth: true } },
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
     { path: '/n/:id', name: 'public', component: Public },

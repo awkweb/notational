@@ -10,11 +10,7 @@
       </span>
 
       <div class="foot__right">
-          <template v-if="activeNote">
-            <button @click="onDeleteNote"
-                  class="button-icon trash">
-            </button>
-            
+          <template v-if="activeNote">           
             <button @click="onShareNote"
                   class="button-icon share">
             </button>
@@ -29,6 +25,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
+import router from '../../router'
 
 export default {
   name: 'foot-actions',
@@ -53,20 +51,16 @@ export default {
   }),
 
   methods: {    
-    onDeleteNote () {
-      this.$emit('onDeleteNote')
-    },
-
     onShareNote () {
       this.$emit('onShareNote')
     },
 
     onUserProfile () {
-      this.$emit('onUserProfile')
+      router.push({ path: 'me' })
     },
 
     randomQuote () {
-      const index = _.random(0, this.quotes.length - 1);
+      const index = _.random(0, this.quotes.length - 1)
       return this.quotes[index]
     }
   }

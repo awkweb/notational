@@ -1,26 +1,23 @@
 <template>
-  <div class="user-profile">
-    <div>
-      <div class="button-group">
-        <button @click="onClickChangeTheme('light')"
-                class="button">
-          Light
-        </button>
-        <button @click="onClickChangeTheme('dark')"
-                class="button">
-          Dark
-        </button>
-      </div>
-
-      <button @click="onLogOut"
+  <div id="profile"
+       class="profile"
+       :class="theme">
+    <h1>Hello, Profile</h1>
+  
+    <div class="button-group">
+      <button @click="onClickChangeTheme('light')"
               class="button">
-        Log Out
+        Light
+      </button>
+      <button @click="onClickChangeTheme('dark')"
+              class="button">
+        Dark
       </button>
     </div>
-      
-    <button @click="onDone"
+
+    <button @click="onLogOut"
             class="button">
-      Done
+      Log Out
     </button>
   </div>
 </template>
@@ -31,12 +28,14 @@ import { mapActions, mapGetters } from 'vuex'
 import { localStorageMixin } from '../../mixins'
 
 export default {
-  name: 'foot-user-profile',
+  name: 'profile',
 
   mixins: [localStorageMixin],
 
   computed: {
-    ...mapGetters(['theme'
+    ...mapGetters([
+      'user',
+      'theme'
     ])
   },
 
@@ -59,12 +58,9 @@ export default {
       if (this.theme !== theme) {
         this.UPDATE_THEME(theme)        
       }
-    },
-
-    onDone () {
-      this.$emit('onDone')
     }
   }
 
 }
 </script>
+

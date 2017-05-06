@@ -1,80 +1,91 @@
-@each $theme, $colors in (light, $light),
-                         (dark, $dark) {
-  .#{$theme} {
-      .editor {
-        display: flex;
-        margin-bottom: .75rem;
+.editor {
+  display: flex;
+  margin-bottom: .75rem;
 
-        mark {
-          color: transparent;
-          background-color: map-get($colors, primary-color-light);
-        }
+  mark {
+    color: transparent;
+    background-color: $day-primary-color-light;
+  }
+  .dark & mark {
+    background-color: $night-primary-color-light;
+  }
 
-        &__textarea {
-          -webkit-appearance: none;
-        }
+  &__textarea {
+    -webkit-appearance: none;
+  }
 
-        &__textarea, &__ghost,  &__placeholder {
-          border: {
-            top: 1px solid;
-            bottom: 1px solid;
-            right: 0;
-            left: 0;
-          }
-          flex: 1;
-          font: {
-            size: .95rem;
-            family: $sans-serif;
-          }
-          height: 15.5rem;
-          padding: {
-            bottom: 1rem;
-            left: 0;
-            right: 0;
-            top: 1rem;
-          }
-        }
+  &__textarea, &__ghost,  &__placeholder {
+    border: {
+      top: 1px solid;
+      bottom: 1px solid;
+      right: 0;
+      left: 0;
+    }
+    flex: 1;
+    font: {
+      size: .95rem;
+      family: $sans-serif;
+    }
+    height: 15.5rem;
+    padding: {
+      bottom: 1rem;
+      left: 0;
+      right: 0;
+      top: 1rem;
+    }
+  }
 
-        &__textarea,  &__placeholder {
-          border-color: map-get($colors, border-color);
-        }
+  &__textarea, &__placeholder {
+    border-color: $day-border-color;
+  }
+  .dark &__textarea, .dark &__placeholder {
+    border-color: $night-border-color;
+  }
 
-        &__textarea {
-          background-color: transparent;
-          border-radius: 0;
-          color: map-get($colors, font-color-dark);
-          margin: 0;
-          outline: 0;
-          resize: none;
-          transition: border-color $transition;
+  &__textarea {
+    background-color: transparent;
+    border-radius: 0;
+    color: $day-font-color-dark;
+    margin: 0;
+    outline: 0;
+    resize: none;
+    transition: border-color $transition;
 
-          &:focus {
-            border-color: map-get($colors, primary-color);
-          }
-        }
+    &:focus {
+      border-color: $day-primary-color;
+    }
+  }
+  .dark &__textarea, &__placeholder {
+    color: $night-font-color-dark;
+    
+    &:focus {
+      border-color: $night-primary-color;
+    }
+  }
 
-        &__ghost {
-          max-width: 35rem;
-          background-color: transparent;
-          border-color: transparent;
-          color: transparent;
-          position: absolute;
-          pointer-events: none;
+  &__ghost {
+    max-width: 35rem;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+    position: absolute;
+    pointer-events: none;
 
-          .highlights {
-            height: 100%;
-            overflow: hidden;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-          }
-        }
+    .highlights {
+      height: 100%;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
 
-        &__placeholder {
-          align-items: center;
-          color: map-get($colors, font-color-light);
-          display: flex;
-          justify-content: center;
-        }
-      }
+  &__placeholder {
+    align-items: center;
+    color: $day-font-color-light;
+    display: flex;
+    justify-content: center;
+  }
+  .dark &__placeholder {
+    color: $day-font-color-light;
   }
 }
