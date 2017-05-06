@@ -23,18 +23,15 @@
   width: 100%;
   height: 100%;
   background: inherit;
-  fill: $orange;
+  fill: palette(orange);
   pointer-events: none;
   transform: translateX(0);
 }
 
-@each $theme, $colors in (light, $light),
-                         (dark, $dark) {
-  .#{$theme} {
-    .icon__cnt {
-      fill: map-get($colors, primary-color);
-    }
-  }
+.dark {
+  .icon__cnt {
+    fill: palette(blue);
+  } 
 }
 
 .icon--m {

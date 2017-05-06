@@ -16,6 +16,10 @@
             </button>
           </template>
 
+          <button @click="onUpdateTheme"
+                  class="button-icon theme">
+          </button>
+
           <button @click="onUserProfile"
                   class="button-icon user">
           </button>
@@ -24,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import router from '../../router'
 
@@ -32,7 +36,9 @@ export default {
   name: 'foot-actions',
  
   computed: {
-    ...mapGetters(['activeNote'
+    ...mapGetters([
+      'activeNote',
+      'theme'
     ])
   },
 
@@ -50,13 +56,21 @@ export default {
     ]
   }),
 
-  methods: {    
+  methods: {
+    ...mapActions(['UPDATE_THEME'
+    ]),
+
     onShareNote () {
       this.$emit('onShareNote')
     },
 
     onUserProfile () {
       router.push({ path: 'me' })
+    },
+
+    onUpdateTheme () {
+      const theme = this.theme === 'dark' ? 'light' : 'dark'
+      this.UPDATE_THEME(theme)
     },
 
     randomQuote () {

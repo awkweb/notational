@@ -3,7 +3,7 @@
 		border-bottom: {
 			width: 1px;
 			style: solid;
-			color: $gray-l;
+			color: palette(gray, light);
 		}
 	}
 
@@ -16,7 +16,7 @@
 		}
 
 		h1 {
-			color: $orange;
+			color: palette(orange);
 			margin: 0;
 			font: {
 				size: 1rem;
@@ -35,7 +35,7 @@
 		white-space: pre-wrap;
     	height: 18rem;
     	overflow-y: scroll;
-    	color: $black;
+    	color: palette(black);
     	font: {
       		size: .95rem;
       		family: $sans-serif;
@@ -57,13 +57,8 @@
 		}
 
 		a {
-			color: $gray-l;
+			color: palette(orange);
 			transition: color $transition;
-			text-decoration: none;
-
-			&:hover {
-				color: $orange;
-			}
 		}
 	}
 }

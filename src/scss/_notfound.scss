@@ -4,7 +4,7 @@
 	}
 
 	&__headline {
-		color: $black;
+		color: palette(black);
 		font: {
 			size: 2rem;
 			weight: 700;
@@ -16,7 +16,7 @@
 	}
 
 	&__subline {
-		color: $gray;
+		color: palette(gray);
 		font: {
 			size: 1.5rem;
 			weight: 500;

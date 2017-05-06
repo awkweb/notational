@@ -1,7 +1,7 @@
 .foot {
   align-items: center;
   display: flex;
-  color: $day-font-color-light;
+  color: palette(gray, dark);
   font: {
     weight: 500;
     size: .85rem;
@@ -12,10 +12,11 @@
   	display: flex;
     align-items: center;
   }
+  transition: color $transition;
 }
 
 .dark .foot {
-  color: $night-font-color-light;
+  color: palette(dark, x-light);
 }
 
 .main-actions, .share-note, .user-profile {
@@ -51,18 +52,16 @@
     cursor: default;
     width: 275px;
     text-overflow: ellipsis;
-    color: $day-font-color;
+    color: palette(black);
     font: {
       size: .8rem;
       family: $sans-serif;
     }
-    background: {
-      color: $day-background-color;
-    }
+    background-color: palette(white);
     border: {
       width: 1px;
       style: solid;
-      color: $day-border-color;
+      color: palette(gray, light);
       right-width: 0;
       top-left-radius: $border-radius;
       bottom-left-radius: $border-radius;
@@ -87,30 +86,28 @@
   }
 
   .dark &__url {
-    color: $night-font-color;
-    border-color: $night-border-color;
-    background: {
-      color: $night-background-color;
-    }
+    color: palette(white);
+    border-color: palette(dark, light);
+    background-color: palette(dark);
   }
 
   &__link {
-    color: $day-primary-color;
+    color: palette(orange);
   }
 
   .dark &__link {
-    color: $night-primary-color;
+    color: palette(blue);
   }
 
   &__button {
     cursor: pointer;
-    background-color: $day-primary-color;
-    color: $white;
+    background-color: palette(orange);
+    color: palette(white);
     cursor: pointer;
     border: {
       width: 1px;
       style: solid;
-      color: $day-primary-color-dark;
+      color: palette(orange, dark);
       top-right-radius: $border-radius;
       bottom-right-radius: $border-radius;
     }
@@ -133,11 +130,9 @@
   }
 
   .dark &__button {
-    background: {
-      color: $night-primary-color;
-    }
+    background-color: palette(blue);
     border: {
-      color: $night-primary-color-dark;
+      color: palette(blue, dark);
     }
   }
 
@@ -171,16 +166,16 @@
     }
 
     &.on {
-      color: $green;
+      color: palette(green);
       border: {
-        color: $green;
+        color: palette(green);
       }
     }
 
     &.off {
-      color: $red;
+      color: palette(red);
       border: {
-        color: $red;
+        color: palette(red);
       }
     }
   }
@@ -188,6 +183,7 @@
   &__info {
     font: {
       size: .8rem;
+      weight: 500;
     }
   }
 }

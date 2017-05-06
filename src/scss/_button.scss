@@ -1,127 +1,112 @@
-@each $theme, $colors in (light, $light),
-                         (dark, $dark) {
-  .#{$theme} {
-    .button {
-      @include border(map-get($colors, border-color));
-      
-      background-color: map-get($colors, background-color);
-      color: map-get($colors, font-color-light);
-      cursor: pointer;
-      font: {
-        family: $sans-serif;
-        size: .85rem;
-        weight: 500;
-      }
-      padding: {
-        bottom: 3px;
-        left: 6px;
-        right: 6px;
-        top: 3px;
-      }
-      transition: border-color $transition, color $transition;
+.button {
+  @include border(palette(gray, light));
+  
+  background-color: palette(white);
+  color: palette(gray, dark);
+  cursor: pointer;
+  font: {
+    family: $sans-serif;
+    size: .85rem;
+    weight: 500;
+  }
+  padding: {
+    bottom: 3px;
+    left: 6px;
+    right: 6px;
+    top: 3px;
+  }
+  transition: border-color $transition, color $transition;
 
-      &:focus {
-        outline: 0;
-      }
+  &:focus {
+    outline: 0;
+  }
 
-      &:hover {
-        color: map-get($colors, font-color);
-      }
+  &:hover {
+    color: palette(black);
+  }
 
-      &.primary {
-        background: {
-          color: map-get($colors, primary-color);
-        }
-        border: {
-          color: map-get($colors, primary-color-dark);
-        }
-        color: $white;
-      }
+  &.primary {
+    background-color: palette(orange);
+    border-color: palette(orange, dark);
+    color: palette(white);
+  }
 
-      &.danger {
-        background: {
-          color: $red;
-        }
-        border: {
-          color: darken($red, 10);
-        }
-        color: $white;
-      }
-
-      &.large {
-        box-shadow: $box-shadow;
-        padding: {
-          bottom: 7px;
-          right: 10px;
-          left: 10px;
-          top: 7px;
-        }
-        font: {
-          size: 1rem;
-          weight: 700;
-        }
-        width: 5.5rem;
-      }
+  &.large {
+    box-shadow: $box-shadow;
+    padding: {
+      bottom: 7px;
+      right: 10px;
+      left: 10px;
+      top: 7px;
     }
-
-    .button-icon {
-      height: 27px;
-      width: 27px;
-      background: {
-        color: map-get($colors, background-color);
-        size: cover;
-        repeat: no-repeat;
-      }
-      border: {
-        color: map-get($colors, border-color);
-        radius: $border-radius;
-        style: solid;
-        width: 1px;
-      }
-      cursor: pointer;
-
-      &.user {
-        background: {
-          image: url("../assets/#{$theme}/profile.svg");
-        }
-        margin: {
-          left: .25rem;
-        }
-      }
-
-      &.share {
-        background: {
-          image: url("../assets/#{$theme}/share.svg");
-        }
-        margin: {
-          left: .25rem;
-        }
-      }
-
-      &:focus {
-        outline: 0;
-      }
+    font: {
+      size: 1rem;
+      weight: 700;
     }
+    width: 5.5rem;
+  }
+}
 
-    .button-group {
-      display: inline-flex;
+.dark .button {
+  background-color: palette(dark);
+  border-color: palette(dark, light);
+  color: palette(dark, x-light);
 
-      button {
-        &:first-child {
-          border: {
-            right-width: 0;
-            top-right-radius: 0;
-            bottom-right-radius: 0;
-          }
-        }
+  &:hover {
+    color: palette(white);
+  }
+}
 
-        &:last-child {
-          border: {
-            top-left-radius: 0;
-            bottom-left-radius: 0;
-          }
-        }
-      }
-    }
+.button-icon {
+  height: 27px;
+  width: 27px;
+  background: {
+    color: palette(white);
+    size: cover;
+    repeat: no-repeat;
+  }
+  border: {
+    color: palette(gray, light);
+    radius: $border-radius;
+    style: solid;
+    width: 1px;
+  }
+  cursor: pointer;
+  margin: {
+    left: .25rem;
+  }
+
+  &.user {
+    background-image: url("../assets/light/profile.svg");
+  }
+
+  &.share {
+    background-image: url("../assets/light/share.svg");
+  }
+
+  &.theme {
+    background-image: url("../assets/light/theme.svg");
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.dark .button-icon {
+  background-color: palette(dark);
+  border-color: palette(dark, light);
+  transition: background $transition, border-color $transition;
+  
+  &.user {
+    background-image: url("../assets/dark/profile.svg");
+  }
+
+  &.share {
+    background-image: url("../assets/dark/share.svg");
+  }
+
+  &.theme {
+    background-image: url("../assets/dark/theme.svg");
   }
 }

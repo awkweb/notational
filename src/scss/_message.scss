@@ -1,12 +1,12 @@
 .message {
   border: {
-    color: $blue;
+    color: palette(blue);
     radius: $border-radius;
     style: solid;
     width: 1px;
   }
   box-shadow: $box-shadow;
-  color: $blue;
+  color: palette(blue);
   display: flex;
   font: {
     family: $sans-serif;

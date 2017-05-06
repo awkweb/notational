@@ -2,23 +2,14 @@
   <div id="profile"
        class="profile"
        :class="theme">
-    <h1>Hello, Profile</h1>
-  
-    <div class="button-group">
-      <button @click="onClickChangeTheme('light')"
+    <div class="container">
+      <h1>Hello, Profile</h1>
+
+      <button @click="onLogOut"
               class="button">
-        Light
-      </button>
-      <button @click="onClickChangeTheme('dark')"
-              class="button">
-        Dark
+        Log Out
       </button>
     </div>
-
-    <button @click="onLogOut"
-            class="button">
-      Log Out
-    </button>
   </div>
 </template>
 
@@ -40,9 +31,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['RESET_APP',
-                   'LOG_OUT_USER',
-                   'UPDATE_THEME'
+    ...mapActions([
+      'RESET_APP',
+      'LOG_OUT_USER'
     ]),
     
     onLogOut () {
@@ -52,12 +43,6 @@ export default {
         this.ls_logOut()
         this.$router.push({ name: 'login'})
       })
-    },
-
-    onClickChangeTheme (theme) {
-      if (this.theme !== theme) {
-        this.UPDATE_THEME(theme)        
-      }
     }
   }
 

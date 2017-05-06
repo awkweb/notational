@@ -10,7 +10,7 @@
 	max-width: 22rem;
 
 	&__title {
-		color: $black;
+		color: palette(black);
 		font: {
 			size: 1.9rem;
 		}
@@ -42,9 +42,9 @@
 			}
 
 			&__input {
-				@include border($gray-l);
+				@include border(palette(gray, light));
 				
-				color: $black;
+				color: palette(black);
 				box-shadow: $box-shadow;
 				font: {
 					family: $sans-serif;
@@ -60,8 +60,12 @@
 				transition: border-color $transition;
 
 				&:focus {
-					border-color: $orange;
+					border-color: palette(orange);
 				}
+
+				&::placeholder {
+      				color: palette(gray);  
+    			}
 
 				&.email {
 					@include background(
@@ -88,10 +92,10 @@
 			color: #fff;
 			cursor: pointer;
 			background: {
-				color: $orange;
+				color: palette(orange);
 			}
 			border: {
-				color: $orange-d;
+				color: palette(orange, dark);
 				radius: $border-radius;
 				style: solid;
 				width: 1px;
@@ -117,19 +121,20 @@
 			}
 
 			&:hover {
-				border-color: darken($orange, 15);
+				border-color: palette(orange, x-dark);
 			}
 		}
 	}
 
 	a {
+		outline: 0;
 		align-self: center;
 		border-bottom: {
-			color: $gray-l;
+			color: palette(gray, light);
 			style: solid;
 			width: 1px;
 		}
-		color: $gray;
+		color: palette(gray);
 		font: {
 			family: $sans-serif;
 			size: .95rem;

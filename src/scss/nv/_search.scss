@@ -3,17 +3,14 @@
   flex-direction: column;
 
   mark {
-    background: {
-      color: $day-primary-color-light;
-    }
-    color: $day-font-color-dark;
+    background-color: palette(orange, a-light);
+    color: palette(black);
+    transition: background-color $transition, color $transition;
   }
 
   .dark & mark {
-    background: {
-      color: $night-primary-color-light;
-    }   
-    color: $night-font-color-dark;
+    background-color: palette(blue, a-light);
+    color: palette(white);
   }
 
   &__container {
@@ -35,15 +32,15 @@
   }
 
   &__input {
-    @include border($day-border-color);
+    @include border(palette(gray, light));
     @include background(
-      $day-background-color,
+      palette(white),
       "../assets/light/search.svg",
       25px,
       99%
     );
 
-    color: $day-font-color-dark;
+    color: palette(black);
     box-shadow: $box-shadow;
     flex: 1;
     font: {
@@ -58,38 +55,38 @@
       left: 10px;
       top: 9px;
     }
-    transition: border-color $transition;
+    transition: border-color $transition, background $transition, color $transition;
 
     &:focus {
-      border-color: $day-primary-color;
+      border-color: palette(orange);
     }
 
     &::placeholder {
-      color: $day-font-color-light;  
+      color: palette(gray);  
     }
   }
 
   .dark &__input {
-    border-color: $night-border-color;
+    border-color: palette(dark, light);
     @include background(
-      $night-background-color,
+      palette(dark),
       "../assets/dark/search.svg",
       25px,
       99%
-      );
-    color: $night-font-color-dark;
+    );
+    color: palette(white);
 
     &:focus {
-      border-color: $night-primary-color;
+      border-color: palette(blue);
     }
 
     &::placeholder {
-      color: $night-font-color-light;
+      color: palette(dark, x-light);
     }
   }
 
   &__info {
-    color: $day-font-color-lighter;
+    color: palette(gray, dark);
     display: flex;
     font: {
       size: .75rem;
@@ -100,33 +97,29 @@
       right: .4rem;
       top: .4rem;
     }
+    transition: color $transition;
 
     .command {
       text-transform: uppercase;
-      color: $day-font-color;
-      background: {
-        color: $day-border-color-light;
-      }
-      font: {
-        family: $mono;
-      }
+      color: palette(black);
+      background-color: palette(gray, x-light);
+      font-family: $mono;
       padding: {
         bottom: .05rem;
         right: .1rem;
         left: .1rem;
         top: .05rem;
       }
+      transition: background-color $transition, color $transition;
     }
   }
 
   .dark &__info {
-    color: $night-font-color-lighter;
+    color: palette(dark, x-light);
 
     .command {
-      color: $night-font-color;
-      background: {
-        color: $night-border-color-light;
-      }
+      color: palette(white);
+      background-color: palette(dark, d-light);
     }
   }
 
@@ -142,6 +135,7 @@
   }
 
   &__result {
+    color: palette(black);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -157,15 +151,15 @@
       left: .4rem;
       top: 0;
     }
+    transition: color $transition;
 
     span {
       white-space: nowrap;
     }
 
     &.active {
-      background: {  
-        color: $day-border-color-light;
-      }
+      background-color: palette(gray, x-light);
+      transition: color $transition;
     }
 
     &__name {
@@ -174,7 +168,8 @@
     }
 
     &__description {
-      color: $day-font-color-lighter;
+      color: palette(gray, dark);
+      transition: color $transition;
     }
 
     &__time {
@@ -197,11 +192,9 @@
     }
 
     &__editor {
-      background: {  
-        color: $day-border-color-light;
-      }
+      background-color: palette(white);
       border: 0;
-      color: $day-font-color;
+      color: palette(black);
       flex: 1;
       font: {
         family: $sans-serif;
@@ -213,21 +206,19 @@
   }
 
   .dark &__result {
+    color: palette(white);
+
     &.active {
-      background: {  
-        color: $night-border-color-light;
-      }
+      background-color: palette(dark, d-light);
     }
 
     &__description {
-      color: $night-font-color-lighter;
+      color: palette(dark, x-light);
     }
 
     &__editor {
-      background: {  
-        color: $night-border-color-light;
-      }
-      color: $night-font-color;
+      background-color: palette(dark, d-light);
+      color: palette(white);
     }
   }
 }
