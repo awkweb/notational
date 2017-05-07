@@ -151,7 +151,8 @@ export default {
     ...mapActions([
       'FETCH_USER_DATA',
       'RESET_APP',
-      'LOG_OUT_USER'
+      'LOG_OUT_USER',
+      'UPDATE_USER_INFO'
     ]),
     ...mapMutations([
       'SET_USER'
@@ -171,7 +172,22 @@ export default {
     },
 
     onUpdate () {
+      if (this.password !== this.confirm) {
+        return
+      }
 
+      let data = {
+        displayName: this.user.displayName,
+        email: this.user.email
+      }
+
+      if (this.password != null) {
+        data[password] = this.password
+      }
+
+      this.UPDATE_USER_INFO(data)
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
     }
   },
 

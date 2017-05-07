@@ -17,7 +17,6 @@
 	}
 
 	&__form {
-		display: flex;
 		flex-direction: column;
 		margin: {
 			bottom: 3rem;
@@ -93,7 +92,7 @@
 			}
 			margin-top: .5rem;
 			transition: border-color $transition;
-			width: 8rem;
+			min-width: 8rem;
 
 			&:focus {
 				outline: 0;

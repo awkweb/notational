@@ -8,6 +8,9 @@
 			width: 1px;
 			color: palette(gray, light);
 		}
+		padding: {
+			top: .5rem;
+		}
 		margin-bottom: 2rem;
 		box-shadow: $box-shadow;
 		transition: border-bottom-color $transition;

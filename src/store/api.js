@@ -21,6 +21,36 @@ export default {
 		return auth.createUserWithEmailAndPassword(email, password)
 	},
 
+  updateUserInfo (data) {
+    const user = auth.currentUser
+    let promises = []
+    if (data.displayName) {
+      const displayNamePromise = new Promise((resolve, reject) => {
+        return user.updateProfile({ displayName: data.displayName })
+          .then(() => resolve(true), (error) => reject(error))
+      })
+      promises.push(displayNamePromise)
+    }
+
+    if (data.email) {
+      const emailPromise = new Promise((resolve, reject) => {
+        return user.updateEmail(data.email)
+          .then(() => resolve(true), (error) => reject(error))
+      })
+      promises.push(emailPromise)
+    }
+
+    if (data.password) {
+      const passwordPromise = new Promise((resolve, reject) => {
+        return user.updatePassword(data.password)
+          .then(() => resolve(true), (error) => reject(error))
+      })
+      promises.push(passwordPromise)
+    }
+
+    return Promise.all(promises)
+  },
+
   initNotesForUserId (userId) {
     const vm = this
     return new Promise((resolve, reject) => {

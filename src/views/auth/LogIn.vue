@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="auth">
-    <h1 class="auth__title text-center">Log In</h1>
+    <h1 class="auth__title text-center">Welcome Back</h1>
 
     <message v-if="error"
              :text="error"
@@ -87,7 +87,7 @@ export default {
 
     onLogIn () {
       if (this.email.length == 0) {
-        this.error = 'Please enter an email.'
+        this.error = 'Please enter an email address.'
         return
       }
 

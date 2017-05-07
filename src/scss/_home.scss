@@ -1,30 +1,58 @@
 .home {
 	color: palette(gray, dark);
-	max-width: 40rem;
 
-	padding: {
-		top: 1rem;
-		right: 1rem;
-		bottom: 1rem;
-		left: 1rem;
+	&__container, &__foot {
+		max-width: 62rem;	
 	}
 
-	margin: {
-		right: auto;
-		left: auto;
+	&__container, &__subline, &__foot {
+		margin: {
+			right: auto;
+			left: auto;
+		}
+		padding: {
+			right: 1rem;
+			left: 1rem;
+		}
+	}
+
+	&__container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;			
+
+		&.nav {
+			width: 62rem;
+			padding: {
+				top: .5rem;
+				bottom: .5rem;
+			}
+		}
+
+		&.main {
+			margin-bottom: 1rem;
+
+			@media screen and (max-width: $md) {
+				flex-direction: column;
+			}
+		}
 	}
 
 	&__nav {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: {
-			bottom: 2rem;
-		}
+		margin-bottom: 2rem;
 		padding: {
 			top: .5rem;
 			bottom: .5rem;
 		}
+		border-bottom: {
+			style: solid;
+			width: 1px;
+			color: palette(gray, light);
+		}
+		box-shadow: $box-shadow;
 
 		&__logo {
 			color: palette(orange);
@@ -33,6 +61,14 @@
 				family: $sans-serif;
 				size: 1.5rem;
 				weight: 700;
+			}
+
+
+			@media screen and (max-width: $sm) {
+				font-weight: 900;
+				span {
+					display: none;
+				}
 			}
 		}
 
@@ -44,7 +80,7 @@
 			font: {
 				family: $sans-serif;
 				size: 1rem;
-				weight: 500;
+				weight: 700;
 			}
 			padding: {
 				bottom: 6px;
@@ -52,9 +88,13 @@
 				left: 10px;
 				top: 6px;
 			}
+			margin-left: 5px;
+			outline: 0;
+			text-decoration: none;
 
 			&.primary {
-				box-shadow: 0 2px 4px RGBA(0,0,0,0.04);
+				margin-left: 15px;
+				box-shadow: $box-shadow;
 				color: palette(white);
 				border: {
 					style: solid;
@@ -62,51 +102,55 @@
 					color: palette(orange, dark);
 					radius: $border-radius;
 				}
-				font: {
-					weight: 900;
-				}
 				background-color: palette(orange);
 			}
 		}
 	}
 
-	&__header {
-		text-align: center;
+	&__content {
+		flex: 1;
+
+		&.left {
+			max-width: 25rem;
+			padding-right: 1rem;
+
+			@media screen and (max-width: $md) {
+				min-width: 100%;
+				padding-right: 0;
+				margin-bottom: 1rem;
+			}
+		}
+
+		&.right {
+			max-width: 30rem;
+			@media screen and (max-width: $md) {
+				min-width: 100%;
+			}		
+		}
+	}
+
+	.message {
+		margin-bottom: 0;
 	}
 
 	&__headline {
 		color: palette(black);
-		margin: 0;
+		margin: {
+			top: 0;
+			bottom: 2rem;
+		}
 		font: {
 			weight: 900;
 		}
 	}
 
-	&__subline {
-		text-align: center;
-		color: palette(gray, dark);
-		font: {
-			family: $sans-serif;
-			size: 1.5rem;
-		}
-
-		span {
-			color: palette(black);
-			background-color: palette(orange, light);
-			font-weight: 700;
-		}
-	}
-
 	&__browser {
 		box-shadow: $box-shadow-2;
-		max-width: 37rem;
-		height: 24rem;
+		height: 25rem;
 
 		margin: {
 			top: 1rem;
-			right: auto;
 			bottom: 2rem;
-			left: auto;
 		}
 
 		border: {
@@ -146,7 +190,26 @@
 		}
 	}
 
+	&__subline {
+		max-width: 40rem;
+		line-height: 1.5;
+		text-align: center;
+		color: palette(black);
+		font: {
+			family: $sans-serif;
+			size: 1.5rem;
+		}
+		margin-bottom: 2rem;
+
+		span {
+			white-space: nowrap;
+			background-color: palette(orange, light);
+			font-weight: 700;
+		}
+	}
+
 	&__foot {
+		max-width: 62rem;
 		display: flex;
 		justify-content: space-between;
 		color: palette(gray, light);

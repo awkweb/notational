@@ -105,7 +105,7 @@ export default {
       }
 
       if (this.email === null & this.password === null) {
-        this.error = 'Please enter an email.'
+        this.error = 'Please enter an email address.'
         return
       }
 
