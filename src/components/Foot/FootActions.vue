@@ -11,17 +11,20 @@
 
       <div class="foot__right">
           <template v-if="activeNote">           
-            <button @click="onShareNote"
-                  class="button-icon share">
+            <button
+              @click="onShareNote"
+              class="button-icon share">
             </button>
           </template>
 
-          <button @click="onUpdateTheme"
-                  class="button-icon theme">
+          <button
+            @click="onUpdateTheme"
+            class="button-icon theme">
           </button>
 
-          <button @click="onLogOut"
-                  class="button-icon user">
+          <button
+            @click="onLogOut"
+            class="button-icon user">
           </button>
       </div>
   </div>
@@ -45,7 +48,7 @@ export default {
   },
 
   data: () => ({
-    quoteIndex: 0,
+    lastIndex: 0,
     quotes: [
       'Stay present.',
       'Praise specifically, criticize generally.',
@@ -77,12 +80,8 @@ export default {
     },
 
     randomQuote () {
-      if (this.quoteIndex == this.quotes.length - 1) {
-        this.quoteIndex = 0
-      } else {
-        this.quoteIndex++
-      }
-      return this.quotes[this.quoteIndex]
+      let index = _.random(0, this.quotes.length - 1)
+      return this.quotes[index]
     },
 
     onLogOut () {
