@@ -40,34 +40,14 @@
         </h1>
 
         <form class="home__form">
-          <div
-            class="auth__form__group"
-            :class="{ active: activeInput === 'email' }">
-            <label class="auth__form__group__label">Email Address</label>
-            <input
-              class="auth__form__group__input" 
-              v-model="email"
-              v-focus
-              @focus="activeInput = 'email'"
-              @blur="activeInput = null"
-              type="text"
-              placeholder="richard@piedpiper.com"
-              spellcheck="false"
-              autofocus>
-          </div>
-          
-          <div
-            class="auth__form__group"
-            :class="{ active: activeInput === 'password' }">
-            <label class="auth__form__group__label">Password</label>
-            <input
-              class="auth__form__group__input" 
-              v-model="password"
-              @focus="activeInput = 'password'"
-              @blur="activeInput = null"
-              type="password"
-              placeholder="Super, secret">
-          </div>
+          <field
+            v-for="field in fields"
+            v-model="field.value"
+            :name="field.name"
+            :type="field.type"
+            :placeholder="field.placeholder"
+            :autofocus="field.autofocus">
+          </field>
           
           <button class="auth__form__button"
                   v-on:click.prevent="onCreateAccount"
@@ -118,6 +98,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 import router from '../router'
 import { localStorageMixin } from '../mixins'
+import Field from '../components/Field.vue'
 import Message from '../components/Message.vue'
 
 export default {
@@ -125,12 +106,28 @@ export default {
 
   mixins: [localStorageMixin],
 
-  components: { Message },
+  components: {
+    Field,
+    Message
+  },
 
   data: () => ({
-    email: null,
-    password: null,
-    activeInput: null,
+    fields: {
+      email: {
+        name: 'Email Address',
+        value: '',
+        type: 'text',
+        placeholder: 'monica@raviga.com',
+        autofocus: true
+      },
+      password: {
+        name: 'Password',
+        value: '',
+        type: 'password',
+        placeholder: 'Super, secret',
+        autofocus: false
+      }
+    },
     error: null
   }),
 
@@ -145,19 +142,19 @@ export default {
     ]),
 
     onCreateAccount () {
-      if (this.email === null) {
+      if (this.fields.email.value.length == 0) {
         this.error = 'Please enter an email address.'
         return
       }
 
-      if (this.password === null) {
+      if (this.fields.password.value.length == 0) {
         this.error = 'Please enter a password.'
         return
       }
 
       const data = {
-        email: this.email,
-        password: this.password
+        email: this.fields.email.value,
+        password: this.fields.password.value
       }
 
       this.SIGN_UP_USER(data)
@@ -174,7 +171,7 @@ export default {
     },
 
     onSignUp() {
-      this.$router.push({ name: 'signup', query: { email: this.email }})
+      this.$router.push({ name: 'signup', query: { email: this.fields.email.value }})
     },
 
     onLogIn () {

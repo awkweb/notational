@@ -1,5 +1,7 @@
 export const focus = {
 	inserted: function (el, binding) {
-    el.focus()
+		if (binding.value) {
+    		el.focus()			
+		}
   }
 }

@@ -8,47 +8,14 @@
     </message>
     
     <form class="auth__form">
-      <div
-        class="auth__form__group"
-        :class="{ active: activeInput === 'email' }">
-        <label class="auth__form__group__label">Email Address</label>
-        <input
-          class="auth__form__group__input" 
-          v-model="email"
-          v-focus
-          @focus="activeInput = 'email'"
-          @blur="activeInput = null"
-          type="text"
-          placeholder="gavin@hooli.xyz"
-          spellcheck="false"
-          autofocus>
-      </div>
-      
-      <div
-        class="auth__form__group"
-        :class="{ active: activeInput === 'password' }">
-        <label class="auth__form__group__label">Password</label>
-        <input
-          class="auth__form__group__input" 
-          v-model="password"
-          @focus="activeInput = 'password'"
-          @blur="activeInput = null"
-          type="password"
-          placeholder="Super, secret">
-      </div>
-
-      <div
-        class="auth__form__group"
-        :class="{ active: activeInput === 'confirm' }">
-        <label class="auth__form__group__label">Confirm Password</label>
-        <input
-          class="auth__form__group__input" 
-          v-model="password"
-          @focus="activeInput = 'confirm'"
-          @blur="activeInput = null"
-          type="password"
-          placeholder="You know the drill">
-      </div>
+      <field
+        v-for="field in fields"
+        v-model="field.value"
+        :name="field.name"
+        :type="field.type"
+        :placeholder="field.placeholder"
+        :autofocus="field.autofocus">
+      </field>
       
       <button class="auth__form__button"
               v-on:click.prevent="onSignUp"
@@ -57,7 +24,10 @@
       </button>
     </form>
 
-    <router-link :to="{ name: 'login', query: { email: email }}">Have an account? Log in</router-link>
+    <router-link
+      :to="{ name: 'login', query: { email: this.fields.email.value }}">
+      Have an account? Log in
+    </router-link>
 
   </div>
 </template>
@@ -66,6 +36,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 import { localStorageMixin } from '../../mixins'
+import Field from '../../components/Field.vue'
 import Message from '../../components/Message.vue'
 
 export default {
@@ -73,19 +44,41 @@ export default {
 
   mixins: [localStorageMixin],
 
-  components: { Message },
+  components: {
+    Field,
+    Message
+  },
 
   data: () => ({
-    email: null,
-    password: null,
-    confirm: null,
-    error: null,
-    activeInput: null
+    fields: {
+      email: {
+        name: 'Email Address',
+        value: '',
+        type: 'text',
+        placeholder: 'gavin@hooli.xyz',
+        autofocus: true
+      },
+      password: {
+        name: 'Password',
+        value: '',
+        type: 'password',
+        placeholder: 'Super, secret',
+        autofocus: false
+      },
+      confirm: {
+        name: 'Confirm Password',
+        value: '',
+        type: 'password',
+        placeholder: 'You know the drill',
+        autofocus: false
+      },
+    },
+    error: null
   }),
 
   created () {
     if (this.$route.query.email) {
-      this.email = this.$route.query.email
+      this.fields.email.value = this.$route.query.email
     }
   },
 
@@ -99,19 +92,19 @@ export default {
     ]),
 
     onSignUp () {
-      if (this.password != this.confirm) {
+      if (this.fields.password.value != this.fields.confirm.value) {
         this.error = 'The passwords did not match.'
         return
       }
 
-      if (this.email === null & this.password === null) {
+      if (this.fields.email.value === null & this.fields.password.value === null) {
         this.error = 'Please enter an email address.'
         return
       }
 
       const data = {
-        email: this.email,
-        password: this.password
+        email: this.fields.email,
+        password: this.fields.password
       }
 
       this.SIGN_UP_USER(data)

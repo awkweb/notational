@@ -10,7 +10,6 @@ import LogIn from '../views/auth/LogIn.vue'
 import SignUp from '../views/auth/SignUp.vue'
 
 import NV from '../views/app/NV.vue'
-import Profile from '../views/app/Profile.vue'
 import Public from '../views/app/Public.vue'
 
 Vue.use(VueHead)
@@ -21,7 +20,6 @@ const router = new VueRouter({
   routes: [
     { path: '/', name: 'home', component: Home },
     { path: '/app', name: 'app', component: NV, meta: { requiresAuth: true } },
-    { path: '/me', name: 'me', component: Profile, meta: { requiresAuth: true } },
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
     { path: '/n/:id', name: 'public', component: Public },

@@ -10,7 +10,7 @@
              @input="updateQuery"
              @keyup.enter="onSearch"
              placeholder="Search or create"
-             v-focus
+             v-focus="true"
              spellcheck="false"
              autofocus>
 

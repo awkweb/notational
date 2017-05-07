@@ -45,8 +45,8 @@ export default {
     this.FETCH_USER_DATA()
       .then(() => {
         this.loading = false
+        this.setUpHotKeys()
       })
-    this.setUpHotKeys()
   },
 
   beforeDestroy () {
@@ -119,7 +119,7 @@ export default {
       this.DELETE_NOTE().then(() => {
         this.RESET_ACTIVE_NOTE().then(() => this.onSearchFocus())
       })
-    },
+    }
   },
 
   head: {

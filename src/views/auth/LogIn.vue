@@ -2,49 +2,32 @@
   <div id="login" class="auth">
     <h1 class="auth__title text-center">Welcome Back</h1>
 
-    <message v-if="error"
-             :text="error"
-             @closeMessage="closeMessage">
+    <message
+      v-if="error"
+      :text="error"
+      @closeMessage="closeMessage">
     </message>
     
     <form class="auth__form">
-      <div
-        class="auth__form__group"
-        :class="{ active: activeInput === 'email' }">
-        <label class="auth__form__group__label">Email Address</label>
-        <input
-          class="auth__form__group__input"
-          v-model="email"
-          v-focus
-          @focus="activeInput = 'email'"
-          @blur="activeInput = null"
-          type="text"
-          placeholder="erlich@aviato.com"
-          spellcheck="false"
-          autofocus> 
-      </div>
+      <field
+        v-for="field in fields"
+        v-model="field.value"
+        :name="field.name"
+        :type="field.type"
+        :placeholder="field.placeholder"
+        :autofocus="field.autofocus">
+      </field>
       
-      <div
-        class="auth__form__group"
-        :class="{ active: activeInput === 'password' }">
-        <label class="auth__form__group__label">Password</label>
-        <input
-          class="auth__form__group__input" 
-          v-model="password"
-          @focus="activeInput = 'password'"
-          @blur="activeInput = null"
-          type="password"
-          placeholder="Super, secret">
-      </div>
-      
-      <button class="auth__form__button"
-              v-on:click.prevent="onLogIn"
-              v-on:keyup.enter="onLogIn">
+      <button
+        class="auth__form__button"
+        @click.prevent="onLogIn"
+        @keyup.enter="onLogIn">
         Log In
       </button>
     </form>
 
-    <router-link :to="{ name: 'signup', query: { email: email }}">
+    <router-link
+      :to="{ name: 'signup', query: { email: this.fields.email.value }}">
       New here? Sign up
     </router-link>
 
@@ -55,6 +38,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 import { localStorageMixin } from '../../mixins'
+import Field from '../../components/Field.vue'
 import Message from '../../components/Message.vue'
 
 export default {
@@ -62,18 +46,34 @@ export default {
 
   mixins: [localStorageMixin],
 
-  components: { Message },
+  components: {
+    Field,
+    Message
+  },
 
   data: () => ({
-    email: '',
-    password: '',
-    error: null,
-    activeInput: null
+    fields: {
+      email: {
+        name: 'Email Address',
+        value: '',
+        type: 'text',
+        placeholder: 'erlich@aviato.com',
+        autofocus: true
+      },
+      password: {
+        name: 'Password',
+        value: '',
+        type: 'password',
+        placeholder: 'Super, secret',
+        autofocus: false
+      }
+    },
+    error: null
   }),
 
   created () {
     if (this.$route.query.email) {
-      this.email = this.$route.query.email
+      this.fields.email.value = this.$route.query.email
     }
   },
   
@@ -86,19 +86,19 @@ export default {
     ]),
 
     onLogIn () {
-      if (this.email.length == 0) {
+      if (this.fields.email.value.length == 0) {
         this.error = 'Please enter an email address.'
         return
       }
 
-      if (this.password.length == 0) {
+      if (this.fields.password.value.length == 0) {
         this.error = 'Please enter a password.'
         return
       }
 
       const data = {
-        email: this.email,
-        password: this.password
+        email: this.fields.email.value,
+        password: this.fields.password.value
       }
       this.LOG_IN_USER(data)
         .then(() => {

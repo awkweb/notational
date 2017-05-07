@@ -22,50 +22,6 @@
 			bottom: 3rem;
 		}
 
-		&__group {
-			display: flex;
-			flex-direction: column;
-			margin: {
-				bottom: 10px;
-			}
-			@include border(palette(gray, light));
-			box-shadow: $box-shadow;
-			padding: {
-				bottom: 6px;
-				right: 10px;
-				left: 10px;
-				top: 6px;
-			}
-			transition: border-color $transition;
-
-			&.active {
-				border-color: palette(orange);
-			}
-
-			&__label {
-				font: {
-					family: $sans-serif;
-					size: .8rem;
-					weight: 500;
-				}
-			}
-
-			&__input {
-				border: 0;				
-				color: palette(black);
-				background-color: transparent;
-				font: {
-					family: $sans-serif;
-					size: 1rem;
-				}
-				outline: 0;
-
-				&::placeholder {
-      				color: palette(gray);  
-    			}
-			}
-		}
-
 		&__button {
 			color: #fff;
 			cursor: pointer;

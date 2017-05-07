@@ -45,14 +45,13 @@
 		margin-bottom: 2rem;
 		padding: {
 			top: .5rem;
-			bottom: .5rem;
+			bottom: 0rem;
 		}
 		border-bottom: {
 			style: solid;
 			width: 1px;
 			color: palette(gray, light);
 		}
-		box-shadow: $box-shadow;
 
 		&__logo {
 			color: palette(orange);

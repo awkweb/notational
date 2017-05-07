@@ -19,10 +19,6 @@ const actions = {
   SIGN_UP_USER: ({ commit }, data) => {
     return api.signUp(data.email, data.password)
               .then(user => commit(SET_USER, user))
-  },
-
-  UPDATE_USER_INFO: ({ commit }, data) => {
-    return api.updateUserInfo(data)
   }
 }
 
