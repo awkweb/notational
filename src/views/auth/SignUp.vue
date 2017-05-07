@@ -8,31 +8,46 @@
     </message>
     
     <form class="auth__form">
-      <div class="auth__form__group">
-        <label class="auth__form__group__label">Email</label>
-        <input class="auth__form__group__input email" 
-               v-model="email"
-               v-focus
-               type="text"
-               placeholder="tom@wpi.edu"
-               spellcheck="false"
-               autofocus>
+      <div
+        class="auth__form__group"
+        :class="{ active: activeInput === 'email' }">
+        <label class="auth__form__group__label">Email Address</label>
+        <input
+          class="auth__form__group__input" 
+          v-model="email"
+          v-focus
+          @focus="activeInput = 'email'"
+          @blur="activeInput = null"
+          type="text"
+          placeholder="gavin@hooli.xyz"
+          spellcheck="false"
+          autofocus>
       </div>
       
-      <div class="auth__form__group">
+      <div
+        class="auth__form__group"
+        :class="{ active: activeInput === 'password' }">
         <label class="auth__form__group__label">Password</label>
-        <input class="auth__form__group__input password" 
-               v-model="password"
-               type="password"
-               placeholder="Super, secret">
+        <input
+          class="auth__form__group__input" 
+          v-model="password"
+          @focus="activeInput = 'password'"
+          @blur="activeInput = null"
+          type="password"
+          placeholder="Super, secret">
       </div>
 
-      <div class="auth__form__group">
+      <div
+        class="auth__form__group"
+        :class="{ active: activeInput === 'confirm' }">
         <label class="auth__form__group__label">Confirm Password</label>
-        <input class="auth__form__group__input password" 
-               v-model="confirm"
-               type="password"
-               placeholder="You know the drill">
+        <input
+          class="auth__form__group__input" 
+          v-model="password"
+          @focus="activeInput = 'confirm'"
+          @blur="activeInput = null"
+          type="password"
+          placeholder="You know the drill">
       </div>
       
       <button class="auth__form__button"
@@ -64,7 +79,8 @@ export default {
     email: null,
     password: null,
     confirm: null,
-    error: null
+    error: null,
+    activeInput: null
   }),
 
   created () {

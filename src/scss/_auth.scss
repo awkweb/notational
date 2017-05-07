@@ -27,64 +27,43 @@
 			display: flex;
 			flex-direction: column;
 			margin: {
-				bottom: 1.2rem;
+				bottom: 10px;
+			}
+			@include border(palette(gray, light));
+			box-shadow: $box-shadow;
+			padding: {
+				bottom: 6px;
+				right: 10px;
+				left: 10px;
+				top: 6px;
+			}
+			transition: border-color $transition;
+
+			&.active {
+				border-color: palette(orange);
 			}
 
 			&__label {
 				font: {
 					family: $sans-serif;
-					size: .9rem;
+					size: .8rem;
 					weight: 500;
-				}
-				margin: {
-					bottom: 3px;
 				}
 			}
 
 			&__input {
-				@include border(palette(gray, light));
-				
+				border: 0;				
 				color: palette(black);
-				box-shadow: $box-shadow;
+				background-color: transparent;
 				font: {
 					family: $sans-serif;
 					size: 1rem;
 				}
 				outline: 0;
-				padding: {
-					bottom: 9px;
-					right: 30px;
-					left: 10px;
-					top: 9px;
-				}
-				transition: border-color $transition;
-
-				&:focus {
-					border-color: palette(orange);
-				}
 
 				&::placeholder {
       				color: palette(gray);  
     			}
-
-				&.email {
-					@include background(
-		            	transparent,
-		            	"../assets/email.svg",
-		            	25px,
-		            	98%
-		          	);
-					text-transform: lowercase;
-				}
-
-				&.password {
-					@include background(
-		            	transparent,
-		            	"../assets/password.svg",
-		            	25px,
-		            	98%
-		          	);
-				}
 			}
 		}
 

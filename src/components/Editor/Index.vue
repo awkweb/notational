@@ -12,7 +12,6 @@
                 @blur="onBlur"
                 @focus="onFocus"
                 @keyup.esc="onEscape"
-                v-focus
                 placeholder="The quick brown fox..." 
                 rows="12">
       </textarea>

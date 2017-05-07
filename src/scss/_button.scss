@@ -61,7 +61,7 @@
   height: 27px;
   width: 27px;
   background: {
-    color: palette(white);
+    color: transparent;
     size: cover;
     repeat: no-repeat;
   }
@@ -94,7 +94,7 @@
 }
 
 .dark .button-icon {
-  background-color: palette(dark);
+  background-color: transparent;
   border-color: palette(dark, light);
   transition: background $transition, border-color $transition;
   

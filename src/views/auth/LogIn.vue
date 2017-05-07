@@ -8,23 +8,33 @@
     </message>
     
     <form class="auth__form">
-      <div class="auth__form__group">
-        <label class="auth__form__group__label">Email</label>
-        <input class="auth__form__group__input email" 
-               v-model="email"
-               v-focus
-               type="text"
-               placeholder="tom@wpi.edu"
-               spellcheck="false"
-               autofocus>
+      <div
+        class="auth__form__group"
+        :class="{ active: activeInput === 'email' }">
+        <label class="auth__form__group__label">Email Address</label>
+        <input
+          class="auth__form__group__input"
+          v-model="email"
+          v-focus
+          @focus="activeInput = 'email'"
+          @blur="activeInput = null"
+          type="text"
+          placeholder="erlich@aviato.com"
+          spellcheck="false"
+          autofocus> 
       </div>
       
-      <div class="auth__form__group">
+      <div
+        class="auth__form__group"
+        :class="{ active: activeInput === 'password' }">
         <label class="auth__form__group__label">Password</label>
-        <input class="auth__form__group__input password" 
-               v-model="password"
-               type="password"
-               placeholder="Super, secret">
+        <input
+          class="auth__form__group__input" 
+          v-model="password"
+          @focus="activeInput = 'password'"
+          @blur="activeInput = null"
+          type="password"
+          placeholder="Super, secret">
       </div>
       
       <button class="auth__form__button"
@@ -57,7 +67,8 @@ export default {
   data: () => ({
     email: '',
     password: '',
-    error: null
+    error: null,
+    activeInput: null
   }),
 
   created () {

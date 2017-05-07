@@ -23,7 +23,8 @@ $palettes: (
     blue: (
         base: $blue,
         dark: darken($blue, 10),
-        a-light: rgba(22,121,255,.5)
+        a-light: rgba(22,121,255,.5),
+        x-dark: darken($blue, 20)
     ),
 
     green: (

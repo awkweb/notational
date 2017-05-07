@@ -30,13 +30,13 @@
       </span>
 
       <button
-        v-if="showDelete"
+        v-show="showDelete"
         @click="onDelete"
         class="search__result__delete">
       </button>
 
       <span
-        v-else
+        v-show="!showDelete"
         class="search__result__time">
         {{ note.date_modified | prettyDate }}
       </span>

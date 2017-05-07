@@ -35,7 +35,6 @@
       right: 0;
       top: 1rem;
     }
-    transition: border-color $transition;
   }
 
   &__textarea, &__placeholder {
@@ -95,7 +94,7 @@
     color: palette(gray, dark);
     display: flex;
     justify-content: center;
-    transition: color $transition;
+    transition: border-color $transition, color $transition;
   }
   .dark &__placeholder {
     color: palette(dark, x-light);

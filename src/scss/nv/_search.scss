@@ -63,6 +63,7 @@
 
     &::placeholder {
       color: palette(gray);  
+      transition: color $transition;
     }
   }
 
@@ -192,7 +193,7 @@
     }
 
     &__editor {
-      background-color: palette(white);
+      background-color: palette(gray, x-light);
       border: 0;
       color: palette(black);
       flex: 1;
