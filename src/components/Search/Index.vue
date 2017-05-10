@@ -1,37 +1,40 @@
 <template>
   <div id="search" class="search">
     <div class="search__container">
-      <input id="search-input"
-             class="search__input"
-             type="text"
-             v-model.trim="query"
-             @focus="isSearchFocused = true"
-             @blur="isSearchFocused = false"
-             @input="updateQuery"
-             @keyup.enter="onSearch"
-             placeholder="Search or create"
-             v-focus="true"
-             spellcheck="false"
-             autofocus>
+      <input 
+        id="search-input"
+        class="search__input"
+        type="text"
+        v-model.trim="query"
+        @focus="isSearchFocused = true"
+        @blur="isSearchFocused = false"
+        @input="updateQuery"
+        @keyup.enter="onSearch"
+        placeholder="Search or create"
+        v-focus="true"
+        spellcheck="false"
+        autofocus>
 
-      <search-info :resultsCount="filteredNotes.length"
-                   :queryLength="query.length"
-                   :selected="activeNote != null"
-                   :searching="isSearchFocused"
-                   :renaming="renamingId != null"
-                   :editing="editingId != null">
+      <search-info
+        :resultsCount="filteredNotes.length"
+        :queryLength="query.length"
+        :selected="activeNote != null"
+        :searching="isSearchFocused"
+        :renaming="renamingId != null"
+        :editing="editingId != null">
       </search-info>
     </div>
     
     <ul class="search__results">
-      <search-result v-for="note in filteredNotes"
-                     class="list-complete-item"
-                     :key="note.id"
-                     :note="note"
-                     :isActive="activeNote && note.id == activeNote.id"
-                     :renaming="renamingId == note.id"
-                     @onResultSelect="onSelect"
-                     @onRenameBlur="onRenameBlur">
+      <search-result
+        v-for="note in filteredNotes"
+        class="list-complete-item"
+        :key="note.id"
+        :note="note"
+        :isActive="activeNote && note.id == activeNote.id"
+        :renaming="renamingId == note.id"
+        @onResultSelect="onSelect"
+        @onRenameBlur="onRenameBlur">
       </search-result>
     </ul>
   </div>
@@ -69,12 +72,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['activeNote',
-                   'notes',
-                   'user', 
-                   'resultIndex',
-                   'renamingId',
-                   'editingId'
+    ...mapGetters([
+      'activeNote',
+      'notes',
+      'user', 
+      'resultIndex',
+      'renamingId',
+      'editingId'
     ]),
 
     filteredNotes () {
@@ -92,15 +96,20 @@ export default {
   },
 
   methods: {
-    ...mapActions(['RESET_ACTIVE_NOTE'
+    ...mapActions([
+      'CREATE_NOTE',
+      'RESET_ACTIVE_NOTE'
     ]),
-    ...mapMutations(['SET_ACTIVE_NOTE',
-                     'SET_ACTIVE_KEY',
-                     'SET_QUERY',
-                     'SET_RESULT_INDEX'
+
+    ...mapMutations([
+      'SET_ACTIVE_NOTE',
+      'SET_ACTIVE_KEY',
+      'SET_QUERY',
+      'SET_RESULT_INDEX'
     ]),
 
     setUpHotKeys () {
+      keyboard.bind('ctrl + enter', () => this.onCreate())
       keyboard.bind('esc', () => this.onEscape())
       keyboard.bind('up', (e) => {
         if (!this.editingId && !this.renamingId) {
@@ -114,6 +123,14 @@ export default {
           this.onDown()
         }
       })
+    },
+
+    onCreate () {
+      const id = this.nextIdForNotes(this.notes)
+      const name = this.query.length > 0 ? this.query : 'Untitled Note'
+      const note = this.createNote(id, name)
+
+      this.CREATE_NOTE(note)
     },
     
     onSearch () {
@@ -178,12 +195,14 @@ export default {
     },
 
     onSelect (note) {
-      const index = this.filteredNotes.indexOf(note)
-      this.SET_RESULT_INDEX(index)
-      this.SET_ACTIVE_NOTE(note)
+      if (this.resultIndex == -1 || note.id != this.activeNote.id) {
+        const index = this.filteredNotes.indexOf(note)
+        this.SET_RESULT_INDEX(index)
+        this.SET_ACTIVE_NOTE(note)
 
-      const key = this.findKeyForNoteId(note.id, this.notes)
-      this.SET_ACTIVE_KEY(key)
+        const key = this.findKeyForNoteId(note.id, this.notes)
+        this.SET_ACTIVE_KEY(key)
+      }
     },
 
     onRenameBlur () {
@@ -192,13 +211,14 @@ export default {
     },
 
     updateQuery () {
-      const note = this.filteredNotes.length > 0 ? this.filteredNotes[0] : null
-      const key = this.filteredNotes.length > 0 ? this.findKeyForNoteId(note.id, this.notes) : null;
+      const hasSearchResults = this.filteredNotes.length > 0
+      const note = hasSearchResults ? this.filteredNotes[0] : null
+      const key = hasSearchResults ? this.findKeyForNoteId(note.id, this.notes) : null
+      const resultIndex = hasSearchResults ? 0 : -1
 
       this.SET_ACTIVE_NOTE(note)
       this.SET_ACTIVE_KEY(key)
-      
-      this.SET_RESULT_INDEX(0)
+      this.SET_RESULT_INDEX(resultIndex)
       this.SET_QUERY(this.query)
     }
   }

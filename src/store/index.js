@@ -4,14 +4,15 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import nv from './modules/nv'
 import { getNotesForUserId } from './api'
-import { SET_ACTIVE_NOTE,
-         SET_ACTIVE_KEY,
-         SET_QUERY,
-         SET_THEME,
-         SET_NOTES,
-         SET_RESULT_INDEX,
-         SET_RENAMING_ID,
-         SET_EDITING_ID } from './constants'
+import {
+  SET_ACTIVE_NOTE,
+  SET_ACTIVE_KEY,
+  SET_QUERY,
+  SET_THEME,
+  SET_NOTES,
+  SET_RESULT_INDEX,
+  SET_RENAMING_ID,
+  SET_EDITING_ID } from './constants'
 
 Vue.use(Vuex)
 

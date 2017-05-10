@@ -1,0 +1,46 @@
+.dropdown {
+	position: relative;
+
+	&__menu {
+		z-index: 10;
+	  	color: palette(black);
+		position: absolute;
+		top: -65px;
+    	background-color: palette(white);
+	  	@include border(palette(gray, light));
+	  	margin: 0;
+	  	right: 0;
+	  	padding: 0;
+
+		li {
+			white-space: nowrap;
+			cursor: pointer;
+			list-style-type: none;
+			padding: {
+	  			top: .35rem;
+	  			bottom: .35rem;
+	  			left: .75rem;
+	  			right: .75rem;
+	  		}
+	  		transition: background-color $transition;
+
+	  		&:hover {
+	  			background-color: palette(gray, x-light);
+	  		}
+		}
+	}
+}
+
+.dark .dropdown {
+	&__menu {
+	  	color: palette(white);
+    	background-color: palette(dark);
+		border-color: palette(dark, light);
+		
+		li {
+	  		&:hover {
+	  			background-color: palette(dark, d-light);
+	  		}
+		}
+	}
+}

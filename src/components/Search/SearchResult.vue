@@ -4,7 +4,7 @@
     :id="`result_${note.id}`"
     :class="{ active: isActive }"
     @dblclick="onRenameFocus"
-    @click="onResultSelect"
+    @click.capture="onResultSelect"
     @mouseenter="showDelete = true"
     @mouseleave="showDelete = false">
 
@@ -102,6 +102,9 @@ export default {
           this.onRenameFocus()
         }
       })
+      keyboard.bind('alt + ctrl + d', () => {
+        if (this.activeNote) this.onDelete()
+      })
     },
 
     onResultSelect () {
@@ -141,9 +144,7 @@ export default {
     },
 
     onDelete () {
-      this.DELETE_NOTE().then(() => {
-        this.RESET_ACTIVE_NOTE().then(() => this.onSearchFocus())
-      })
+      this.DELETE_NOTE().then(() => this.RESET_ACTIVE_NOTE())
     }
   }
 

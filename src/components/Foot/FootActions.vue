@@ -10,22 +10,19 @@
       </span>
 
       <div class="foot__right">
-          <template v-if="activeNote">           
-            <button
-              @click="onShareNote"
-              class="button-icon share">
-            </button>
-          </template>
-
+        <template v-if="activeNote">           
           <button
-            @click="onUpdateTheme"
-            class="button-icon theme">
+            @click="onShareNote"
+            class="button-icon share">
           </button>
+        </template>
 
-          <button
-            @click="onLogOut"
-            class="button-icon user">
-          </button>
+        <button
+          @click="onUpdateTheme"
+          class="button-icon theme">
+        </button>
+
+        <dropdown></dropdown>
       </div>
   </div>
 </template>
@@ -33,18 +30,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { localStorageMixin } from '../../mixins'
+import Dropdown from '../Dropdown.vue'
 
 export default {
   name: 'foot-actions',
-
-  mixins: [localStorageMixin],
  
   computed: {
     ...mapGetters([
       'activeNote',
       'theme'
     ])
+  },
+
+  components: {
+    Dropdown
   },
 
   data: () => ({
@@ -65,9 +64,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'UPDATE_THEME',
-      'RESET_APP',
-      'LOG_OUT_USER',
+      'UPDATE_THEME'
     ]),
 
     onShareNote () {
@@ -82,15 +79,6 @@ export default {
     randomQuote () {
       let index = _.random(0, this.quotes.length - 1)
       return this.quotes[index]
-    },
-
-    onLogOut () {
-      this.RESET_APP()
-
-      this.LOG_OUT_USER().then(() => {
-        this.ls_logOut()
-        this.$router.push({ name: 'login'})
-      })
     }
   }
 

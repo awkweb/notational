@@ -49,10 +49,11 @@
             :autofocus="field.autofocus">
           </field>
           
-          <button class="auth__form__button"
-                  v-on:click.prevent="onCreateAccount"
-                  v-on:keyup.enter="onCreateAccount">
-                  Create an Account
+          <button 
+            class="auth__form__button"                  
+            v-on:click.prevent="onCreateAccount"                  
+            v-on:keyup.enter="onCreateAccount">
+            Create an Account
           </button>
         </form>
 
@@ -72,7 +73,9 @@
               <div class="home__browser__button"></div>
             </div>
           </div>
-          <div class="home__browser__body"></div>
+          <div class="home__browser__body">
+            <img src="../assets/do.gif">
+          </div>
         </div>
       </div>
     </div>

@@ -34,7 +34,10 @@ const actions = {
 
     CREATE_NOTE: ({ state, commit, rootState }, note) => {
       return api.createNote(rootState.auth.user.uid, note)
-                .then((key) => commit(CREATE_NOTE, { key: key, note: note }))
+                .then((key) => {
+                  commit(SET_RESULT_INDEX, 0)
+                  commit(CREATE_NOTE, { key: key, note: note })
+                })
     },
 
     UPDATE_NOTE: ({ state, commit, rootState }) => {
@@ -83,6 +86,7 @@ const mutations = {
     [CREATE_NOTE] (state, data) {
       Vue.set(state.notes, data.key, data.note)
       state.activeKey = data.key
+      state.activeNote = data.note
     },
 
     [UPDATE_NOTE] (state, data) {

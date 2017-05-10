@@ -145,7 +145,6 @@
 
 	&__browser {
 		box-shadow: $box-shadow-2;
-		height: 25rem;
 
 		margin: {
 			top: 1rem;
@@ -185,6 +184,17 @@
 				width: 1px;
 				color: palette(orange);
 				radius: 50%;
+			}
+		}
+
+		&__body {
+			img {
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+				max-width: 100%;
+    			height: auto;
+    			border: 0;
 			}
 		}
 	}

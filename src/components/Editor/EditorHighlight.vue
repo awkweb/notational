@@ -31,11 +31,15 @@ export default {
     ]),
 
     content () {
-      const regexString = this.query.replace(/\s/g, '|')
-      const re = new RegExp(regexString, 'gi')
-      return this.body
-                 .replace(/\n$/g, '\n\n')
-                 .replace(re, '<mark>$&</mark>')
+      let body = this.body
+      if (this.query.length > 0) {
+        const regexString = this.query.replace(/\s/g, '|')
+        const re = new RegExp(regexString, 'gi')
+        body = this.body
+                   .replace(/\n$/g, '\n\n')
+                   .replace(re, '<mark>$&</mark>')
+      }
+      return body
     }
   },
 

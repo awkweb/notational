@@ -34,7 +34,7 @@
   &__input {
     @include border(palette(gray, light));
     @include background(
-      palette(white),
+      transparent,
       "../assets/light/search.svg",
       25px,
       99%
@@ -70,7 +70,7 @@
   .dark &__input {
     border-color: palette(dark, light);
     @include background(
-      palette(dark),
+      transparent,
       "../assets/dark/search.svg",
       25px,
       99%

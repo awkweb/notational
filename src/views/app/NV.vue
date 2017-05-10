@@ -63,10 +63,7 @@ export default {
   computed: {
     ...mapGetters([
       'activeNote',
-      'notes',
       'user', 
-      'query',
-      'editingId',
       'theme'
     ])
   },
@@ -74,51 +71,23 @@ export default {
   methods: {
     ...mapActions([
       'FETCH_USER_DATA',
-      'CREATE_NOTE',
-      'DELETE_NOTE',
-      'RESET_ACTIVE_NOTE'
     ]),
     ...mapMutations([
-      'SET_USER',
-      'SET_ACTIVE_NOTE'
+      'SET_USER'
     ]),
 
     setUpHotKeys () {
-      keyboard.bind('ctrl + enter', () => this.onCreate())
       keyboard.bind('tab', (e) => {
         e.preventDefault()
         if (this.activeNote) {
           this.onEditorFocus()
         }
       })
-      keyboard.bind('alt + ctrl + d', () => {
-        if (this.activeNote) this.onDelete()
-      })
     },
 
     onEditorFocus () {
       const id = '#editor-textarea'
       this.focusElement(id)
-    },
-
-    onSearchFocus () {
-      const id = '#search-input'
-      this.focusElement(id)
-    },
-
-    onCreate () {
-      const id = this.nextIdForNotes(this.notes)
-      const name = this.query.length > 0 ? this.query : 'Untitled Note'
-      const note = this.createNote(id, name)
-      this.SET_ACTIVE_NOTE(note)
-
-      this.CREATE_NOTE(note).then(() => { this.onEditorFocus() })
-    },
-
-    onDelete () {
-      this.DELETE_NOTE().then(() => {
-        this.RESET_ACTIVE_NOTE().then(() => this.onSearchFocus())
-      })
     }
   },
 

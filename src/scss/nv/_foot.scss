@@ -10,7 +10,7 @@
 
   &__right {
   	display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
   transition: color $transition;
 }
