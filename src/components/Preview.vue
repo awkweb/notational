@@ -1,7 +1,6 @@
 <template>
   <div id="preview"
-       class="preview"
-       :class="theme">
+       class="preview">
     <div class="container">
       <spinner v-if="loading">
       </spinner>
@@ -21,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 import { localStorageMixin } from '../mixins'
 import Spinner from './Spinner.vue'
@@ -50,12 +49,6 @@ export default {
     Foot,
     Search,
     Spinner
-  },
-
-  computed: {
-    ...mapGetters([
-      'theme'
-    ])
   },
 
   methods: {

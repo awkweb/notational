@@ -1,6 +1,6 @@
 .preview {
 	height: 25.65rem;
-	overflow: hidden;
+	border-radius: $border-radius;
 
 	.container {
 		padding-bottom: .75rem;
@@ -71,6 +71,12 @@
 	.button-icon {
 		height: 26px;
   		width: 26px;
+	}
+
+	.dropdown {
+		&__menu {
+			top: -63px;			
+		}
 	}
 }
 

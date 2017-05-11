@@ -59,8 +59,12 @@ const actions = {
     },
 
     UPDATE_THEME: ({ state, commit, rootState }, theme) => {
+      if (rootState.auth.user) {
       return api.updateTheme(rootState.auth.user.uid, theme)
                 .then((theme) => commit(SET_THEME, theme))
+      } else {
+        commit(SET_THEME, theme)
+      }
     },
 
     TOGGLE_IS_PUBLIC: ({ state, commit, rootState }, note) => {

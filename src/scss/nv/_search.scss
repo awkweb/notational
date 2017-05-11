@@ -69,12 +69,7 @@
 
   .dark &__input {
     border-color: palette(dark, light);
-    @include background(
-      transparent,
-      "../assets/dark/search.svg",
-      25px,
-      99%
-    );
+    background-image: url("../assets/dark/search.svg");
     color: palette(white);
 
     &:focus {

@@ -1,6 +1,8 @@
 <template>
-  <div id="home"
-       class="home">
+  <div
+    id="home"
+    class="home"
+    :class="theme">
     <nav class="home__nav">
       <div class="home__container nav">
         <router-link
@@ -50,7 +52,7 @@
           </field>
           
           <button 
-            class="auth__form__button"                  
+            class="auth__form__button button large primary"                  
             v-on:click.prevent="onCreateAccount"                  
             v-on:keyup.enter="onCreateAccount">
             Create an Account
@@ -65,7 +67,8 @@
       </div>
 
       <div class="home__content right">
-        <div class="home__browser">
+        <div
+          class="home__browser">
           <div class="home__browser__header">
             <div class="home__browser__button-group">
               <div class="home__browser__button"></div>
@@ -114,7 +117,7 @@ export default {
         value: '',
         type: 'text',
         placeholder: 'monica@raviga.com',
-        autofocus: true
+        autofocus: false
       },
       password: {
         name: 'Password',
@@ -128,7 +131,10 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['user'])
+    ...mapGetters([
+      'user',
+      'theme'
+    ])
   },
 
   methods: {

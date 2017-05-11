@@ -10,7 +10,7 @@
       </span>
 
       <div class="foot__right">
-        <template v-if="activeNote">           
+        <template v-if="activeNote && user">           
           <button
             @click="onShareNote"
             class="button-icon share">
@@ -38,7 +38,8 @@ export default {
   computed: {
     ...mapGetters([
       'activeNote',
-      'theme'
+      'theme',
+      'user'
     ])
   },
 

@@ -14,7 +14,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nv {
+#nv, #home {
   height: 100vh;
 }
 
@@ -46,7 +46,7 @@ body {
   max-width: 22;
 }
 
-#nv {
+#nv, #home {
   color: palette(black);
   background-color: palette(white);
   transition: background-color $transition;

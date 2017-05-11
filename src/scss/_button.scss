@@ -34,16 +34,17 @@
   &.large {
     box-shadow: $box-shadow;
     padding: {
-      bottom: 7px;
-      right: 10px;
-      left: 10px;
-      top: 7px;
+      bottom: 9px;
+      right: 11px;
+      left: 11px;
+      top: 9px;
     }
     font: {
+      family: $sans-serif;
       size: 1rem;
       weight: 700;
     }
-    width: 5.5rem;
+    min-width: 8rem;
   }
 }
 
@@ -54,6 +55,11 @@
 
   &:hover {
     color: palette(white);
+  }
+
+  &.primary {
+    background-color: palette(blue);
+    border-color: palette(blue, dark);
   }
 }
 
