@@ -1,0 +1,82 @@
+.preview {
+	height: 25.65rem;
+	overflow: hidden;
+
+	.container {
+		padding-bottom: .75rem;
+	}
+
+	.search {
+		&__container {
+			margin-top: 0;
+			height: 4rem;
+		}
+
+		&__input {
+			background-size: 24px;
+			font-size: .95rem;
+			padding: {
+		      bottom: 8px;
+		      right: 30px;
+		      left: 9px;
+		      top: 8px;
+		    }
+		}
+
+		&__info {
+			font-size: .7rem;
+			margin: {
+      			left: .25rem;
+      			right: .25rem;
+      			top: .25rem;
+    		}
+		}
+
+		&__results {
+			height: 6rem;
+			margin-bottom: .15rem;
+		}
+
+		&__result {
+		    font-size: .9rem;
+
+		    &__editor {
+		    	font-size: .9rem;
+			}
+		}
+	}
+
+	.editor {
+  		margin-bottom: .35rem;
+
+		&__textarea, &__ghost,  &__placeholder {
+			font-size: .9rem;
+    		height: 10rem;
+    		padding: {
+		      bottom: .75rem;
+		      top: .75rem;
+		    }
+		}
+
+		&__ghost {
+    		width: calc(100% - 2rem);
+    		max-width: 35rem;
+    	}
+	}
+
+	.foot {
+		font-size: .8rem;
+	}
+
+	.button-icon {
+		height: 26px;
+  		width: 26px;
+	}
+}
+
+
+
+
+
+
+

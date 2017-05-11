@@ -135,7 +135,8 @@ export default {
     
     onSearch () {
       if (this.activeNote) {
-        this.$emit('onSearch')
+        const id = '#editor-textarea'
+        this.focusElement(id)
       }
     },
 

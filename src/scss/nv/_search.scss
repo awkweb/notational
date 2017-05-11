@@ -89,9 +89,7 @@
   &__info {
     color: palette(gray, dark);
     display: flex;
-    font: {
-      size: .75rem;
-    }
+    font-size: .75rem;
     justify-content: space-between;
     margin: {
       left: .4rem;

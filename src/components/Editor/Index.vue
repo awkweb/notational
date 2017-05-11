@@ -5,21 +5,23 @@
       <editor-highlight :body="activeNote.body">
       </editor-highlight>
 
-      <textarea id="editor-textarea"
-                class="editor__textarea" 
-                v-model="activeNote.body"
-                @input="onInput"
-                @blur="onBlur"
-                @focus="onFocus"
-                @keyup.esc="onEscape"
-                placeholder="The quick brown fox..." 
-                rows="12">
+      <textarea
+        id="editor-textarea"
+        class="editor__textarea" 
+        v-model="activeNote.body"
+        @input="onInput"
+        @blur="onBlur"
+        @focus="onFocus"
+        @keyup.esc="onEscape"
+        placeholder="The quick brown fox..." 
+        rows="12">
       </textarea>
     </template>    
     
-    <div class="editor__placeholder"
-         v-else>
-         No Note Selected
+    <div
+      class="editor__placeholder"
+      v-else>
+      No Note Selected
     </div>
 
   </div>
@@ -27,29 +29,58 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import keyboard from 'keyboardjs'
 
+import { utilsMixin } from '../../mixins'
 import EditorHighlight from './EditorHighlight.vue'
 
 export default {
   name: 'editor',
   
+  mixins: [utilsMixin],
+ 
   components: {
     EditorHighlight
   },
 
+  created () {
+    this.setUpHotKeys()
+  },
+
+  beforeDestroy () {
+    keyboard.reset()
+  },
+
   computed: {
-    ...mapGetters(['activeNote',
-                   'query',
-                   'editingId'
+    ...mapGetters([
+      'activeNote',
+      'query',
+      'editingId'
      ])
   },
 
   methods: {
-    ...mapActions(['UPDATE_NOTE'
+    ...mapActions([
+      'UPDATE_NOTE'
     ]),
-    ...mapMutations(['SET_RESULT_INDEX',
-                     'SET_EDITING_ID'
+    ...mapMutations([
+      'SET_RESULT_INDEX',
+      'SET_EDITING_ID'
     ]),
+
+    setUpHotKeys () {
+      keyboard.bind('tab', (e) => {
+        e.preventDefault()
+        if (this.activeNote) {
+          this.onEditorFocus()
+        }
+      })
+    },
+
+    onEditorFocus () {
+      const id = '#editor-textarea'
+      this.focusElement(id)
+    },
     
     onInput () {
       this.UPDATE_NOTE(this.activeNote)

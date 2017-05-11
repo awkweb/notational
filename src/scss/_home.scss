@@ -161,6 +161,7 @@
 		&__header {
 			display: flex;
 			align-items: center;
+			justify-content: space-between;
 			height: 2rem;
 			border-bottom: {
 				style: solid;
@@ -185,6 +186,15 @@
 				color: palette(orange);
 				radius: 50%;
 			}
+		}
+
+		&__name {
+			color: palette(orange);
+			padding-right: 10px;
+      		font: {
+      			family: $mono;
+      			size: .85rem;
+      		}
 		}
 
 		&__body {
@@ -214,42 +224,6 @@
 			white-space: nowrap;
 			background-color: palette(orange, light);
 			font-weight: 700;
-		}
-	}
-
-	&__foot {
-		max-width: 62rem;
-		display: flex;
-		justify-content: space-between;
-		color: palette(gray, light);
-		transition: color $transition;
-
-		margin: {
-			top: 1rem;
-			bottom: 2rem;
-		}
-
-		a {
-			color: palette(gray, light);
-			transition: color $transition;
-		}
-
-		font: {
-			size: .95rem;
-			weight: 400;
-		}
-
-		&:hover {
-			color: palette(gray);
-
-			a {
-				color: palette(orange);
-			}
-		}
-
-		@media screen and (max-width: $sm) {
-			flex-direction: column;
-			align-items: center;
 		}
 	}
 }

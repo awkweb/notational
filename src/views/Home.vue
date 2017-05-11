@@ -72,9 +72,10 @@
               <div class="home__browser__button"></div>
               <div class="home__browser__button"></div>
             </div>
+            <span class="home__browser__name">Preview Mode</span>
           </div>
           <div class="home__browser__body">
-            <img src="../assets/do.gif">
+            <preview></preview>
           </div>
         </div>
       </div>
@@ -83,16 +84,6 @@
     <p class="home__subline">
       <span>Smart shortcuts</span>, <span>magic save</span>, and <span>incremental search</span> keep your hands on the keyboard—and your brain happy.
     </p>
-
-    <footer class="home__foot">
-      <div>
-        Made in Boston by <a href="http://meagher.co">Tom</a>
-      </div>
-
-      <div>
-        Inspired by <a href="http://notational.net/">Notational Velocity</a>
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -103,6 +94,7 @@ import router from '../router'
 import { localStorageMixin } from '../mixins'
 import Field from '../components/Field.vue'
 import Message from '../components/Message.vue'
+import Preview from '../components/Preview.vue'
 
 export default {
   name: 'home',
@@ -111,7 +103,8 @@ export default {
 
   components: {
     Field,
-    Message
+    Message,
+    Preview
   },
 
   data: () => ({

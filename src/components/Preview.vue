@@ -1,6 +1,6 @@
 <template>
-  <div id="nv"
-       class="nv"
+  <div id="preview"
+       class="preview"
        :class="theme">
     <div class="container">
       <spinner v-if="loading">
@@ -21,16 +21,16 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
-import { localStorageMixin } from '../../mixins'
-import Spinner from '../../components/Spinner.vue'
-import Search from '../../components/Search/Index.vue'
-import Editor from '../../components/Editor/Index.vue'
-import Foot from '../../components/Foot/Index.vue'
+import { localStorageMixin } from '../mixins'
+import Spinner from './Spinner.vue'
+import Search from './Search/Index.vue'
+import Editor from './Editor/Index.vue'
+import Foot from './Foot/Index.vue'
 
 export default {
-  name: 'nv',
+  name: 'preview',
 
   mixins: [localStorageMixin],
 
@@ -39,9 +39,7 @@ export default {
   }),
 
   created () {
-    const user = this.ls_pullUser()
-    this.SET_USER(user)
-    this.FETCH_USER_DATA()
+    this.FETCH_PREVIEW_DATA()
       .then(() => {
         this.loading = false
       })
@@ -62,17 +60,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'FETCH_USER_DATA',
-    ]),
-    ...mapMutations([
-      'SET_USER'
+      'FETCH_PREVIEW_DATA'
     ])
-  },
-
-  head: {
-    title: {
-      inner: 'App'
-    }
   }
 
 }

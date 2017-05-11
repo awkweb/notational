@@ -1,19 +1,19 @@
 import Vue from 'vue'
-import _ from 'lodash'
 
 import api from '../api'
-import { SET_RESULT_INDEX,
-         SET_THEME,
-         SET_NOTES,
-         SET_ACTIVE_NOTE,
-         SET_ACTIVE_KEY,
-         UPDATE_NOTE,
-         CREATE_NOTE,
-         DELETE_NOTE,
-         TOGGLE_IS_PUBLIC } from '../constants'
+import {
+  SET_RESULT_INDEX,
+  SET_THEME,
+  SET_NOTES,
+  SET_ACTIVE_NOTE,
+  SET_ACTIVE_KEY,
+  UPDATE_NOTE,
+  CREATE_NOTE,
+  DELETE_NOTE,
+  TOGGLE_IS_PUBLIC } from '../constants'
 
 const state = {
-    theme: 'day',
+    theme: 'light',
     notes: [],
     activeNote: null,
     activeKey: null
@@ -26,6 +26,14 @@ const actions = {
 
     FETCH_USER_DATA: ({ state, commit, rootState }) => {
       return api.getDataForUserId(rootState.auth.user.uid)
+                .then((res) => {
+                  commit(SET_NOTES, res.notes)
+                  commit(SET_THEME, res.theme)
+                })
+    },
+
+    FETCH_PREVIEW_DATA: ({ state, commit, rootState }) => {
+      return api.getPreviewData()
                 .then((res) => {
                   commit(SET_NOTES, res.notes)
                   commit(SET_THEME, res.theme)

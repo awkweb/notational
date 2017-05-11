@@ -54,6 +54,14 @@ export default {
     })
 	},
 
+  getPreviewData () {
+    return new Promise((resolve, reject) => {
+      const notesRef = database.ref('default_notes/notes')
+      return notesRef.once('value')
+                     .then(res => resolve({ notes: res.val(), theme: 'light' }))
+    })
+  },
+
 	createNote (userId, note) {
 		return new Promise((resolve, reject) => {
       const userNotesRef = database.ref(`users/${userId}/notes`)

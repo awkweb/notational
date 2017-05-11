@@ -5,10 +5,8 @@ import ls from 'local-storage'
 
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
-
 import LogIn from '../views/auth/LogIn.vue'
 import SignUp from '../views/auth/SignUp.vue'
-
 import NV from '../views/app/NV.vue'
 import Public from '../views/app/Public.vue'
 
