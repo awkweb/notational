@@ -15,7 +15,7 @@
     right: 6px;
     top: 3px;
   }
-  transition: border-color $transition, color $transition;
+  transition: background-color $transition, border-color $transition, color $transition;
 
   &:focus {
     outline: 0;
@@ -29,6 +29,10 @@
     background-color: palette(orange);
     border-color: palette(orange, dark);
     color: palette(white);
+
+    &:hover {
+      border-color: palette(orange, x-dark);
+    }
   }
 
   &.large {
@@ -51,15 +55,15 @@
 .dark .button {
   background-color: palette(dark);
   border-color: palette(dark, light);
-  color: palette(dark, x-light);
-
-  &:hover {
-    color: palette(white);
-  }
+  color: palette(white);
 
   &.primary {
     background-color: palette(blue);
     border-color: palette(blue, dark);
+
+    &:hover {
+      border-color: palette(blue, x-dark);
+    }
   }
 }
 
@@ -81,6 +85,7 @@
   margin: {
     left: .25rem;
   }
+  transition: background-image $transition;
 
   &.user {
     background-image: url("../assets/light/profile.svg");

@@ -9,7 +9,7 @@
         <search>
         </search>
 
-        <editor>
+        <editor :isPreview="true">
         </editor>
 
         <foot>

@@ -11,6 +11,7 @@
 	  	margin: 0;
 	  	right: 0;
 	  	padding: 0;
+	  	min-width: 7rem;
 
 		li {
 			white-space: nowrap;
@@ -40,6 +41,16 @@
 		li {
 	  		&:hover {
 	  			background-color: palette(dark, d-light);
+	  		}
+
+	  		&:first-child {
+	  			border-top-right-radius: $border-radius;
+	  			border-top-left-radius: $border-radius;
+	  		}
+
+	  		&:last-child {
+	  			border-bottom-right-radius: $border-radius;
+	  			border-bottom-left-radius: $border-radius;
 	  		}
 		}
 	}

@@ -12,7 +12,6 @@
         @input="onInput"
         @blur="onBlur"
         @focus="onFocus"
-        @keyup.esc="onEscape"
         placeholder="The quick brown fox..." 
         rows="12">
       </textarea>
@@ -38,13 +37,17 @@ export default {
   name: 'editor',
   
   mixins: [utilsMixin],
+
+  props: ['isPreview'],
  
   components: {
     EditorHighlight
   },
 
   created () {
-    this.setUpHotKeys()
+    if (!this.isPreview) {
+      this.setUpHotKeys()
+    }
   },
 
   beforeDestroy () {

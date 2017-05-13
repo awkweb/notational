@@ -15,7 +15,7 @@ body {
 }
 
 #nv, #home {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #login, #signup, #notfound, #public, .container {

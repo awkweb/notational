@@ -10,8 +10,14 @@
     <ul
       v-show="isActive"
       class="dropdown__menu">
-      <li @click="onDownloadNotes">Upgrade to Pro</li>
-      <li @click="onLogOut">Log Out</li>
+      <template v-if="user">
+        <li @click="onUpgrade">Upgrade to Pro</li>
+        <li @click="onLogOut">Log Out</li>
+      </template>
+      <template v-else>
+        <li @click="onLogIn">Log In</li>
+        <li @click="onSignUp">Sign Up</li>    
+      </template>
     </ul>
   </div>
 </template>
@@ -36,6 +42,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'user',
       'activeNote',
       'theme'
     ])
@@ -51,7 +58,7 @@ export default {
       this.isActive = false
     },
 
-    onDownloadNotes () {
+    onUpgrade () {
       this.hideDropdown()
     },
 
@@ -63,6 +70,14 @@ export default {
         this.ls_logOut()
         this.$router.push({ name: 'login'})
       })
+    },
+
+    onSignUp() {
+      this.$router.push({ name: 'signup' })
+    },
+
+    onLogIn () {
+      this.$router.push({ name: 'login'})
     }
   }
 

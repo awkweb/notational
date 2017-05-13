@@ -1,11 +1,7 @@
 .home {
 	color: palette(gray, dark);
 
-	&__container, &__foot {
-		max-width: 62rem;	
-	}
-
-	&__container, &__subline, &__foot {
+	&__container, &__subline {
 		margin: {
 			right: auto;
 			left: auto;
@@ -20,6 +16,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;			
+		max-width: 62rem;	
 
 		&.nav {
 			width: 62rem;
@@ -52,6 +49,7 @@
 			width: 1px;
 			color: palette(gray, light);
 		}
+      	transition: border-color $transition;
 
 		&__logo {
 			color: palette(orange);
@@ -61,7 +59,8 @@
 				size: 1.5rem;
 				weight: 700;
 			}
-
+      		transition: color $transition;
+			outline: 0;
 
 			@media screen and (max-width: $sm) {
 				font-weight: 900;
@@ -90,6 +89,7 @@
 			margin-left: 5px;
 			outline: 0;
 			text-decoration: none;
+      		transition: color $transition;
 
 			&.primary {
 				margin-left: 15px;
@@ -102,6 +102,11 @@
 					radius: $border-radius;
 				}
 				background-color: palette(orange);
+      			transition: background-color $transition, border-color $transition;
+
+      			&:hover {
+					border-color: palette(orange, x-dark);
+				}
 			}
 		}
 	}
@@ -122,6 +127,7 @@
 
 		&.right {
 			max-width: 30rem;
+			min-width: 30rem;
 			@media screen and (max-width: $md) {
 				max-width: 100%;
 				min-width: 100%;
@@ -139,9 +145,8 @@
 			top: 0;
 			bottom: 2rem;
 		}
-		font: {
-			weight: 900;
-		}
+		font-weight: 900;
+      	transition: color $transition;
 	}
 
 	&__browser {
@@ -197,7 +202,7 @@
 			padding-right: 10px;
       		font: {
       			family: $mono;
-      			size: .85rem;
+      			size: .9rem;
       		}
       		transition: color $transition;
 		}
@@ -223,12 +228,15 @@
 			family: $sans-serif;
 			size: 1.5rem;
 		}
-		margin-bottom: 2rem;
+		margin-bottom: 0;
+		padding-bottom: 2rem;
+      	transition: color $transition;
 
 		span {
 			white-space: nowrap;
 			background-color: palette(orange, light);
 			font-weight: 700;
+      		transition: background-color $transition;
 		}
 	}
 }
@@ -247,6 +255,10 @@
 			&.primary {
 				background-color: palette(blue);
 				border-color: palette(blue, dark);
+
+				&:hover {
+      				border-color: palette(blue, x-dark);
+    			}
 			}
 		}
 	}

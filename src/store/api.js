@@ -58,7 +58,15 @@ export default {
     return new Promise((resolve, reject) => {
       const notesRef = database.ref('default_notes/notes')
       return notesRef.once('value')
-                     .then(res => resolve({ notes: res.val(), theme: 'light' }))
+                     .then((res) => {
+                      const notes = {}
+                      const dateModified = moment().subtract(1, 'minute').toString()
+                      res.val().forEach((note) => {
+                        note.date_modified = dateModified
+                        notes[note.id] = note
+                      })
+                      resolve({ notes: notes, theme: 'light' })
+                    })
     })
   },
 

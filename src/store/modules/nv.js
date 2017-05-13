@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from 'moment'
 
 import api from '../api'
 import {
@@ -41,27 +42,41 @@ const actions = {
     },
 
     CREATE_NOTE: ({ state, commit, rootState }, note) => {
-      return api.createNote(rootState.auth.user.uid, note)
-                .then((key) => {
-                  commit(SET_RESULT_INDEX, 0)
-                  commit(CREATE_NOTE, { key: key, note: note })
-                })
+      if (rootState.auth.user) {
+        return api.createNote(rootState.auth.user.uid, note)
+                  .then((key) => {
+                    commit(SET_RESULT_INDEX, 0)
+                    commit(CREATE_NOTE, { key: key, note: note })
+                  })
+      } else {        
+        commit(SET_RESULT_INDEX, 0)
+        commit(CREATE_NOTE, { key: note.id, note: note })
+      }
     },
 
     UPDATE_NOTE: ({ state, commit, rootState }) => {
-      return api.updateNote(rootState.auth.user.uid, state.activeKey, state.activeNote)
-                .then((res) => commit(UPDATE_NOTE, { key: res.key, date_modified: res.date_modified }))
+      if (rootState.auth.user) {
+        return api.updateNote(rootState.auth.user.uid, state.activeKey, state.activeNote)
+                  .then((res) => commit(UPDATE_NOTE, { key: res.key, date_modified: res.date_modified }))
+      } else {
+        const dateModified = moment().toString()
+        commit(UPDATE_NOTE, { key: state.activeKey, date_modified: dateModified })
+      }
     },
 
     DELETE_NOTE: ({ state, commit, rootState }) => {
-      return api.deleteNote(rootState.auth.user.uid, state.activeKey)
-                .then(() => {commit(DELETE_NOTE, state.activeKey)})
+      if (rootState.auth.user) {
+        return api.deleteNote(rootState.auth.user.uid, state.activeKey)
+                  .then(() => { commit(DELETE_NOTE, state.activeKey)} )
+      } else {
+        commit(DELETE_NOTE, state.activeKey)
+      }
     },
 
     UPDATE_THEME: ({ state, commit, rootState }, theme) => {
       if (rootState.auth.user) {
-      return api.updateTheme(rootState.auth.user.uid, theme)
-                .then((theme) => commit(SET_THEME, theme))
+        return api.updateTheme(rootState.auth.user.uid, theme)
+                  .then((theme) => commit(SET_THEME, theme))
       } else {
         commit(SET_THEME, theme)
       }

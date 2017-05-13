@@ -25,9 +25,8 @@
 				size: .8rem;
 				weight: 500;
 			}
-			margin: {
-				bottom: 1px;
-			}
+			margin-bottom: 1px;
+  			transition: color $transition;
 		}
 
 		&__input {
@@ -42,7 +41,8 @@
 			outline: 0;
 
 			&::placeholder {
-					color: palette(gray);  
+				color: palette(gray);  
+  				transition: color $transition;
 			}
 		}
 	}
