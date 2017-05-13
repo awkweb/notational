@@ -220,13 +220,13 @@
 	}
 
 	&__subline {
-		max-width: 40rem;
+		max-width: 45rem;
 		line-height: 1.5;
 		text-align: center;
 		color: palette(black);
 		font: {
 			family: $sans-serif;
-			size: 1.5rem;
+			size: 1.7rem;
 		}
 		margin-bottom: 0;
 		padding-bottom: 2rem;
@@ -238,6 +238,10 @@
 			font-weight: 700;
       		transition: background-color $transition;
 		}
+
+		@media screen and (max-width: $sm) {
+			font-size: 1.5rem;
+		}	
 	}
 }
 

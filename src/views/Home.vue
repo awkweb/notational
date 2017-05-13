@@ -13,7 +13,7 @@
 
         <div>
           <a
-            href="mailto:tom@meagher.co"
+            href="mailto:yo@notational.co"
             class="home__nav__button">
             Contact
           </a>

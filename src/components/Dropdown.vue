@@ -11,7 +11,7 @@
       v-show="isActive"
       class="dropdown__menu">
       <template v-if="user">
-        <li @click="onUpgrade">Upgrade to Pro</li>
+        <li @click="onFeedback">Feedback?</li>
         <li @click="onLogOut">Log Out</li>
       </template>
       <template v-else>
@@ -58,8 +58,10 @@ export default {
       this.isActive = false
     },
 
-    onUpgrade () {
+    onFeedback () {
+      const url = 'https://meagher.typeform.com/to/EXwPlY'
       this.hideDropdown()
+      window.open(url)
     },
 
     onLogOut () {

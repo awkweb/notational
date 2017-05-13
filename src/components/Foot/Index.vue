@@ -1,11 +1,12 @@
 <template>
   <footer class="foot">
-    <foot-share-note v-if="showShareNote && activeNote"
-                     @onDone="onShareNote">
+    <foot-share-note
+      v-if="showShareNote && activeNote"
+      @onDone="onShareNote">
     </foot-share-note>
 
     <foot-actions v-else
-                  @onShareNote="onShareNote">
+      @onShareNote="onShareNote">
     </foot-actions>
 
   </footer>

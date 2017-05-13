@@ -56,10 +56,13 @@ export default {
       'Simplicity is the ultimate sophistication.',
       'This is your moment of glory.',
       'Even elephants do slip.',
+      'Be yourself; everyone else is already taken.',
       'True will is wishing backed by power.',
       'I never learned anything while I was talking.',
       'Do things that have never been done.',
-      'The details are not the details. They make the design.'
+      'The details are not the details. They make the design.',
+      'Love all, trust a few, do wrong to none.',
+      'Everything you can imagine is real.'
     ]
   }),
 
