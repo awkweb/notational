@@ -88,8 +88,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['SIGN_UP_USER',
-                   'INIT_NOTES'
+    ...mapActions([
+      'SIGN_UP_USER',
+      'INIT_NOTES'
     ]),
 
     onSignUp () {

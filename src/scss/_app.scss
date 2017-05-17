@@ -1,19 +1,3 @@
-body {
-  text-rendering: optimizeLegibility;
-  background-color: palette(white);
-  margin: 0;
-}
-
-#app {
-  width: 100vw;
-  font: {
-    family: $sans-serif;
-    size: 18px;
-  }
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 #nv, #home {
   min-height: 100vh;
 }
@@ -32,7 +16,7 @@ body {
   }
 }
 
-#login, #signup, #notfound, #public, .container {
+#login, #signup, #public, .container {
   margin: {
     top: 0;
   }
@@ -57,8 +41,4 @@ body {
       color: palette(dark);
     }   
   }
-}
-
-.text-center {
-  text-align: center;
 }
