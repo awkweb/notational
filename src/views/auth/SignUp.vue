@@ -17,10 +17,11 @@
         :autofocus="field.autofocus">
       </field>
       
-      <button class="auth__form__button"
-              v-on:click.prevent="onSignUp"
-              v-on:keyup.enter="onSignUp">
-              Sign Up
+      <button
+        class="auth__form__button"
+        @click.prevent="onSignUp"
+        @keyup.enter="onSignUp">
+        Sign Up
       </button>
     </form>
 
@@ -103,8 +104,8 @@ export default {
       }
 
       const data = {
-        email: this.fields.email,
-        password: this.fields.password
+        email: this.fields.email.value,
+        password: this.fields.password.value
       }
 
       this.SIGN_UP_USER(data)
