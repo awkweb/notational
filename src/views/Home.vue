@@ -87,6 +87,10 @@
     <p class="home__subline">
       <span>Smart shortcuts</span>, <span>magic save</span>, and <span>incremental search</span> keep your hands on the keyboard—and your brain happy.
     </p>
+
+    <footer class="home__foot">
+      Built by <a href="http://meagher.co/">Tom</a> with <a href="https://vuejs.org/">Vue.js</a>. Inspired, but not affiliated with <a href="http://notational.net/?ref=notational.co">Notational Velocity</a> in any way.
+    </footer>
   </div>
 </template>
 

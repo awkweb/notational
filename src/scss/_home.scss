@@ -1,7 +1,7 @@
 .home {
 	color: palette(gray, dark);
 
-	&__container, &__subline {
+	&__container, &__subline, &__foot {
 		margin: {
 			right: auto;
 			left: auto;
@@ -228,8 +228,7 @@
 			family: $sans-serif;
 			size: 1.7rem;
 		}
-		margin-bottom: 0;
-		padding-bottom: 1rem;
+		margin-bottom: 2rem;
       	transition: color $transition;
 
 		span {
@@ -242,6 +241,36 @@
 		@media screen and (max-width: $sm) {
 			font-size: 1.5rem;
 		}	
+	}
+
+	&__foot {
+		padding: {
+			top: 1rem;
+			bottom: 1rem;
+		}
+		text-align: center;
+		color: palette(gray, light);
+		font: {
+			family: $sans-serif;
+			size: .85rem;
+		}
+		transition: color $transition;
+
+		&:hover {
+			color: palette(gray);
+			a {
+				color: palette(gray);
+			}
+		}
+
+		a {
+			color: palette(gray, light);
+			transition: color $transition;
+
+			&:hover {
+				color: palette(orange);		
+			}	
+		}
 	}
 }
 
@@ -293,6 +322,18 @@
 
 		span {
 			background-color: palette(blue, a-light);
+		}
+	}
+
+	&__foot {
+		color: palette(dark, light);
+
+		a {
+			color: palette(dark, light);
+
+			&:hover {
+				color: palette(blue);		
+			}	
 		}
 	}
 }
