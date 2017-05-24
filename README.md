@@ -11,6 +11,8 @@ Notational uses Firebase (it's [pretty abstracted so it could change](https://gi
 You will also need to create a `settings.js` file in the root directory that contains your [Firebase](https://firebase.google.com/) information:
 
 ```js
+// settings.js
+
 const ENV = {
 	firebase: {
 	    apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -30,21 +32,22 @@ The initial DB schema should look like the following (`default_notes` is the onl
 ```js
 {
   "default_notes" : {
-    "notes" : [ {
-      "body" : "Hey-oh!\n\nWelcome to Notational – the fastest note-taking app on the web.\n\nNotational makes it easy to keep your hands on the keyboard so you can do things like... type notes really quickly! (See *Useful Shortcuts* above.)\n\nAlso, no need to save your work as everything you type (in this box) is ~automagically~ saved.\n\n—Tom",
-      "date_created" : "Sun Mar 05 2017 18:15:27 GMT-0500",
-      "date_modified" : "Sun Mar 05 2017 18:25:02 GMT-0500",
-      "id" : 1,
-      "name" : "Welcome (Click Me)"
-    },
-    ...
+    "notes" : [
+	    {
+	      "body" : "Hey-oh!\n\nWelcome to Notational – the fastest note-taking app on the web.\n\nNotational makes it easy to keep your hands on the keyboard so you can do things like... type notes really quickly! (See *Useful Shortcuts* above.)\n\nAlso, no need to save your work as everything you type (in this box) is ~automagically~ saved.\n\n—Tom",
+	      "date_created" : "Sun Mar 05 2017 18:15:27 GMT-0500",
+	      "date_modified" : "Sun Mar 05 2017 18:25:02 GMT-0500",
+	      "id" : 1,
+	      "name" : "Welcome (Click Me)"
+	    },
+	    ...
     ]
   },
   "public_notes" : {
-  	// Will be auto created
+  	// Auto created
   },
   "users" : {
-  	// Will be auto created
+  	// Auto created
   }
 }
 ```
