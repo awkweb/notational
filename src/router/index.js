@@ -3,12 +3,12 @@ import VueHead from 'vue-head'
 import VueRouter from 'vue-router'
 import ls from 'local-storage'
 
-import Home from '../views/Home.vue'
-import NotFound from '../views/NotFound.vue'
-import LogIn from '../views/auth/LogIn.vue'
-import SignUp from '../views/auth/SignUp.vue'
-import NV from '../views/app/NV.vue'
-import Public from '../views/app/Public.vue'
+import Home from '../pages/Home.vue'
+import NotFound from '../pages/NotFound.vue'
+import LogIn from '../pages/auth/LogIn.vue'
+import SignUp from '../pages/auth/SignUp.vue'
+import NV from '../pages/app/NV.vue'
+import Public from '../pages/app/Public.vue'
 
 Vue.use(VueHead)
 Vue.use(VueRouter)

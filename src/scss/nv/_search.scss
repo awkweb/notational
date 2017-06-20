@@ -1,6 +1,7 @@
 .search {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   mark {
     background-color: palette(orange, a-light);
@@ -115,6 +116,47 @@
       color: palette(white);
       background-color: palette(dark, d-light);
     }
+  }
+
+  &__add {
+    background: {
+      color: transparent;
+      image: url("../assets/light/add.svg");
+      repeat: no-repeat;
+      size: cover;
+    }
+    border: 0;
+    cursor: pointer;
+    font: {
+      size: 2rem;
+    }
+    height: 35px;
+    opacity: .35;
+    outline: 0;
+    position: absolute;
+    right: -2.5rem;
+    top: 1.3rem;
+    transition: background-image $transition, opacity $transition;
+    width: 35px;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    @media screen and (max-width: 645px) {
+      right: 2rem;
+    }
+
+    @media screen and (max-width: $sm) {
+      height: 33px;
+      right: 1.85rem;
+      top: .65rem;
+      width: 33px;
+    }
+  }
+
+  .dark &__add {
+    background-image: url("../assets/dark/add.svg");
   }
 
   &__results {

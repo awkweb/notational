@@ -89,7 +89,7 @@
     </p>
 
     <footer class="home__foot">
-      Built by <a href="http://meagher.co/">Tom</a> with <a href="https://vuejs.org/">Vue.js</a>. Inspired, but not affiliated with <a href="http://notational.net/?ref=notational.co">Notational Velocity</a> in any way.
+      Built by <a href="http://meagher.co/">Tom</a> with <a href="https://vuejs.org/">Vue.js</a>. Inspired by, but not affiliated with <a href="http://notational.net/?ref=notational.co">Notational Velocity</a>.
     </footer>
   </div>
 </template>

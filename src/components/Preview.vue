@@ -6,10 +6,14 @@
       </spinner>
 
       <template v-else>
-        <search>
+        <search
+          :preview="true"
+        >
         </search>
 
-        <editor :isPreview="true">
+        <editor
+          :isPreview="true"
+        >
         </editor>
 
         <foot>

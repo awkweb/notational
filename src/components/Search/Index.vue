@@ -5,6 +5,7 @@
         id="search-input"
         class="search__input"
         type="text"
+        ref="input"
         v-model.trim="query"
         @focus="isSearchFocused = true"
         @blur="isSearchFocused = false"
@@ -13,7 +14,8 @@
         placeholder="Search or create"
         v-focus="true"
         spellcheck="false"
-        autofocus>
+        autofocus
+      >
 
       <search-info
         :resultsCount="filteredNotes.length"
@@ -21,8 +23,16 @@
         :selected="activeNote != null"
         :searching="isSearchFocused"
         :renaming="renamingId != null"
-        :editing="editingId != null">
+        :editing="editingId != null"
+      >
       </search-info>
+
+      <button 
+        v-show="!preview"
+        @click="onCreate"
+        class="search__add"
+      >
+      </button>
     </div>
     
     <ul class="search__results">
@@ -34,7 +44,8 @@
         :isActive="activeNote && note.id == activeNote.id"
         :renaming="renamingId == note.id"
         @onResultSelect="onSelect"
-        @onRenameBlur="onRenameBlur">
+        @onRenameBlur="onRenameBlur"
+      >
       </search-result>
     </ul>
   </div>
@@ -52,6 +63,10 @@ export default {
   name: 'search',
 
   mixins: [noteMixin, utilsMixin],
+
+  props: {
+    preview: { type: Boolean, default: false },
+  },
 
   data: () => ({
     query: '',
@@ -146,8 +161,7 @@ export default {
         this.SET_QUERY('')
         this.RESET_ACTIVE_NOTE()
       }
-      const id = '#search-input'
-      this.focusElement(id)
+      this.$refs.input.focus()
     },
 
     onUp () {
@@ -207,8 +221,7 @@ export default {
     },
 
     onRenameBlur () {
-      const id = '#search-input'
-      this.focusElement(id)
+      this.$refs.input.focus()
     },
 
     updateQuery () {
