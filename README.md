@@ -1,4 +1,30 @@
-# Notational, notes at the speed of thought.
+# notational
+
+> notes at the speed of thought
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+
+/// New 
+
+\# Notational, notes at the speed of thought.
 
 Notational encourages you to keep your hands on the keyboard so you can create, update, and find notes really quickly. The UX is based on the popular macOS app, [Notational Velocity](http://notational.net/) (but not affiliated in any way).
 
@@ -71,3 +97,4 @@ npm run deploy
 ## License
 
 Released under the MIT license. See LICENSE for details.
+

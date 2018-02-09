@@ -1,19 +1,15 @@
-import Vue from 'vue'
-import VueHead from 'vue-head'
-import VueRouter from 'vue-router'
-import ls from 'local-storage'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
+import LogIn from '@/pages/auth/LogIn';
+import SignUp from '@/pages/auth/SignUp';
+import NV from '@/pages/app/NV';
+import Public from '@/pages/app/Public';
 
-import Home from '../pages/Home.vue'
-import NotFound from '../pages/NotFound.vue'
-import LogIn from '../pages/auth/LogIn.vue'
-import SignUp from '../pages/auth/SignUp.vue'
-import NV from '../pages/app/NV.vue'
-import Public from '../pages/app/Public.vue'
+Vue.use(Router);
 
-Vue.use(VueHead)
-Vue.use(VueRouter)
-
-const router = new VueRouter({
+const router = new Router({
   mode: 'history',
   routes: [
     { path: '/', name: 'home', component: Home },
@@ -21,25 +17,26 @@ const router = new VueRouter({
     { path: '/login', name: 'login', component: LogIn },
     { path: '/signup', name: 'signup', component: SignUp },
     { path: '/n/:id', name: 'public', component: Public },
-    { path: '*', name: 'notfound', component: NotFound }
-  ]
-})
+    { path: '*', name: 'notfound', component: NotFound },
+  ],
+});
 
 router.beforeEach((to, from, next) => {
-  const user = ls.get('user')
+  const user = localStorage.getItem('user');
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (user) {
-      next()
+      next();
     } else {
-      next({ name: 'login', query: { redirect: to.fullPath } })
+      next({ name: 'login', query: { redirect: to.fullPath } });
     }
   } else {
+    // eslint-disable-next-line no-lonely-if
     if (user && to.name !== 'public') {
-      next({ name: 'app' })
+      next({ name: 'app' });
     } else {
-      next()
+      next();
     }
   }
-})
+});
 
-export default router
+export default router;

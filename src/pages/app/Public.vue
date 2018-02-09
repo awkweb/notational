@@ -1,9 +1,9 @@
 <template>
-  <div id="public"
-    class="public">
-
-    <spinner v-if="loading">
-    </spinner>
+  <div
+    id="public"
+    class="public"
+  >
+    <spinner v-if="loading"/>
 
     <template v-if="activeNote">
       <header class="public__header">
@@ -23,54 +23,44 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
+import Spinner from '../../components/Spinner';
 
-  import Spinner from '../../components/Spinner.vue'
-
-  export default {
-    name: 'public',
-
-    data: () => ({
-      loading: true,
-    }),
-
-    created () {
-      if (this.$route.params.id) {
-        this.getNote()
-      }
-    },
-
-    components: {
-      Spinner
-    },
-
-    computed: {
-      ...mapGetters([
-        'activeNote'
-      ]),
-
-      body () {
-        return this.activeNote.body.replace('\n', '<br/>')
-      }
-    },
-
-    methods: {
-      ...mapActions([
-        'FETCH_PUBLIC_NOTE_FOR_ID'
-      ]),
-
-      getNote () {
-        this.FETCH_PUBLIC_NOTE_FOR_ID(this.$route.params.id)
-        .then(() => this.loading = false)
-        .catch(() => this.$router.push({ name: 'home' }))
-      }
-    },
-
-    watch: {
-      '$route': 'getNote'
+export default {
+  name: 'public',
+  data: () => ({
+    loading: true,
+  }),
+  created() {
+    if (this.$route.params.id) {
+      this.getNote();
     }
-
-  }
+  },
+  components: {
+    Spinner,
+  },
+  computed: {
+    ...mapGetters([
+      'activeNote',
+    ]),
+    body() {
+      return this.activeNote.body.replace('\n', '<br/>');
+    },
+  },
+  methods: {
+    ...mapActions([
+      'FETCH_PUBLIC_NOTE_FOR_ID',
+    ]),
+    getNote() {
+      this.FETCH_PUBLIC_NOTE_FOR_ID(this.$route.params.id)
+        .then(() => { this.loading = false; })
+        .catch(() => this.$router.push({ name: 'home' }));
+    },
+  },
+  watch: {
+    $route: 'getNote',
+  },
+};
 </script>
 
 <style lang="scss">

@@ -4,7 +4,7 @@
     <h1 class="notfound__headline">
       Looking for something?
     </h1>
-    
+
     <h2 class="notfound__subline">
       Unfortunately it's not here. Good luck on your wanderings.
     </h2>
@@ -17,15 +17,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'notfound',
-
-    head: {
-      title: {
-        inner: 'Merp! Not Found'
-      }
-    }
-  }
+export default {
+  name: 'notfound',
+  head: {
+    title: {
+      inner: 'Merp! Not Found',
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -36,7 +35,6 @@
     margin: {
       top: 4rem;
     }
-
     &__headline {
       color: palette(black);
       font: {
@@ -60,9 +58,6 @@
         bottom: 2rem;
       }
     }
-
-    a {
-      text-decoration: none; 
-    }
+    a { text-decoration: none; }
   }
 </style>

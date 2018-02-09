@@ -2,7 +2,8 @@
   <div
     id="home"
     class="home"
-    :class="theme">
+    :class="theme"
+  >
     <nav class="home__nav">
       <div class="home__container nav">
         <router-link
@@ -23,7 +24,7 @@
             class="home__nav__button">
             Log In
           </button>
-          
+
           <button
             @click="onSignUp"
             class="home__nav__button primary"
@@ -45,16 +46,18 @@
           <field
             v-for="field in fields"
             v-model="field.value"
+            :key="field.name"
             :name="field.name"
             :type="field.type"
             :placeholder="field.placeholder"
             :autofocus="field.autofocus">
           </field>
-          
-          <button 
-            class="auth__form__button button large primary"                  
-            v-on:click.prevent="onCreateAccount"                  
-            v-on:keyup.enter="onCreateAccount">
+
+          <button
+            class="auth__form__button button large primary"
+            v-on:click.prevent="onCreateAccount"
+            v-on:keyup.enter="onCreateAccount"
+          >
             Create an Account
           </button>
         </form>
@@ -85,7 +88,9 @@
     </div>
 
     <p class="home__subline">
-      <span>Smart shortcuts</span>, <span>magic save</span>, and <span>incremental search</span> keep your hands on the keyboard—and your brain happy.
+      <span>Smart shortcuts</span>,
+      <span>magic save</span>, and <span>incremental search</span>
+      keep your hands on the keyboard—and your brain happy.
     </p>
 
     <footer class="home__foot">
@@ -95,25 +100,20 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
-import router from '../router'
-import { localStorageMixin } from '../mixins'
-import Field from '../components/Field.vue'
-import Message from '../components/Message.vue'
-import Preview from '../components/Preview.vue'
+import { mapActions, mapGetters } from 'vuex';
+import { localStorageMixin } from '../mixins';
+import Field from '../components/Field';
+import Message from '../components/Message';
+import Preview from '../components/Preview';
 
 export default {
   name: 'home',
-
   mixins: [localStorageMixin],
-
   components: {
     Field,
     Message,
-    Preview
+    Preview,
   },
-
   data: () => ({
     fields: {
       email: {
@@ -121,79 +121,70 @@ export default {
         value: '',
         type: 'text',
         placeholder: 'monica@raviga.com',
-        autofocus: false
+        autofocus: false,
       },
       password: {
         name: 'Password',
         value: '',
         type: 'password',
         placeholder: 'Super, secret',
-        autofocus: false
-      }
+        autofocus: false,
+      },
     },
-    error: null
+    error: null,
   }),
-
   computed: {
     ...mapGetters([
       'user',
-      'theme'
-    ])
+      'theme',
+    ]),
   },
-
   methods: {
     ...mapActions([
       'SIGN_UP_USER',
-      'INIT_NOTES'
+      'INIT_NOTES',
     ]),
-
-    onCreateAccount () {
-      if (this.fields.email.value.length == 0) {
-        this.error = 'Please enter an email address.'
-        return
+    onCreateAccount() {
+      if (this.fields.email.value.length === 0) {
+        this.error = 'Please enter an email address.';
+        return;
       }
-
-      if (this.fields.password.value.length == 0) {
-        this.error = 'Please enter a password.'
-        return
+      if (this.fields.password.value.length === 0) {
+        this.error = 'Please enter a password.';
+        return;
       }
-
       const data = {
         email: this.fields.email.value,
-        password: this.fields.password.value
-      }
-
-      this.SIGN_UP_USER(data)
+        password: this.fields.password.value,
+      };
+      this
+        .SIGN_UP_USER(data)
         .then(() => {
-          this.ls_pushUser(this.user)
-          console.log()
-          this.INIT_NOTES()
-            .then(() => this.$router.push({ name: 'app'}))
-            .catch((error) => this.error = error.message)
+          this.ls_pushUser(this.user);
+          this
+            .INIT_NOTES()
+            .then(() => this.$router.push({ name: 'app' }))
+            .catch((error) => { this.error = error.message; });
         })
-        .catch((error) => {
-          this.error = error.message
-        })
+        .catch((error) => { this.error = error.message; });
     },
-
     onSignUp() {
-      this.$router.push({ name: 'signup', query: { email: this.fields.email.value }})
+      this.$router.push({
+        name: 'signup',
+        query: { email: this.fields.email.value },
+      });
     },
-
-    onLogIn () {
-      this.$router.push({ name: 'login'})
+    onLogIn() {
+      this.$router.push({ name: 'login' });
     },
-
-    closeMessage () {
-      this.error = null
-    }
+    closeMessage() {
+      this.error = null;
+    },
   },
-
   head: {
     title: {
-      inner: 'Notes at the speed of thought.'
-    }
-  }
-
-}
+      inner: 'Notes at the speed of thought.',
+    },
+  },
+};
 </script>

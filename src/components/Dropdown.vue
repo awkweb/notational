@@ -1,87 +1,78 @@
 <template>
   <div
     class="dropdown"
-    v-click-outside="hideDropdown">
+    v-click-outside="hideDropdown"
+  >
     <button
       @click="isActive = !isActive"
-      class="button-icon user">
+      class="button-icon user"
+    >
     </button>
-    
+
     <ul
       v-show="isActive"
-      class="dropdown__menu">
+      class="dropdown__menu"
+    >
       <template v-if="user">
         <li @click="onFeedback">Feedback?</li>
         <li @click="onLogOut">Log Out</li>
       </template>
       <template v-else>
         <li @click="onLogIn">Log In</li>
-        <li @click="onSignUp">Sign Up</li>    
+        <li @click="onSignUp">Sign Up</li>
       </template>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
-import { localStorageMixin } from '../mixins'
+import { mapActions, mapGetters } from 'vuex';
+import { localStorageMixin } from '../mixins';
 
 export default {
   name: 'dropdown',
-
   mixins: [localStorageMixin],
-
   props: [
-    'data'
+    'data',
   ],
-
   data: () => ({
-    isActive: false
+    isActive: false,
   }),
-
   computed: {
     ...mapGetters([
       'user',
       'activeNote',
-      'theme'
-    ])
+      'theme',
+    ]),
   },
-
   methods: {
     ...mapActions([
       'RESET_APP',
       'LOG_OUT_USER',
     ]),
-
-    hideDropdown () {
-      this.isActive = false
+    hideDropdown() {
+      this.isActive = false;
     },
-
-    onFeedback () {
-      const url = 'https://meagher.typeform.com/to/EXwPlY'
-      this.hideDropdown()
-      window.open(url)
+    onFeedback() {
+      const url = 'https://meagher.typeform.com/to/EXwPlY';
+      this.hideDropdown();
+      window.open(url);
     },
-
-    onLogOut () {
-      this.hideDropdown()
-      this.RESET_APP()
-
-      this.LOG_OUT_USER().then(() => {
-        this.ls_logOut()
-        this.$router.push({ name: 'login'})
-      })
+    onLogOut() {
+      this.hideDropdown();
+      this.RESET_APP();
+      this.LOG_OUT_USER()
+        .then(() => {
+          this.ls_logOut();
+          this.$router.push({ name: 'login' });
+        });
     },
-
     onSignUp() {
-      this.$router.push({ name: 'signup' })
+      this.$router.push({ name: 'signup' });
     },
-
-    onLogIn () {
-      this.$router.push({ name: 'login'})
-    }
-  }
-
-}
+    onLogIn() {
+      this.$router.push({ name: 'login' });
+    },
+  },
+};
 </script>

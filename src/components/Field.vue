@@ -4,11 +4,10 @@
   :class="{ active: isActive }"
   @click="onClick">
   <label class="field__group__label">{{ name }}</label>
-
   <input
     v-if="type === 'password'"
     v-focus="autofocus"
-    class="field__group__input" 
+    class="field__group__input"
     :placeholder="placeholder"
     :autofocus="autofocus"
     :value="value"
@@ -16,11 +15,12 @@
     @focus="isActive = true"
     @blur="isActive = false"
     type="password"
-    spellcheck="false">
+    spellcheck="false"
+  >
     <input
       v-else
       v-focus="autofocus"
-      class="field__group__input" 
+      class="field__group__input"
       :placeholder="placeholder"
       :autofocus="autofocus"
       :value="value"
@@ -28,38 +28,34 @@
       @focus="isActive = true"
       @blur="isActive = false"
       type="text"
-      spellcheck="false">
+      spellcheck="false"
+    >
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'field',
-
-    props: [
+export default {
+  name: 'field',
+  props: [
     'name',
     'value',
     'type',
     'placeholder',
-    'autofocus'
-    ],
-
-    data: () => ({
-      isActive: false
-    }),
-
-    methods: {
-      onClick () {
-        const input = this.$el.children[1]
-        input.focus()
-      },
-
-      onInput (value) {
-        this.$emit('input', value)
-      }
-    }
-
-  }
+    'autofocus',
+  ],
+  data: () => ({
+    isActive: false,
+  }),
+  methods: {
+    onClick() {
+      const input = this.$el.children[1];
+      input.focus();
+    },
+    onInput(value) {
+      this.$emit('input', value);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -70,7 +66,7 @@
   .field {
     &__group {
       display: flex;
-      flex-direction: column; 
+      flex-direction: column;
       flex: 1;
       margin-bottom: 10px;
       @include border(palette(gray, light));
@@ -110,7 +106,7 @@
         outline: 0;
 
         &::placeholder {
-          color: palette(gray);  
+          color: palette(gray);
           transition: color $transition;
         }
       }
@@ -133,7 +129,7 @@
         color: palette(white);
 
         &::placeholder {
-          color: palette(dark, x-light);  
+          color: palette(dark, x-light);
         }
       }
     }

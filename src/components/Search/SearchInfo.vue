@@ -22,20 +22,19 @@
     <span v-else>
       Type to search
     </span>
-    
   </div>
 </template>
 
 <script>
 export default {
   name: 'search-info',
-
-  props: ['resultsCount',
-          'queryLength',
-          'selected',
-          'searching',
-          'renaming',
-          'editing'
-  ]
-}
+  props: [
+    'resultsCount',
+    'queryLength',
+    'selected',
+    'searching',
+    'renaming',
+    'editing',
+  ],
+};
 </script>

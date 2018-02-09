@@ -2,50 +2,44 @@
   <footer class="foot">
     <foot-share-note
       v-if="showShareNote && activeNote"
-      @onDone="onShareNote">
-    </foot-share-note>
+      @onDone="onShareNote"
+    />
 
-    <foot-actions v-else
-      @onShareNote="onShareNote">
-    </foot-actions>
-
+    <foot-actions
+      v-else
+      @onShareNote="onShareNote"
+    />
   </footer>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-import FootActions from './FootActions.vue'
-import FootShareNote from './FootShareNote.vue'
+import { mapGetters } from 'vuex';
+import FootActions from './FootActions';
+import FootShareNote from './FootShareNote';
 
 export default {
   name: 'foot',
-
   data: () => ({
-    showShareNote: false
+    showShareNote: false,
   }),
-
   computed: {
-    ...mapGetters(['activeNote'
-    ])
+    ...mapGetters([
+      'activeNote',
+    ]),
   },
-
   components: {
     FootActions,
-    FootShareNote
+    FootShareNote,
   },
-
   watch: {
-    activeNote () {
-      this.showShareNote = false
-    }
+    activeNote() {
+      this.showShareNote = false;
+    },
   },
-
   methods: {
-    onShareNote () {
-      this.showShareNote = !this.showShareNote
-    }
-  }
-
-}
+    onShareNote() {
+      this.showShareNote = !this.showShareNote;
+    },
+  },
+};
 </script>

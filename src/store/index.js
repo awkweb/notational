@@ -1,86 +1,66 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import auth from './modules/auth';
+import nv from './modules/nv';
 
-import auth from './modules/auth'
-import nv from './modules/nv'
-import { getNotesForUserId } from './api'
-import {
-  SET_ACTIVE_NOTE,
-  SET_ACTIVE_KEY,
-  SET_QUERY,
-  SET_THEME,
-  SET_NOTES,
-  SET_RESULT_INDEX,
-  SET_RENAMING_ID,
-  SET_EDITING_ID } from './constants'
+Vue.use(Vuex);
 
-Vue.use(Vuex)
+export const SET_THEME = 'SET_THEME';
+export const SET_QUERY = 'SET_QUERY';
+export const SET_RESULT_INDEX = 'SET_RESULT_INDEX';
+export const SET_RENAMING_ID = 'SET_RENAMING_ID';
+export const SET_EDITING_ID = 'SET_EDITING_ID';
+
+export const SET_ACTIVE_NOTE = 'SET_ACTIVE_NOTE';
+export const SET_ACTIVE_KEY = 'SET_ACTIVE_KEY';
+export const SET_NOTES = 'SET_NOTES';
 
 const store = new Vuex.Store({
+  modules: {
+    auth,
+    nv,
+  },
   state: {
     query: '',
     resultIndex: -1,
     renamingId: null,
-    editingId: null
+    editingId: null,
   },
-
-  modules: {
-    auth,
-    nv
-  },
-
   actions: {
-    RESET_ACTIVE_NOTE: ({ state, commit, rootState }) => {
-      commit(SET_RESULT_INDEX, -1)
-      commit(SET_ACTIVE_NOTE, null)
-      commit(SET_ACTIVE_KEY, null)
+    RESET_ACTIVE_NOTE: ({ commit }) => {
+      commit(SET_RESULT_INDEX, -1);
+      commit(SET_ACTIVE_NOTE, null);
+      commit(SET_ACTIVE_KEY, null);
     },
-
-    RESET_APP: ({ state, commit, rootState }) => {
-      commit(SET_THEME, 'light')
-      commit(SET_QUERY, '')
-      commit(SET_RESULT_INDEX, -1)
-      commit(SET_NOTES, [])
-      commit(SET_ACTIVE_NOTE, null)
-      commit(SET_ACTIVE_KEY, null)
+    RESET_APP: ({ commit }) => {
+      commit(SET_THEME, 'light');
+      commit(SET_QUERY, '');
+      commit(SET_RESULT_INDEX, -1);
+      commit(SET_NOTES, []);
+      commit(SET_ACTIVE_NOTE, null);
+      commit(SET_ACTIVE_KEY, null);
     },
   },
-
   mutations: {
-    [SET_QUERY] (state, query) {
-      state.query = query
+    [SET_QUERY](state, query) {
+      state.query = query;
     },
-
-    [SET_RESULT_INDEX] (state, resultIndex) {
-      state.resultIndex = resultIndex
+    [SET_RESULT_INDEX](state, resultIndex) {
+      state.resultIndex = resultIndex;
     },
-
-    [SET_RENAMING_ID] (state, renamingId) {
-      state.renamingId = renamingId
+    [SET_RENAMING_ID](state, renamingId) {
+      state.renamingId = renamingId;
     },
-
-    [SET_EDITING_ID] (state, editingId) {
-      state.editingId = editingId
-    }
+    [SET_EDITING_ID](state, editingId) {
+      state.editingId = editingId;
+    },
   },
-
   getters: {
-    query: state => {
-      return state.query
-    },
+    query: state => state.query,
+    resultIndex: state => state.resultIndex,
+    renamingId: state => state.renamingId,
+    editingId: state => state.editingId,
+  },
+});
 
-    resultIndex: state => {
-      return state.resultIndex
-    },
-
-    renamingId: state => {
-      return state.renamingId
-    },
-
-    editingId: state => {
-      return state.editingId
-    }
-  }
-})
-
-export default store
+export default store;

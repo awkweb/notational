@@ -2,64 +2,51 @@
   <div id="preview"
        class="preview">
     <div class="container">
-      <spinner v-if="loading">
-      </spinner>
+      <spinner v-if="loading"/>
 
       <template v-else>
         <search
           :preview="true"
-        >
-        </search>
-
+        />
         <editor
           :isPreview="true"
-        >
-        </editor>
-
-        <foot>
-        </foot>
+        />
+        <foot/>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
-import { localStorageMixin } from '../mixins'
-import Spinner from './Spinner.vue'
-import Search from './Search/Index.vue'
-import Editor from './Editor/Index.vue'
-import Foot from './Foot/Index.vue'
+import { mapActions } from 'vuex';
+import { localStorageMixin } from '../mixins';
+import Spinner from './Spinner';
+import Search from './Search/Index';
+import Editor from './Editor/Index';
+import Foot from './Foot/Index';
 
 export default {
   name: 'preview',
-
   mixins: [localStorageMixin],
-
   data: () => ({
-    loading: true
+    loading: true,
   }),
-
-  created () {
+  created() {
     this.FETCH_PREVIEW_DATA()
       .then(() => {
-        this.loading = false
-      })
+        this.loading = false;
+      });
   },
-
   components: {
     Editor,
     Foot,
     Search,
-    Spinner
+    Spinner,
   },
-
   methods: {
     ...mapActions([
-      'FETCH_PREVIEW_DATA'
-    ])
-  }
-
-}
+      'FETCH_PREVIEW_DATA',
+    ]),
+  },
+};
 </script>
