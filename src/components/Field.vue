@@ -59,9 +59,9 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../scss/_variables.scss';
-  @import '../scss/_functions.scss';
-  @import '../scss/_mixins.scss';
+  @import '../assets/styles/variables';
+  @import '../assets/styles/functions';
+  @import '../assets/styles/mixins';
 
   .field {
     &__group {

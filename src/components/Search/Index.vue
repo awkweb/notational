@@ -209,3 +209,270 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  @import '../../assets/styles/variables';
+  @import '../../assets/styles/functions';
+  @import '../../assets/styles/mixins';
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    mark {
+      background-color: palette(orange, a-light);
+      color: palette(black);
+      transition: background-color $transition, color $transition;
+    }
+
+    .dark & mark {
+      background-color: palette(blue, a-light);
+      color: palette(white);
+    }
+
+    &__container {
+      display: flex;
+      flex-direction: column;
+      height: 4.5rem;
+      margin: {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 1rem;
+      }
+
+      @media screen and (max-width: $sm) {
+        margin: {
+          top: .25rem;
+        }
+      }
+    }
+
+    &__input {
+      @include border(palette(gray, light));
+      @include background(
+          transparent,
+          "../../assets/light/search.svg",
+          25px,
+          99%
+      );
+
+      color: palette(black);
+      box-shadow: $box-shadow;
+      flex: 1;
+      font: {
+        family: $sans-serif;
+        size: 1rem;
+      }
+      max-height: 25px;
+      outline: 0;
+      padding: {
+        bottom: 9px;
+        right: 30px;
+        left: 10px;
+        top: 9px;
+      }
+      transition: border-color $transition, background $transition, color $transition;
+
+      &:focus {
+        border-color: palette(orange);
+      }
+
+      &::placeholder {
+        color: palette(gray);
+        transition: color $transition;
+      }
+    }
+
+    .dark &__input {
+      border-color: palette(dark, light);
+      background-image: url("../../assets/dark/search.svg");
+      color: palette(white);
+
+      &:focus {
+        border-color: palette(blue);
+      }
+
+      &::placeholder {
+        color: palette(dark, x-light);
+      }
+    }
+
+    &__info {
+      color: palette(gray, dark);
+      display: flex;
+      font-size: .75rem;
+      justify-content: space-between;
+      margin: {
+        left: .4rem;
+        right: .4rem;
+        top: .4rem;
+      }
+      transition: color $transition;
+
+      .command {
+        text-transform: uppercase;
+        color: palette(black);
+        background-color: palette(gray, x-light);
+        font-family: $mono;
+        padding: {
+          bottom: .05rem;
+          right: .1rem;
+          left: .1rem;
+          top: .05rem;
+        }
+        transition: background-color $transition, color $transition;
+      }
+    }
+
+    .dark &__info {
+      color: palette(dark, x-light);
+
+      .command {
+        color: palette(white);
+        background-color: palette(dark, d-light);
+      }
+    }
+
+    &__add {
+      background: {
+        color: transparent;
+        image: url("../../assets/light/add.svg");
+        repeat: no-repeat;
+        size: cover;
+      }
+      border: 0;
+      cursor: pointer;
+      font: {
+        size: 2rem;
+      }
+      height: 35px;
+      opacity: .35;
+      outline: 0;
+      position: absolute;
+      right: -2.5rem;
+      top: 1.3rem;
+      transition: background-image $transition, opacity $transition;
+      width: 35px;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      @media screen and (max-width: 645px) {
+        right: 2rem;
+      }
+
+      @media screen and (max-width: $sm) {
+        height: 33px;
+        right: 1.85rem;
+        top: .65rem;
+        width: 33px;
+      }
+    }
+
+    .dark &__add {
+      background-image: url("../../assets/dark/add.svg");
+    }
+
+    &__results {
+      height: 8rem;
+      list-style-type: none;
+      margin: {
+        bottom: .5rem;
+        top: 0;
+      }
+      overflow-y: auto;
+      padding-left: 0;
+    }
+
+    &__result {
+      color: palette(black);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font: {
+        family: $sans-serif;
+        size: .95rem;
+      }
+      justify-content: space-between;
+      height: 31px;
+      padding: {
+        bottom: 0;
+        right: .4rem;
+        left: .4rem;
+        top: 0;
+      }
+      transition: color $transition;
+
+      span {
+        white-space: nowrap;
+      }
+
+      &.active {
+        background-color: palette(gray, x-light);
+        transition: color $transition;
+      }
+
+      &__name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &__description {
+        color: palette(gray, dark);
+        transition: color $transition;
+      }
+
+      &__time {
+        padding-left: .5rem;
+      }
+
+      &__delete {
+        height: 27px;
+        min-width: 27px;
+        padding: 0;
+        outline: 0;
+        background: {
+          color: transparent;
+          repeat: no-repeat;
+          position: center;
+          image: url("../../assets/trash.svg");
+        }
+        border: 0;
+        cursor: pointer;
+      }
+
+      &__editor {
+        background-color: palette(gray, x-light);
+        border: 0;
+        color: palette(black);
+        flex: 1;
+        font: {
+          family: $sans-serif;
+          size: .95rem;
+        }
+        padding: 0;
+        outline: 0;
+      }
+    }
+
+    .dark &__result {
+      color: palette(white);
+
+      &.active {
+        background-color: palette(dark, d-light);
+      }
+
+      &__description {
+        color: palette(dark, x-light);
+      }
+
+      &__editor {
+        background-color: palette(dark, d-light);
+        color: palette(white);
+      }
+    }
+  }
+</style>

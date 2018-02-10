@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import './scss/_variables.scss';
+  @import 'assets/styles/variables';
 
   body {
     text-rendering: optimizeLegibility;

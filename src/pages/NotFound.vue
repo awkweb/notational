@@ -28,8 +28,8 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../scss/_variables.scss';
-  @import '../scss/_functions.scss';
+  @import '../assets/styles/variables';
+  @import '../assets/styles/functions';
 
   .notfound {
     margin: {
